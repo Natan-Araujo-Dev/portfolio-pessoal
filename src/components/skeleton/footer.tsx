@@ -1,14 +1,14 @@
 export default function Footer() {
 	return (
-		<div
+		<footer
 			className="
-         flex
+         flex flex-row
          justify-center items-center
          w-full
          text-white
          bg-blue-950"
 		>
 			Footer aqui no fim!
-		</div>
+		</footer>
 	);
 }

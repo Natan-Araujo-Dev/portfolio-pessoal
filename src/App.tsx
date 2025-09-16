@@ -1,6 +1,6 @@
-import Footer from "./components/core/footer";
-import Header from "./components/core/header";
-import Main from "./components/core/main";
+import Footer from "./components/skeleton/footer";
+import Header from "./components/skeleton/header";
+import Main from "./components/skeleton/main";
 
 function App() {
 	return (
@@ -8,7 +8,7 @@ function App() {
 			className="
 			flex flex-col
 			justify-center items-center
-			w-full h-screen"
+			w-full min-h-screen"
 		>
 			<Header />
 			<Main />
