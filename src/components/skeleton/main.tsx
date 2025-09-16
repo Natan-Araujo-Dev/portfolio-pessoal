@@ -6,14 +6,13 @@ export default function Main() {
 		<main
 			className="
 			relative
-			flex grow
+			flex flex-col grow
 			justify-center items-center
 			w-full h-full
-			m-14
+			mt-14
 			bg-cyan-100"
 		>
 			<Background />
-
 			<Content />
 		</main>
 	);
