@@ -1,8 +1,10 @@
+import FinisherHeader from "../core/finisher-header";
+
 export default function Background() {
 	return (
 		<div
 			className="
-         absolute
+         fixed inset-0
          flex
          justify-center items-center
          w-full h-full
@@ -10,7 +12,7 @@ export default function Background() {
          z-0
 			bg-amber-50"
 		>
-			Background
+			<FinisherHeader />
 		</div>
 	);
 }

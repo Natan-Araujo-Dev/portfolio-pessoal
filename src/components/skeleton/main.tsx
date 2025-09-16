@@ -9,6 +9,7 @@ export default function Main() {
 			flex grow
 			justify-center items-center
 			w-full h-full
+			m-14
 			bg-cyan-100"
 		>
 			<Background />

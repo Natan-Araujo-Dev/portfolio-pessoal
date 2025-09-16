@@ -3,6 +3,7 @@ export default function Footer() {
 		<footer
 			className="
          flex flex-row
+			z-60
          justify-center items-center
          w-full
          text-white
