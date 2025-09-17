@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { backgroundValues } from "../common/backgroundValues";
 
 export default function useTheme() {
 	const [darkMode, setDarkMode] = useState(() => {
@@ -31,6 +32,23 @@ export default function useTheme() {
 			return newValue;
 		});
 	}
+
+	useEffect(() => {
+		const canvases =
+			document.querySelectorAll<HTMLCanvasElement>("#finisher-canvas");
+
+		if (canvases.length > 0) {
+			if (darkMode === false) {
+				canvases.forEach((canvas) => {
+					canvas.style.backgroundColor = backgroundValues.lightColor;
+				});
+			} else {
+				canvases.forEach((canvas) => {
+					canvas.style.backgroundColor = backgroundValues.darkColor;
+				});
+			}
+		}
+	}, [darkMode]);
 
 	return { darkMode, toggle };
 }

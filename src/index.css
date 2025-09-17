@@ -3,6 +3,12 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* Alterar o valor de #finisher-canvas */
 .smooth-transition {
 	@apply transition-colors duration-500;
+}
+
+/* Manter o mesmo valor de duration em .smooth-transition */
+#finisher-canvas {
+	transition: background-color 0.5s ease;
 }

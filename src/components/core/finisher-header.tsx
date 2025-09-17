@@ -1,6 +1,10 @@
 import { useEffect } from "react";
+import { backgroundValues } from "../../common/backgroundValues";
+import useTheme from "../../hooks/useTheme";
 
 export default function Header() {
+	const { darkMode } = useTheme();
+
 	useEffect(() => {
 		// biome-ignore lint/suspicious/noExplicitAny: <funciona>
 		if ((window as any).FinisherHeader) {
@@ -13,7 +17,9 @@ export default function Header() {
 					y: { min: 2, max: 2 },
 				},
 				colors: {
-					background: "#000428",
+					background: darkMode
+						? backgroundValues.darkColor
+						: backgroundValues.lightColor,
 					particles: ["#ff0000", "#feff00", "#34ff00", "#2b00ff", "#ff00ff"],
 				},
 				blending: "screen",
@@ -22,7 +28,7 @@ export default function Header() {
 				shapes: ["c", "s", "t"],
 			});
 		}
-	}, []);
+	}, [darkMode]);
 
 	return (
 		<div
