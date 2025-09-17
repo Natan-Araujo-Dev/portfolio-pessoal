@@ -1,3 +1,5 @@
+import ButtonToggleTheme from "../core/button-toggle-theme";
+
 export default function Header() {
 	return (
 		<header
@@ -5,12 +7,17 @@ export default function Header() {
 			fixed top-0 left-0
 			z-60
          flex flex-row
-         justify-center items-center
+         justify-between items-center
          w-full h-14
-         text-white
-         bg-blue-800"
+			p-4
+         text-blue-400 dark:text-white
+         bg-gray-700 dark:bg-gray-950
+			smooth-transition"
 		>
-			Header nesse lugar!
+			<div>Natan Araujo</div>
+			<div>
+				<ButtonToggleTheme />
+			</div>
 		</header>
 	);
 }

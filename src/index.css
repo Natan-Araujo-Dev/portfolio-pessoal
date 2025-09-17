@@ -1,1 +1,8 @@
+/** biome-ignore-all lint/suspicious/noUnknownAtRules: <biome não pega bem CSS> */
 @import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+.smooth-transition {
+	@apply transition-colors duration-500;
+}

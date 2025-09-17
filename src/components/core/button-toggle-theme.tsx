@@ -1,0 +1,20 @@
+import useTheme from "../../hooks/useTheme";
+
+export default function ButtonToggleTheme() {
+	const { darkMode, toggle } = useTheme();
+
+	return (
+		<div>
+			<input
+				type="button"
+				value={`Tema ${darkMode ? "🌑" : "☀️"}`}
+				onClick={toggle}
+				className="
+				px-[5px] py-[2px]
+ 				cursor-pointer
+				border-2 rounded-md 
+				border-black dark:border-white"
+			/>
+		</div>
+	);
+}
