@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { backgroundValues } from "../../common/backgroundValues";
 import useTheme from "../../hooks/useTheme";
 
-export default function Header() {
+export default function FinisherHeader() {
 	const { darkMode } = useTheme();
 
 	useEffect(() => {
@@ -10,22 +10,19 @@ export default function Header() {
 		if ((window as any).FinisherHeader) {
 			// biome-ignore lint/suspicious/noExplicitAny: <funciona>
 			new (window as any).FinisherHeader({
-				count: 30,
-				size: { min: 2, max: 25, pulse: 0 },
-				speed: {
-					x: { min: 0.4, max: 0.8 },
-					y: { min: 2, max: 2 },
-				},
+				count: backgroundValues.count,
+				size: backgroundValues.size,
+				speed: backgroundValues.speed,
 				colors: {
 					background: darkMode
-						? backgroundValues.darkColor
-						: backgroundValues.lightColor,
-					particles: ["#ff0000", "#feff00", "#34ff00", "#2b00ff", "#ff00ff"],
+						? backgroundValues.backgroundColorDark
+						: backgroundValues.backgroundColorLight,
+					particles: backgroundValues.particlesColors,
 				},
-				blending: "screen",
-				opacity: { center: 0.3, edge: 0.3 },
-				skew: 0,
-				shapes: ["c", "s", "t"],
+				blending: backgroundValues.blending,
+				opacity: backgroundValues.opacity,
+				skew: backgroundValues.skew,
+				shapes: backgroundValues.shapes,
 			});
 		}
 	}, [darkMode]);

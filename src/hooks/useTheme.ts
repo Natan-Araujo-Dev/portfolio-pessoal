@@ -40,11 +40,11 @@ export default function useTheme() {
 		if (canvases.length > 0) {
 			if (darkMode === false) {
 				canvases.forEach((canvas) => {
-					canvas.style.backgroundColor = backgroundValues.lightColor;
+					canvas.style.backgroundColor = backgroundValues.backgroundColorLight;
 				});
 			} else {
 				canvases.forEach((canvas) => {
-					canvas.style.backgroundColor = backgroundValues.darkColor;
+					canvas.style.backgroundColor = backgroundValues.backgroundColorDark;
 				});
 			}
 		}
