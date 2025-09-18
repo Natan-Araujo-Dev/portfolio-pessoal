@@ -13,8 +13,9 @@ export default function ButtonToggleTheme() {
 				px-[5px] py-[2px]
  				cursor-pointer
 				border-2 rounded-md 
-				border-black dark:border-white
-				expand"
+				border-gray-400 dark:border-gray-500
+				fill-color
+				expand-lg"
 			/>
 		</div>
 	);

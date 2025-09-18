@@ -2,6 +2,7 @@ export const backgroundValues = {
 	// precisar ser em HEX
 	// caso queira escolher uma cor:
 	// https://www.google.com/search?q=hex+color+online&oq=hex+color+online&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIGCAEQRRg80gEIMzUyMGowajCoAgCwAgA&sourceid=chrome&ie=UTF-8
+
 	count: 100,
 
 	size: { min: 2, max: 2, pulse: 0 },
@@ -11,10 +12,10 @@ export const backgroundValues = {
 		y: { min: 1, max: 2 },
 	},
 
-	backgroundColorDark: "#18193b",
-	backgroundColorLight: "#ffffff",
+	backgroundColorLight: "#3db3fc",
+	backgroundColorDark: "#14141a",
 
-	particlesColors: ["#ff0000", "#00ff00", "#0000ff", "#000000", "#ffffff"],
+	particlesColors: ["#ffffff"],
 
 	blending: "lighten", // "none" | "overlay" | "screen" | "lighten"
 

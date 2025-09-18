@@ -28,6 +28,14 @@ html {
 	@apply flex flex-col justify-center items-center w-100 h-[calc(100vh-58px)] scroll-mt-(--header-height) border-2 border-blue-400;
 }
 
-.expand {
+.expand-lg {
+	@apply hover:scale-115 transition-transform duration-150;
+}
+
+.expand-sm {
 	@apply hover:scale-105 transition-transform duration-150;
+}
+
+.fill-color {
+	@apply transition hover:text-green-600 hover:border-green-600 duration-150 delay-50;
 }

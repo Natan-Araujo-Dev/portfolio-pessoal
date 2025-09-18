@@ -11,11 +11,11 @@ export default function Header() {
          justify-between items-center
          w-full h-(--header-height)
 			p-4 px-12
-         text-blue-400 dark:text-white
-         bg-gray-700 dark:bg-gray-950
+         text-white
+         bg-gray-700 dark:bg-[#0f0f0f]
 			smooth-transition"
 		>
-			<div className="text-green-400 text-3xl expand">
+			<div className="text-green-400 text-3xl expand-sm">
 				<a href="#inicio">Natan Araujo</a>
 			</div>
 			<div
