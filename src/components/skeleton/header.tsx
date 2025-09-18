@@ -12,7 +12,7 @@ export default function Header() {
          w-full h-(--header-height)
 			p-4 px-12
          text-white
-         bg-gray-700 dark:bg-[#0f0f0f]
+         bg-gray-700/80 dark:bg-[#16181a]/90
 			smooth-transition"
 		>
 			<div className="text-green-400 text-3xl expand-sm">

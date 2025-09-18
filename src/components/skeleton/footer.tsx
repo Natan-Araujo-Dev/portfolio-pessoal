@@ -10,14 +10,15 @@ export default function Footer() {
          flex flex-col
 			z-60
          justify-center items-center
-         w-full
-         bg-[#3e7be3] dark:bg-[#16181a]"
+         w-full"
 		>
 			<div
 				className="
 				flex flex-col
+				h-full w-full
 				gap-5
-				m-6"
+				p-6
+         	bg-[#3e7be3]/80 dark:bg-[#16181a]/95"
 			>
 				<div
 					className="
