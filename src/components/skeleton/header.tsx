@@ -15,7 +15,7 @@ export default function Header() {
          bg-gray-700 dark:bg-gray-950
 			smooth-transition"
 		>
-			<div className="text-green-400 text-3xl">
+			<div className="text-green-400 text-3xl expand">
 				<a href="#inicio">Natan Araujo</a>
 			</div>
 			<div

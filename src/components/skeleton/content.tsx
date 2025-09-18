@@ -7,7 +7,7 @@ export default function Content() {
          justify-center items-center
          w-full h-full
          z-50
-			m-20
+			mx-20
 			gap-y-20
 			text-white"
 		>

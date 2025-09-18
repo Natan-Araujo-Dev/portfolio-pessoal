@@ -6,10 +6,18 @@ export default function HeaderShortcuts() {
          justify-center items-center
          gap-x-4"
 		>
-			<a href="#sobre">Sobre</a>
-			<a href="#habilidades">Habilidades</a>
-			<a href="#projetos">Projetos</a>
-			<a href="#contato">Contato</a>
+			<a href="#sobre" className="expand">
+				Sobre
+			</a>
+			<a href="#habilidades" className="expand">
+				Habilidades
+			</a>
+			<a href="#projetos" className="expand">
+				Projetos
+			</a>
+			<a href="#contato" className="expand">
+				Contato
+			</a>
 		</div>
 	);
 }

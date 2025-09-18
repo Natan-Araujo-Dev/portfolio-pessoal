@@ -25,5 +25,9 @@ html {
 }
 
 .custom-section {
-	@apply flex flex-col justify-center items-center w-100 h-[calc(100vh-58px)] scroll-mt-(--header-height) border-2 border-blue-400
+	@apply flex flex-col justify-center items-center w-100 h-[calc(100vh-58px)] scroll-mt-(--header-height) border-2 border-blue-400;
+}
+
+.expand {
+	@apply hover:scale-105 transition-transform duration-150;
 }

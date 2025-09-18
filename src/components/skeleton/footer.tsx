@@ -21,7 +21,7 @@ export default function Footer() {
 			<div className="flex flex-col justify-center items-center">
 				(icones das redes sociais)
 			</div>
- 
+
 			<div className="flex flex-col justify-center items-center text-center">
 				© 2025 Natan do Nascimento de Araujo. Todos os direitos reservados.
 				<br />
