@@ -73,7 +73,7 @@ export default function Footer() {
 							className="flex flex-row gap-x-2 hover:text-green-600 expand-lg"
 						>
 							Email
-							<Mail className="w-6 h-6 hover:text-green-600 text-yellow-600" />
+							<Mail className="w-6 h-6 text-yellow-600" />
 						</a>
 
 						<a
