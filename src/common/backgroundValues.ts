@@ -5,17 +5,19 @@ export const backgroundValues = {
 
 	count: 100,
 
-	size: { min: 2, max: 2, pulse: 0 },
+	size: { min: 4, max: 4, pulse: 0 },
 
 	speed: {
 		x: { min: 0, max: 0.4 },
 		y: { min: 1, max: 2 },
 	},
 
-	backgroundColorLight: "#3db3fc",
+	//14141a
+	backgroundColorLight: "#a2c4c9",
 	backgroundColorDark: "#14141a",
 
-	particlesColors: ["#ffffff"],
+	//ffff00
+	particlesColors: ["#a2c4c9"],
 
 	blending: "lighten", // "none" | "overlay" | "screen" | "lighten"
 
