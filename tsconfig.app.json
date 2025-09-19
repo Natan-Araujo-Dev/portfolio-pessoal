@@ -24,6 +24,6 @@
 	"include": [
 		"src",
 		"public/finisher-header.tsx",
-		"src/common/backgroundValues.ts"
+		"src/common/backgroundValuesDark.ts"
 	]
 }
