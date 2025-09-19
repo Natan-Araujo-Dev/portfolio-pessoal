@@ -1,6 +1,6 @@
-import Footer from "./components/skeleton/footer";
-import Header from "./components/skeleton/header";
-import Main from "./components/skeleton/main";
+import Footer from "./components-skeleton/footer";
+import Header from "./components-skeleton/header";
+import Main from "./components-skeleton/main";
 
 function App() {
 	return (

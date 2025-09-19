@@ -1,6 +1,13 @@
 /** biome-ignore-all lint/correctness/useUniqueElementIds: <ids estáticos> */
 
-import { FileText, Github, Linkedin, Mail } from "lucide-react";
+import {
+	FileText,
+	Github,
+	Linkedin,
+	Mail,
+	MessageCircle,
+	Phone,
+} from "lucide-react";
 
 export default function Footer() {
 	return (
@@ -70,6 +77,8 @@ export default function Footer() {
 
 						<a
 							href="https://mail.google.com/mail/?view=cm&fs=1&to=natan.araujo.dev@gmail.com"
+							target="_blank"
+							rel="noopener noreferrer"
 							className="flex flex-row gap-x-2 hover:text-green-600 expand-lg"
 						>
 							Email
@@ -84,6 +93,24 @@ export default function Footer() {
 						>
 							Currículo <FileText className="w-6 h-6 text-white" />
 						</a>
+						<a
+							href={`https://wa.me/+5521976486646?`}
+							target="_blank"
+							rel="noopener noreferrer"
+							className="flex flex-row justify-center items-center gap-x-2 hover:text-green-600 expand-lg"
+						>
+							WhatsApp
+							<MessageCircle
+								size={22}
+								aria-hidden="true"
+								className="text-green-500"
+							/>
+						</a>
+
+						<div className="flex flex-row justify-center items-center gap-x-2">
+							+55 (21) 97648-6646
+							<Phone size={18} aria-hidden="true" />
+						</div>
 					</div>
 				</div>
 			</div>

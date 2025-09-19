@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { backgroundValuesDark } from "../../common/backgroundValuesDark";
+import { backgroundValuesDark } from "../common/backgroundValuesDark";
 
 export default function FinisherHeaderDark() {
 	useEffect(() => {

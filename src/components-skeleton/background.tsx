@@ -1,5 +1,5 @@
-import FinisherHeaderDark from "../core/finisher-header-dark";
-import FinisherHeaderLight from "../core/finisher-header-light";
+import FinisherHeaderDark from "../components-core/finisher-header-dark";
+import FinisherHeaderLight from "../components-core/finisher-header-light";
 
 export default function Background() {
 	return (

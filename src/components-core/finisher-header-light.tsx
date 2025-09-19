@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { backgroundValuesLight } from "../../common/backgroundValuesLight";
+import { backgroundValuesLight } from "../common/backgroundValuesLight";
 
 export default function FinisherHeaderLight() {
 	useEffect(() => {

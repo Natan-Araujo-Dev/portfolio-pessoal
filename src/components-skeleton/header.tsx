@@ -1,5 +1,5 @@
-import ButtonToggleTheme from "../core/button-toggle-theme";
-import HeaderShortcuts from "../core/header-shortcut";
+import ButtonToggleTheme from "../components-core/button-toggle-theme";
+import HeaderShortcuts from "../components-core/header-shortcut";
 
 export default function Header() {
 	return (
