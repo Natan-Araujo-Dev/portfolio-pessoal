@@ -1,7 +1,7 @@
 import Background from "./background";
 import Content from "./content";
 
-export default function Main() {
+export default function MainContent() {
 	return (
 		<main
 			className="

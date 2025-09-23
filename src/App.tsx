@@ -1,6 +1,6 @@
 import Footer from "./components-skeleton/footer";
 import Header from "./components-skeleton/header";
-import Main from "./components-skeleton/main";
+import MainContent from "./components-skeleton/main-content";
 
 function App() {
 	return (
@@ -11,7 +11,7 @@ function App() {
 			w-full min-h-screen"
 		>
 			<Header />
-			<Main />
+			<MainContent />
 			<Footer />
 		</div>
 	);

@@ -1,4 +1,6 @@
 /** biome-ignore-all lint/correctness/useUniqueElementIds: <ids estáticos> */
+import Start from "../components-core/start";
+
 export default function Content() {
 	return (
 		<div
@@ -11,13 +13,7 @@ export default function Content() {
 			gap-y-20
 			text-white"
 		>
-			<div
-				id="inicio"
-				className="
-				custom-section"
-			>
-				Início
-			</div>
+			<Start />
 
 			<div
 				id="sobre"

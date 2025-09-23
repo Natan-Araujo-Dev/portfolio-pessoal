@@ -1,3 +1,4 @@
+import Text from "../components-base/text";
 import ButtonToggleTheme from "../components-core/button-toggle-theme";
 import HeaderShortcuts from "../components-core/header-shortcut";
 
@@ -15,8 +16,10 @@ export default function Header() {
          bg-gray-700/80 dark:bg-[#16181a]/90
 			smooth-transition"
 		>
-			<div className="text-green-400 text-3xl expand-sm">
-				<a href="#inicio">Natan Araujo</a>
+			<div className="text-green-400 expand-sm">
+				<a href="#inicio">
+					<Text variant="tomorrow-header-name">Natan Araujo</Text>
+				</a>
 			</div>
 			<div
 				className="
