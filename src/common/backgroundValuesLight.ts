@@ -3,24 +3,30 @@ export const backgroundValuesLight = {
 	// caso queira escolher uma cor:
 	// https://www.google.com/search?q=hex+color+online&oq=hex+color+online&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIGCAEQRRg80gEIMzUyMGowajCoAgCwAgA&sourceid=chrome&ie=UTF-8
 
-	count: 34,
+	// ===== Particles =====
 
-	size: { min: 5, max: 120, pulse: 0.1 },
+	count: 40,
+
+	size: { min: 2, max: 40, pulse: 0 },
 
 	speed: {
-		x: { min: 0, max: 0.2 },
-		y: { min: 0, max: 0.4 },
+		x: { min: 0, max: 0.8 },
+		y: { min: 0, max: 0.2 },
 	},
 
-	backgroundColor: "#b580ff",
+	// ===== Colors =====
 
-	particlesColors: ["#ffe960", "#87ddfe", "#8481ff", "#fc7bfc", "#e2ffa5"],
+	backgroundColor: "#C7DFF5",
 
-	blending: "overlay", // "none" | "overlay" | "screen" | "lighten"
+	particlesColors: ["#A7A5FE", "#FEA5CF", "#FCFEA5", "#A5FED3"],
 
-	opacity: { center: 0, edge: 0.7 },
+	blending: "none", // "none" | "overlay" | "screen" | "lighten"
+
+	opacity: { center: 0, edge: 1 },
+
+	// ===== Other =====
 
 	skew: 0,
 
-	shapes: ["c"], // "c" | "s" | "t"
+	shapes: ["c", "s", "t"], // "c" | "s" | "t"
 };
