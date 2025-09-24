@@ -28,6 +28,7 @@ export default function Footer() {
 				p-6
          	bg-[#3e7be3]/80 dark:bg-[#16181a]/95"
 			>
+				{/* Informações do desenvolvedor */}
 				<div
 					className="
 					flex flex-col
@@ -60,6 +61,7 @@ export default function Footer() {
 						justify-center items-center
 						gap-6"
 					>
+						{/* LinkedIn */}
 						<a
 							href="https://linkedin.com/in/natan-araujo-dev"
 							target="_blank"
@@ -70,6 +72,7 @@ export default function Footer() {
 							<Linkedin className="w-6 h-6 text-blue-600" />
 						</a>
 
+						{/* GitHub */}
 						<a
 							href="https://github.com/natan-araujo-dev"
 							target="_blank"
@@ -80,6 +83,7 @@ export default function Footer() {
 							<Github className="w-6 h-6 text-gray-700" />
 						</a>
 
+						{/* Email */}
 						<a
 							href="https://mail.google.com/mail/?view=cm&fs=1&to=natan.araujo.dev@gmail.com"
 							target="_blank"
@@ -90,8 +94,9 @@ export default function Footer() {
 							<Mail className="w-6 h-6 text-yellow-600" />
 						</a>
 
+						{/* Currículo */}
 						<a
-							href="https://drive.google.com/file/d/14wbYIJbS-nE3TwMYItU8X1eUGoBqLxgL/view?usp=drive_link"
+							href="https://drive.google.com/file/d/1Yjk_E6_Aghy2IOqPNiJ47qalMpqtkJwy/view?usp=sharing"
 							target="_blank"
 							rel="noopener noreferrer"
 							className="flex flex-row justify-center items-center gap-x-2 hover:text-green-600 expand-lg"
@@ -99,6 +104,8 @@ export default function Footer() {
 							<Text variant="tomorrow-sm">Curriculo</Text>{" "}
 							<FileText className="w-6 h-6 text-white" />
 						</a>
+
+						{/* Whatsapp */}
 						<a
 							href={`https://wa.me/+5521976486646?`}
 							target="_blank"
@@ -113,6 +120,7 @@ export default function Footer() {
 							/>
 						</a>
 
+						{/* Telefone */}
 						<div className="flex flex-row justify-center items-center gap-x-2">
 							<Text variant="tomorrow-sm">+55 (21) 97648-6646</Text>
 							<Phone size={18} aria-hidden="true" />
@@ -121,6 +129,7 @@ export default function Footer() {
 				</div>
 			</div>
 
+			{/* Informações finais do site */}
 			<div
 				className="
 				flex flex-col

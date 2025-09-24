@@ -7,7 +7,8 @@
 
 	--header-height: 60px;
 
-	--screen-with-header: calc(100vh - var(--header-height));
+	/* 2px é a distância segura */
+	--screen-with-header: calc(100vh - var(--header-height) - 2px);
 	--scroll-offset: 28px;
 }
 
@@ -26,7 +27,7 @@ html {
 }
 
 .custom-section {
-	@apply flex flex-col justify-center items-center w-100 h-[calc(100vh-58px)] scroll-mt-(--header-height) border-2 border-blue-400;
+	@apply flex flex-col justify-center items-center w-full h-[var(--screen-with-header)] scroll-mt-(--header-height) border-0 border-blue-400;
 }
 
 .expand-lg {

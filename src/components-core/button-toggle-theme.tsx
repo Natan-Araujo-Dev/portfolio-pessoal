@@ -1,16 +1,13 @@
+import Text from "../components-base/text";
 import useTheme from "../hooks/useTheme";
 
 export default function ButtonToggleTheme() {
 	const { darkMode, toggle } = useTheme();
 
 	return (
-		<div
-			className="
-			font-tomorrow"
-		>
-			<input
+		<div>
+			<button
 				type="button"
-				value={`Tema ${darkMode ? "🌑" : "☀️"}`}
 				onClick={toggle}
 				className="
 				px-[5px] py-[2px]
@@ -19,7 +16,11 @@ export default function ButtonToggleTheme() {
 				border-gray-400 dark:border-gray-500
 				fill-color
 				expand-lg"
-			/>
+			>
+				<Text variant="tomorrow-header-shortcut">
+					Tema {darkMode ? "🌑" : "☀️"}
+				</Text>
+			</button>
 		</div>
 	);
 }

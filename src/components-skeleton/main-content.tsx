@@ -9,7 +9,7 @@ export default function MainContent() {
 			flex flex-col grow
 			justify-center items-center
 			w-full h-full
-			mt-14
+			mt-(--header-height)
 			bg-cyan-100"
 		>
 			<Background />
