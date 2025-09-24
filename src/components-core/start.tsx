@@ -1,7 +1,7 @@
 /** biome-ignore-all lint/correctness/useUniqueElementIds: <ids estáticos> */
 
-import { ArrowDown } from "lucide-react";
 import Text from "../components-base/text";
+import ButtonAdvance from "./button-advance";
 
 export default function Start() {
 	return (
@@ -28,11 +28,7 @@ export default function Start() {
 				</Text>
 			</div>
 
-			<div className="inline-flex animate-bounce [animation-duration:1.8s]">
-				<a href="#sobre" className="expand-lg fill-color">
-					<ArrowDown />
-				</a>
-			</div>
+			<ButtonAdvance href="#sobre" />
 		</div>
 	);
 }

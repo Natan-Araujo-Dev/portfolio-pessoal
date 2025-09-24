@@ -10,21 +10,17 @@ export const buttonIconVariants = cva(
    `,
 	{
 		variants: {
-			variant: {
-			},
+			variant: {},
 		},
-		defaultVariants: {
-		},
+		defaultVariants: {},
 	},
 );
 
 export const ButtonIconIconVariants = cva(`transition p-0.5`, {
 	variants: {
-		variant: {
-		},
+		variant: {},
 	},
-	defaultVariants: {
-	},
+	defaultVariants: {},
 });
 
 interface ButtonIconProps
