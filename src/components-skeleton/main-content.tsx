@@ -10,7 +10,7 @@ export default function MainContent() {
 			justify-center items-center
 			w-full h-full
 			mt-(--header-height)
-			bg-cyan-100"
+			bg-gray-background dark:bg-blue-background"
 		>
 			<Background />
 			<Content />

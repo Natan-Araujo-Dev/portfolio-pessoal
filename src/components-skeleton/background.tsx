@@ -9,7 +9,7 @@ export default function Background() {
          w-full h-full
          top-0 left-0
          z-0
-			bg-white dark:bg-black"
+			bg-gray-background dark:bg-blue-background"
 		>
 			<FinisherHeaderDark />
 

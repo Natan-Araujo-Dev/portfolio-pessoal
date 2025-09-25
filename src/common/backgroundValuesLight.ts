@@ -1,3 +1,5 @@
+import { getCssVar } from "../utils/getCssVar";
+
 export const backgroundValuesLight = {
 	// precisar ser em HEX
 	// caso queira escolher uma cor:
@@ -7,7 +9,7 @@ export const backgroundValuesLight = {
 
 	count: 40,
 
-	size: { min: 2, max: 40, pulse: 0 },
+	size: { min: 2, max: 20, pulse: 0 },
 
 	speed: {
 		x: { min: 0, max: 0.8 },
@@ -16,7 +18,7 @@ export const backgroundValuesLight = {
 
 	// ===== Colors =====
 
-	backgroundColor: "#C7DFF5",
+	backgroundColor: getCssVar("--color-gray-background"),
 
 	particlesColors: ["#A7A5FE", "#FEA5CF", "#FCFEA5", "#A5FED3"],
 

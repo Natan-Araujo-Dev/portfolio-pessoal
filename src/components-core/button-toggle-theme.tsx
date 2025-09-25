@@ -13,7 +13,7 @@ export default function ButtonToggleTheme() {
 				px-[5px] py-[2px]
  				cursor-pointer
 				border-2 rounded-md
-				border-gray-400 dark:border-gray-500
+				border-gray-light dark:border-gray-medium
 				fill-color
 				expand-lg"
 			>

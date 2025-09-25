@@ -1,4 +1,7 @@
 /** biome-ignore-all lint/correctness/useUniqueElementIds: <ids estáticos> */
+import About from "../components-core/about";
+import Projects from "../components-core/projects";
+import Skills from "../components-core/skills";
 import Start from "../components-core/start";
 
 export default function Content() {
@@ -15,29 +18,11 @@ export default function Content() {
 		>
 			<Start />
 
-			<div
-				id="sobre"
-				className="
-				custom-section"
-			>
-				Sobre
-			</div>
+			<About />
 
-			<div
-				id="habilidades"
-				className="
-				custom-section"
-			>
-				Habilidades
-			</div>
+			<Skills />
 
-			<div
-				id="projetos"
-				className="
-				custom-section"
-			>
-				Projetos
-			</div>
+			<Projects />
 		</div>
 	);
 }

@@ -10,20 +10,51 @@
 	/* 2px é a distância segura */
 	--screen-with-header: calc(100vh - var(--header-height) - 2px);
 	--scroll-offset: 28px;
+
+	--duration-default: 200ms;
+
+	/* branco padrão */
+	--color-white: #ffffff;
+	/* preto padrão */
+	--color-black: #000000;
+
+	/* Header clara  */
+	--color-gray-darker: #0f1214;
+	/* Header escura */
+	--color-gray-dark: #364152;
+	/* Borda do botão escuro */
+	--color-gray-medium: #6a7282;
+	/* Borda do botão claro */
+	--color-gray-light: #99a0af;
+
+	/* background escuro */
+	--color-blue-background: #1b1c29;
+	/* background claro */
+	--color-gray-background: #95b7c2;
+
+	/* Main */
+	--color-green-dark: #008237;
+	--color-green-light: #01c951;
+
+	/* Card */
+	--color-card-dark: #114b61;
+	--color-card-light: #beccd4;
+	--color-card-shadow-dark: #ffffff;
+	--color-card-shadow-light: #2596be;
+
+	/* Footer */
+	--color-footer-main-dark: #16181a;
+	--color-footer-end-dark: #0e1012;
+	--color-footer-main-light: #3e7be3;
+	--color-footer-end-light: #374cba;
 }
 
 html {
 	scroll-behavior: smooth;
 }
 
-/* Alterar o valor de #finisher-canvas */
 .smooth-transition {
-	@apply transition-colors duration-500;
-}
-
-/* Manter o mesmo valor de duration em .smooth-transition */
-#finisher-canvas {
-	transition: background-color 0.5s ease;
+	@apply transition duration-[var(--duration-default)];
 }
 
 .custom-section {
@@ -31,13 +62,13 @@ html {
 }
 
 .expand-lg {
-	@apply hover:scale-115 transition-transform duration-150;
+	@apply hover:scale-115 transition-transform duration-[var(--duration-default)];
 }
 
 .expand-sm {
-	@apply hover:scale-105 transition-transform duration-150;
+	@apply hover:scale-105 transition-transform duration-[var(--duration-default)];
 }
 
 .fill-color {
-	@apply transition hover:text-green-600 hover:border-green-600 duration-150 delay-50;
+	@apply transition hover:text-[var(--color-green-light)] hover:border-[var(--color-green-light)] duration-[var(--duration-default)] delay-50;
 }

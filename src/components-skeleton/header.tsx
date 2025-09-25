@@ -13,14 +13,15 @@ export default function Header() {
          w-full h-(--header-height)
 			p-4 px-12
          text-white
-         bg-gray-700/80 dark:bg-[#16181a]/90
+         bg-gray-dark/80 dark:bg-gray-darker/90
 			smooth-transition"
 		>
-			<div className="text-green-400 expand-sm">
+			<div className="text-green-light expand-sm">
 				<a href="#inicio">
 					<Text variant="tomorrow-header-name">Natan Araujo</Text>
 				</a>
 			</div>
+
 			<div
 				className="
 				flex flex-row
