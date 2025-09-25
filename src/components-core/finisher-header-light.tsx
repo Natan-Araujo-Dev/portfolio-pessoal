@@ -29,7 +29,7 @@ export default function FinisherHeaderLight() {
 			header finisher-header-light
 			flex
 			items-center justify-center
-			transition duration-800 opacity-100 dark:opacity-0"
+			transition duration-[var(--duration-background)] opacity-100 dark:opacity-0"
 			style={{ width: "100%", height: "100%" }}
 		></div>
 	);

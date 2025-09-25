@@ -46,13 +46,14 @@ export default function About() {
 					</Text>{" "}
 					através de cursos e estudo por conta própria sobre{" "}
 					<Text className="text-green-dark dark:text-green-light">React</Text> e{" "}
-					<Text className="text-green-dark dark:text-green-light">ASP.NET</Text>.
+					<Text className="text-green-dark dark:text-green-light">ASP.NET</Text>
+					.
 					<br />
 					<br />
 					Desde então, venho desenvolvendo{" "}
 					<Text className="text-green-dark dark:text-green-light">APIs</Text> e{" "}
-					<Text className="text-green-dark dark:text-green-light">sites</Text> como
-					esse.
+					<Text className="text-green-dark dark:text-green-light">sites</Text>{" "}
+					como esse.
 				</Text>
 			</Card>
 

@@ -12,6 +12,7 @@
 	--scroll-offset: 28px;
 
 	--duration-default: 200ms;
+	--duration-background: 800ms;
 
 	/* branco padrão */
 	--color-white: #ffffff;
@@ -71,4 +72,31 @@ html {
 
 .fill-color {
 	@apply transition hover:text-[var(--color-green-light)] hover:border-[var(--color-green-light)] duration-[var(--duration-default)] delay-50;
+}
+
+:root {
+	--scrollbar-track: var(--color-gray-dark);
+	--scrollbar-thumb: var(--color-gray-light);
+}
+
+[class="dark"] {
+	--scrollbar-track: var(--color-gray-darker);
+	--scrollbar-thumb: var(--color-green-dark);
+}
+
+::-webkit-scrollbar {
+	width: 12px;
+}
+
+::-webkit-scrollbar-track {
+	background: var(--scrollbar-track);
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: var(--scrollbar-thumb);
+	border-radius: 6px;
+}
+
+::-webkit-scrollbar-button {
+	display: none;
 }
