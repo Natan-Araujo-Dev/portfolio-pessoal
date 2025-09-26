@@ -1,4 +1,5 @@
 import Text from "../components-base/text";
+import { projectList } from "../objects/projectList";
 import ButtonAdvance from "./button-advance";
 import CardProject from "./card-project";
 
@@ -47,34 +48,21 @@ export default function About() {
 
 			<div
 				className="
-				grid 
-				grid-cols-1 sm:grid-cols-2 lg:grid-cols-3
+				flex flex-row
+				justify-center items-center
 				gap-8"
 			>
-				<CardProject
-					title={projectExample.title}
-					summary={projectExample.summary}
-					features={projectExample.features}
-					technologies={projectExample.technologies}
-					gitHubLink={projectExample.gitHubLink}
-				/>
-
-				<CardProject
-					title={projectExample.title}
-					summary={projectExample.summary}
-					features={projectExample.features}
-					technologies={projectExample.technologies}
-					projectLink={projectExample.projectLink}
-					gitHubLink={projectExample.gitHubLink}
-				/>
-
-				<CardProject
-					title={projectExample.title}
-					summary={projectExample.summary}
-					features={projectExample.features}
-					technologies={projectExample.technologies}
-					gitHubLink={projectExample.gitHubLink}
-				/>
+				{projectList.map((proj) => (
+					<CardProject
+						key={proj.title}
+						title={proj.title}
+						summary={proj.summary}
+						features={proj.features}
+						technologies={proj.technologies}
+						projectLink={proj.projectLink}
+						gitHubLink={proj.gitHubLink}
+					/>
+				))}
 			</div>
 
 			<ButtonAdvance href="#contato" />

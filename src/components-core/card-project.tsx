@@ -1,14 +1,10 @@
+import { ExternalLink, Github, Key } from "lucide-react";
 import Card from "../components-base/card";
 import Text from "../components-base/text";
+import type { Project } from "../models/project";
+import Tecnology from "./tecnology";
 
-interface CardProps {
-	title: string;
-	summary: string;
-	features: string[];
-	technologies: string[];
-	projectLink?: string | null;
-	gitHubLink: string;
-}
+interface CardProps extends Project {}
 
 export default function CardProject({
 	title,
@@ -30,7 +26,12 @@ export default function CardProject({
 		>
 			<div className="flex flex-col gap-y-3">
 				<div className="flex justify-center items-center">
-					<Text variant="tomorrow-xl">{title}</Text>
+					<Text
+						variant="tomorrow-xl"
+						className="text-blue-700 dark:text-blue-400"
+					>
+						{title}
+					</Text>
 				</div>
 
 				<div className="flex justify-start items-center w-full">
@@ -53,25 +54,46 @@ export default function CardProject({
 				</div>
 			</div>
 
-			<div>
-				<div className="">
+			<div className="flex flex-col gap-y-2">
+				<div className="flex flex-wrap justify-start gap-2">
 					{technologies.map((tec) => (
-						<Text variant="tomorrow-sm-extralight" key={tec}>
-							{tec}
-							{" | "}
-						</Text>
+						<Tecnology name={tec} key={tec} />
 					))}
 				</div>
 
 				<div className="flex justify-center items-center w-full gap-x-2">
-					<a href={gitHubLink} target="_blank" rel="noopener noreferrer">
-						<Text variant="tomorrow-sm-extralight">GitHub</Text>
-					</a>
+					<div
+						className="
+                  bg-gray-light dark:bg-gray-dark p-1
+                  rounded-md"
+					>
+						<a
+							href={gitHubLink}
+							target="_blank"
+							rel="noopener noreferrer"
+							className="flex justify-center items-center gap-x-2"
+						>
+							<Text variant="tomorrow-sm-extralight">GitHub</Text>
+							<Github className="w-5 h-5 text-gray-700 dark:text-gray-light" />
+						</a>
+					</div>
 
 					{projectLink && (
-						<a href={projectLink} target="_blank" rel="noopener noreferrer">
-							<Text variant="tomorrow-sm-extralight">Demonstração</Text>
-						</a>
+						<div
+							className="
+                     bg-gray-light dark:bg-gray-dark p-1
+                     rounded-md"
+						>
+							<a
+								href={projectLink}
+								target="_blank"
+								rel="noopener noreferrer"
+								className="flex justify-center items-center gap-x-2"
+							>
+								<Text variant="tomorrow-sm-extralight">Demonstração</Text>
+								<ExternalLink className="w-5 h-5 text-gray-700 dark:text-gray-light" />
+							</a>
+						</div>
 					)}
 				</div>
 			</div>
