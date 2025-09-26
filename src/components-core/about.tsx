@@ -20,7 +20,13 @@ export default function About() {
 				</Text>
 			</div>
 
-			<Card>
+			<Card
+				className="
+				flex
+				justify-center items-center
+				w-180 h-100
+				p-10"
+			>
 				<Text className="text-gray-dark dark:text-white">
 					Sou um{" "}
 					<Text className="text-green-dark dark:text-green-light">
