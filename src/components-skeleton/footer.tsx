@@ -52,7 +52,7 @@ export default function Footer() {
 					flex flex-col
 					justify-center items-center
 					gap-y-2 
-        			text-gray-200"
+        			text-white dark:text-gray-200"
 				>
 					<Text variant="tomorrow-md-extralight">Meus contatos:</Text>
 					<div
