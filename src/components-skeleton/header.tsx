@@ -14,6 +14,7 @@ export default function Header() {
 			p-4 px-12
          text-white
          bg-gray-dark/80 dark:bg-gray-darker/90
+			backdrop-blur-xs
 			smooth-transition"
 		>
 			<div className="text-green-light expand-sm">

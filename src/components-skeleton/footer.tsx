@@ -18,7 +18,8 @@ export default function Footer() {
          flex flex-col
 			z-60
          justify-center items-center
-         w-full"
+         w-full
+			backdrop-blur-xs"
 		>
 			<div
 				className="
