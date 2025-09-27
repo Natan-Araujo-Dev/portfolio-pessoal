@@ -59,7 +59,7 @@ html {
 }
 
 .custom-section {
-	@apply flex flex-col justify-center items-center w-full h-[var(--screen-with-header)] scroll-mt-(--header-height) border-0 border-blue-400;
+	@apply flex flex-col justify-center items-center w-full min-h-[var(--screen-with-header)] scroll-mt-(--header-height) border-0 border-blue-400;
 }
 
 .expand-lg {

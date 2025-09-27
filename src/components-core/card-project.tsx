@@ -1,10 +1,10 @@
-import { ExternalLink, Github, Key } from "lucide-react";
+import { ExternalLink, Github } from "lucide-react";
 import Card from "../components-base/card";
 import Text from "../components-base/text";
-import type { Project } from "../models/project";
+import type { ProjectModel } from "../models/projectModel";
 import Tecnology from "./tecnology";
 
-interface CardProps extends Project {}
+interface CardProps extends ProjectModel {}
 
 export default function CardProject({
 	title,

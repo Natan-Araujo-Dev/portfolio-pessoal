@@ -17,7 +17,7 @@ export default function Tecnology({ name: tecnologyName }: TecnologyProps) {
          rounded-md"
 		>
 			<Text variant="tomorrow-sm-extralight">{tecnologyName}</Text>
-			<br/>
+			<br />
 		</div>
 	);
 }
