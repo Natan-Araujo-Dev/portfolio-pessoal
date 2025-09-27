@@ -1,6 +1,6 @@
 import type { ProjectModel } from "../models/projectModel";
 
-export const projectList: ProjectModel[] = [
+export const projectsList: ProjectModel[] = [
 	// Bazar carioca Backend
 	{
 		title: "Bazar Carioca Backend",

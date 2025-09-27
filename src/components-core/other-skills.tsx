@@ -1,13 +1,13 @@
 import Text from "../components-base/text";
-import { mainSkillsList } from "../objects/mainSkillsList";
+import { otherSkillsList } from "../objects/otherSkillsList";
 import ButtonAdvance from "./button-advance";
 import CardSkill from "./card-skill";
 
-export default function Skills() {
+export default function OtherSkills() {
 	return (
 		// biome-ignore lint/correctness/useUniqueElementIds: <ids estáticos>
 		<div
-			id="habilidades"
+			id="outras-habilidades"
 			className="
 			custom-section
          gap-y-10"
@@ -17,21 +17,21 @@ export default function Skills() {
 					variant="tomorrow-4xl"
 					className="font-medium text-green-dark dark:text-green-light"
 				>
-					Habilidades
+					Outras habilidades
 				</Text>
 			</div>
 
 			<div
 				className="
-				grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3
+				grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2
 				gap-8"
 			>
-				{mainSkillsList.map((skill) => (
+				{otherSkillsList.map((skill) => (
 					<CardSkill key={skill.title} skill={skill} />
 				))}
 			</div>
 
-			<ButtonAdvance href="#outras-habilidades" />
+			<ButtonAdvance href="#projetos" />
 		</div>
 	);
 }

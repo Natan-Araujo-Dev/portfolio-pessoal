@@ -1,5 +1,5 @@
 import Text from "../components-base/text";
-import { projectList } from "../objects/projectList";
+import { projectsList } from "../objects/projectsList";
 import ButtonAdvance from "./button-advance";
 import CardProject from "./card-project";
 
@@ -27,7 +27,7 @@ export default function About() {
 				justify-center items-center
 				gap-8"
 			>
-				{projectList.map((proj) => (
+				{projectsList.map((proj) => (
 					<CardProject
 						key={proj.title}
 						title={proj.title}

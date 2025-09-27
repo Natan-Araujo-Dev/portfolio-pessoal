@@ -1,6 +1,6 @@
 import type { SkillModel } from "../models/skillModel";
 
-export const skillList: SkillModel[] = [
+export const mainSkillsList: SkillModel[] = [
 	{
 		title: "Frontend",
 		skills: [

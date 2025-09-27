@@ -11,12 +11,19 @@ export default function HeaderShortcuts() {
 			<a href="#sobre" className="expand-lg fill-color">
 				<Text variant="tomorrow-header-shortcut">Sobre</Text>
 			</a>
+
 			<a href="#habilidades" className="expand-lg fill-color">
 				<Text variant="tomorrow-header-shortcut">Habilidades</Text>
 			</a>
+
+			<a href="#outras-habilidades" className="expand-lg fill-color">
+				<Text variant="tomorrow-header-shortcut">Outras habilidades</Text>
+			</a>
+
 			<a href="#projetos" className="expand-lg fill-color">
 				<Text variant="tomorrow-header-shortcut">Projetos</Text>
 			</a>
+
 			<a href="#contato" className="expand-lg fill-color">
 				<Text variant="tomorrow-header-shortcut">Contato</Text>
 			</a>
