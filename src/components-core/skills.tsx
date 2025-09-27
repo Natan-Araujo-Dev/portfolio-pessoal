@@ -23,8 +23,7 @@ export default function Skills() {
 
 			<div
 				className="
-				flex flex-row flex-wrap
-				justify-center items-stretch
+				grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3
 				gap-8"
 			>
 				{skillList.map((skill) => (
