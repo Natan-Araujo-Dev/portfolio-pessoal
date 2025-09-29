@@ -24,7 +24,8 @@ export default function About() {
 				className="
 				flex
 				justify-center items-center
-				w-180 h-100
+				mx-10
+				lg:w-180
 				p-10"
 			>
 				<Text className="text-gray-dark dark:text-white">

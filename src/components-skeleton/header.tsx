@@ -1,5 +1,4 @@
 import Text from "../components-base/text";
-import ButtonToggleTheme from "../components-core/button-toggle-theme";
 import HeaderShortcuts from "../components-core/header-shortcut";
 
 export default function Header() {
@@ -8,10 +7,10 @@ export default function Header() {
 			className="
 			fixed top-0 left-0
 			z-60
-         flex flex-row
+         flex flex-row flex-wrap
          justify-between items-center
-         w-full h-(--header-height)
-			p-4 px-12
+         w-full min-h-(--header-height)
+			p-4 lg:px-12
          text-white
          bg-gray-dark/80 dark:bg-gray-darker/90
 			backdrop-blur-xs
@@ -23,16 +22,7 @@ export default function Header() {
 				</a>
 			</div>
 
-			<div
-				className="
-				flex flex-row
-				justify-center items-center
-				gap-x-8"
-			>
-				<HeaderShortcuts />
-
-				<ButtonToggleTheme />
-			</div>
+			<HeaderShortcuts />
 		</header>
 	);
 }

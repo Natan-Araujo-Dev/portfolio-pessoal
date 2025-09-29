@@ -23,7 +23,7 @@ export default function About() {
 
 			<div
 				className="
-				flex flex-row
+				flex flex-row flex-wrap
 				justify-center items-center
 				gap-8"
 			>
