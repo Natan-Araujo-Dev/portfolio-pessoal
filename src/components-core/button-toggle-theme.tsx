@@ -18,7 +18,7 @@ export default function ButtonToggleTheme() {
 				border-2 rounded-md
 				border-gray-light dark:border-gray-medium
 				fill-color
-				expand-l
+				expand-lg
 				gap-x-1"
 			>
 				<div>
