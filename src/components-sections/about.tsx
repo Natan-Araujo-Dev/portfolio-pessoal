@@ -38,7 +38,7 @@ export default function About() {
 					em 2021, criando jogos digitais na Unity.
 					<br />
 					<br />
-					Nesses últimos 4 anos, desenvolvi jogos, aplicativos, programas de
+					Nesses últimos 4 anos, desenvolvi jogos, aplicativos e programas de
 					consoles.
 					<br />
 					<br />
