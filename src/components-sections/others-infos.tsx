@@ -1,24 +1,19 @@
 import Text from "../components-base/text";
+import ButtonAdvance from "../components-core/button-advance";
+import CardSkill from "../components-core/card-skill";
 import { otherSkillsList } from "../objects/otherSkillsList";
-import ButtonAdvance from "./button-advance";
-import CardSkill from "./card-skill";
 
-export default function OtherSkills() {
+export default function OthersInfos() {
 	return (
 		// biome-ignore lint/correctness/useUniqueElementIds: <ids estáticos>
 		<div
-			id="outras-habilidades"
+			id="outras-informacoes"
 			className="
 			custom-section
          gap-y-10"
 		>
 			<div>
-				<Text
-					variant="tomorrow-4xl"
-					className="font-medium text-green-dark dark:text-green-light"
-				>
-					Outras habilidades
-				</Text>
+				<Text variant="tomorrow-section">Outras informações</Text>
 			</div>
 
 			<div

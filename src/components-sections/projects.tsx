@@ -1,7 +1,7 @@
 import Text from "../components-base/text";
+import ButtonAdvance from "../components-core/button-advance";
+import CardProject from "../components-core/card-project";
 import { projectsList } from "../objects/projectsList";
-import ButtonAdvance from "./button-advance";
-import CardProject from "./card-project";
 
 export default function About() {
 	return (
@@ -13,12 +13,7 @@ export default function About() {
          gap-y-10"
 		>
 			<div>
-				<Text
-					variant="tomorrow-4xl"
-					className="font-medium text-green-dark dark:text-green-light"
-				>
-					Projetos em destaque
-				</Text>
+				<Text variant="tomorrow-section">Projetos em destaque</Text>
 			</div>
 
 			<div

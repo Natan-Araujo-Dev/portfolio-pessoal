@@ -20,27 +20,7 @@ function HeaderShortchutDesktop() {
          justify-center items-center
          gap-x-4"
 		>
-			<a href="#sobre" className="expand-lg fill-color">
-				<Text variant="tomorrow-header-shortcut">Sobre</Text>
-			</a>
-
-			<a href="#habilidades" className="expand-lg fill-color">
-				<Text variant="tomorrow-header-shortcut">Habilidades</Text>
-			</a>
-
-			<a href="#outras-habilidades" className="expand-lg fill-color">
-				<Text variant="tomorrow-header-shortcut">Outras habilidades</Text>
-			</a>
-
-			<a href="#projetos" className="expand-lg fill-color">
-				<Text variant="tomorrow-header-shortcut">Projetos</Text>
-			</a>
-
-			<a href="#contato" className="expand-lg fill-color">
-				<Text variant="tomorrow-header-shortcut">Contato</Text>
-			</a>
-
-			<ButtonToggleTheme />
+			<Sections />
 		</div>
 	);
 }
@@ -81,39 +61,47 @@ function HeaderShortchutMobile() {
 					rounded-b-md
 					bg-gray-dark/80 dark:bg-gray-darker/90"
 				>
-					<div>
-						<a href="#sobre" className="expand-lg fill-color">
-							<Text variant="tomorrow-header-shortcut">Sobre</Text>
-						</a>
-					</div>
-
-					<div>
-						<a href="#habilidades" className="expand-lg fill-color">
-							<Text variant="tomorrow-header-shortcut">Habilidades</Text>
-						</a>
-					</div>
-
-					<div>
-						<a href="#outras-habilidades" className="expand-lg fill-color">
-							<Text variant="tomorrow-header-shortcut">Outras habilidades</Text>
-						</a>
-					</div>
-
-					<div>
-						<a href="#projetos" className="expand-lg fill-color">
-							<Text variant="tomorrow-header-shortcut">Projetos</Text>
-						</a>
-					</div>
-
-					<div>
-						<a href="#contato" className="expand-lg fill-color">
-							<Text variant="tomorrow-header-shortcut">Contato</Text>
-						</a>
-					</div>
-
-					<ButtonToggleTheme />
+					<Sections />
 				</div>
 			</details>
 		</div>
+	);
+}
+
+function Sections() {
+	return (
+		<>
+			<div className="expand-lg fill-color">
+				<a href="#sobre">
+					<Text variant="tomorrow-header-shortcut">Sobre</Text>
+				</a>
+			</div>
+
+			<div className="expand-lg fill-color">
+				<a href="#habilidades">
+					<Text variant="tomorrow-header-shortcut">Habilidades</Text>
+				</a>
+			</div>
+
+			<div className="expand-lg fill-color">
+				<a href="fill-color">
+					<Text variant="tomorrow-header-shortcut">Outras informações</Text>
+				</a>
+			</div>
+
+			<div className="expand-lg fill-color">
+				<a href="#projetos">
+					<Text variant="tomorrow-header-shortcut">Projetos</Text>
+				</a>
+			</div>
+
+			<div className="expand-lg fill-color">
+				<a href="#contato">
+					<Text variant="tomorrow-header-shortcut">Contato</Text>
+				</a>
+			</div>
+
+			<ButtonToggleTheme />
+		</>
 	);
 }

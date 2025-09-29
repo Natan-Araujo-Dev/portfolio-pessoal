@@ -1,9 +1,9 @@
 /** biome-ignore-all lint/correctness/useUniqueElementIds: <ids estáticos> */
-import About from "../components-core/about";
-import OtherSkills from "../components-core/other-skills";
-import Projects from "../components-core/projects";
-import Skills from "../components-core/skills";
-import Start from "../components-core/start";
+import About from "../components-sections/about";
+import OthersInfos from "../components-sections/others-infos";
+import Projects from "../components-sections/projects";
+import Skills from "../components-sections/skills";
+import Start from "../components-sections/start";
 
 export default function Content() {
 	return (
@@ -23,7 +23,7 @@ export default function Content() {
 
 			<Skills />
 
-			<OtherSkills />
+			<OthersInfos />
 
 			<Projects />
 		</div>

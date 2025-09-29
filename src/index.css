@@ -59,7 +59,7 @@ html {
 }
 
 .custom-section {
-	@apply flex flex-col justify-center items-center w-full min-h-[var(--screen-with-header)] scroll-mt-(--header-height) border-0 border-blue-400;
+	@apply flex flex-col justify-center items-center w-full min-h-[var(--screen-with-header)] scroll-mt-[calc(var(--header-height)+20px)] border-0 border-blue-400;
 }
 
 .expand-lg {
@@ -71,7 +71,7 @@ html {
 }
 
 .fill-color {
-	@apply transition hover:text-[var(--color-green-light)] hover:border-[var(--color-green-light)] duration-[var(--duration-default)] delay-50;
+	@apply transition hover:text-[var(--color-green-light)] hover:border-[var(--color-green-light)] duration-[var(--duration-default)];
 }
 
 :root {

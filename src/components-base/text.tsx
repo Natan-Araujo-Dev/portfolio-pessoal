@@ -7,10 +7,16 @@ export const textVariants = cva(
 		variants: {
 			variant: {
 				"tomorrow-header-name": "text-2xl lg:text-3xl",
+
 				"tomorrow-header-shortcut": "font-light",
-				"tomorrow-impact": "lg:text-6xl text-2xl font-bold",
+
+				"tomorrow-impact": "lg:text-6xl text-5xl font-bold",
+
 				"tomorrow-impact-sm":
 					"text-sm lg:text-xl font-extralight text-gray-900 dark:text-gray-300",
+
+				"tomorrow-section":
+					"text-3xl lg:text-4xl font-medium text-green-dark dark:text-green-light",
 
 				"tomorrow-9xl": "text-9xl",
 				"tomorrow-9xl-extralight": "text-9xl font-light",

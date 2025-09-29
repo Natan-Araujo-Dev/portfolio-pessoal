@@ -1,7 +1,7 @@
 import Text from "../components-base/text";
+import ButtonAdvance from "../components-core/button-advance";
+import CardSkill from "../components-core/card-skill";
 import { mainSkillsList } from "../objects/mainSkillsList";
-import ButtonAdvance from "./button-advance";
-import CardSkill from "./card-skill";
 
 export default function Skills() {
 	return (
@@ -13,12 +13,7 @@ export default function Skills() {
          gap-y-10"
 		>
 			<div>
-				<Text
-					variant="tomorrow-4xl"
-					className="font-medium text-green-dark dark:text-green-light"
-				>
-					Habilidades
-				</Text>
+				<Text variant="tomorrow-section">Habilidades</Text>
 			</div>
 
 			<div
