@@ -25,7 +25,7 @@ export default function CardProject({
          text-black dark:text-white"
 		>
 			<div className="flex flex-col gap-y-3">
-				<div className="flex justify-center items-center">
+				<div className="flex justify-center mb-6 items-center">
 					<Text
 						variant="tomorrow-xl"
 						className="text-blue-700 dark:text-blue-400"

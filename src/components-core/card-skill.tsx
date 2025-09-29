@@ -19,7 +19,8 @@ export default function CardSkill({ skill }: SkillProps) {
 		>
 			<div
 				className="
-				flex justify-center"
+				flex justify-center
+				mb-10"
 			>
 				<Text
 					variant="tomorrow-xl"

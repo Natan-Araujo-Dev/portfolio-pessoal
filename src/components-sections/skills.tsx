@@ -26,7 +26,7 @@ export default function Skills() {
 				))}
 			</div>
 
-			<ButtonAdvance href="#outras-habilidades" />
+			<ButtonAdvance href="#outras-informacoes" />
 		</div>
 	);
 }

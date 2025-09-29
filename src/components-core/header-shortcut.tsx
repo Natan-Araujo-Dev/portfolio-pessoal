@@ -84,7 +84,7 @@ function Sections() {
 			</div>
 
 			<div className="expand-lg fill-color">
-				<a href="fill-color">
+				<a href="#outras-informacoes">
 					<Text variant="tomorrow-header-shortcut">Outras informações</Text>
 				</a>
 			</div>
