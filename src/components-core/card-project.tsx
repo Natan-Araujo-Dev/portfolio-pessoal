@@ -47,7 +47,9 @@ export default function CardProject({
 					<Text variant="tomorrow-sm">Features:</Text>
 					{features.map((feat) => (
 						<Text variant="tomorrow-sm-extralight" key={feat}>
-							<div className="flex flex-row"><Dot/> {feat}</div>
+							<div className="flex flex-row">
+								<Dot /> {feat}
+							</div>
 						</Text>
 					))}
 				</div>
