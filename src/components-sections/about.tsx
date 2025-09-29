@@ -35,7 +35,7 @@ export default function About() {
 					<Text className="text-green-dark dark:text-green-light">
 						Desenvolvedor de Software
 					</Text>{" "}
-					em 2021, com criando jogos digitais na Unity.
+					em 2021, criando jogos digitais na Unity.
 					<br />
 					<br />
 					Nesses últimos 4 anos, desenvolvi jogos, aplicativos, programas de
