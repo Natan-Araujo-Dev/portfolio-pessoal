@@ -1,3 +1,4 @@
+import { Dot } from "lucide-react";
 import Card from "../components-base/card";
 import Text from "../components-base/text";
 import type { SkillModel } from "../models/skillModel";
@@ -36,7 +37,9 @@ export default function CardSkill({ skill }: SkillProps) {
 			>
 				{skill.skills.map((skill) => (
 					<Text key={skill} variant="tomorrow-sm">
-						- {skill} <br />
+						<div className="flex flex-row">
+							<Dot /> {skill}
+						</div>
 					</Text>
 				))}
 			</div>

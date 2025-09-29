@@ -1,4 +1,4 @@
-import { ExternalLink, Github } from "lucide-react";
+import { Dot, ExternalLink, Github } from "lucide-react";
 import Card from "../components-base/card";
 import Text from "../components-base/text";
 import type { ProjectModel } from "../models/projectModel";
@@ -47,8 +47,7 @@ export default function CardProject({
 					<Text variant="tomorrow-sm">Features:</Text>
 					{features.map((feat) => (
 						<Text variant="tomorrow-sm-extralight" key={feat}>
-							- {feat}
-							<br />
+							<div className="flex flex-row"><Dot/> {feat}</div>
 						</Text>
 					))}
 				</div>
