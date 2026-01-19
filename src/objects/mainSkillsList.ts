@@ -17,17 +17,17 @@ export const mainSkillsList: SkillModel[] = [
 
 	{
 		title: "Backend",
-		skills: ["C#", ".NET", "ASP.NET", "EntityFramework", "AutoMapper"],
+		skills: ["C#", ".NET", "ASP.NET", "EntityFramework", "AutoMapper", "MySQL"],
 	},
 
 	{
-		title: "Banco de dados",
-		skills: ["MySQL"],
+		title: "Boas práticas",
+		skills: ["Clean Architecture", "Domain Driven Design", "SOLID", "REST"],
 	},
 
 	{
 		title: "Cloud",
-		skills: ["AWS EC2", "AWS RDS", "AWS S3"],
+		skills: ["Vercel", "AWS EC2", "AWS RDS", "AWS S3", "AWS VPS"],
 	},
 
 	{
