@@ -44,7 +44,6 @@ export const projectsList: ProjectModel[] = [
 			"JavaScript",
 			"HTML",
 		],
-		projectLink: "https://bazar-carioca.vercel.app",
 		gitHubLink: "https://github.com/Natan-Araujo-Dev/Bazar-Carioca-Frontend",
 	},
 
