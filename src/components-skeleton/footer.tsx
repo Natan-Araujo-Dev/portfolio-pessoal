@@ -9,6 +9,7 @@ import {
 	Phone,
 } from "lucide-react";
 import Text from "../components-base/text";
+import ContactLink from "../components-core/contact-link";
 
 export default function Footer() {
 	return (
@@ -62,56 +63,77 @@ export default function Footer() {
 						justify-center items-center
 						gap-6"
 					>
+						{/* Telefone */}
+						<ContactLink
+							label="Telefone"
+							copyValue="+5521976486646"
+							copyLabel="Copiar telefone"
+						>
+							<Text variant="tomorrow-sm-extralight">+55 (21) 97648-6646</Text>
+							<Phone size={18} aria-hidden="true" />
+						</ContactLink>
+
+						<ContactLink
+							label="Endereço de e-mail"
+							copyValue="natan.araujo.dev@gmail.com"
+							copyLabel="Copiar e-mail"
+						>
+							<Text variant="tomorrow-sm-extralight">
+								natan.araujo.dev@gmail.com
+							</Text>
+							<Mail size={18} aria-hidden="true" />
+						</ContactLink>
+					</div>
+					<div
+						className="
+						flex flex-row flex-wrap
+						justify-center items-center
+						gap-6"
+					>
 						{/* LinkedIn */}
-						<a
+						<ContactLink
+							label="LinkedIn"
 							href="https://linkedin.com/in/natan-araujo-dev"
-							target="_blank"
-							rel="noopener noreferrer"
-							className="flex flex-row justify-center items-center gap-x-2 hover:text-green-light expand-lg"
 						>
 							<Text variant="tomorrow-sm-extralight">LinkedIn</Text>{" "}
 							<Linkedin className="w-6 h-6 text-blue-600" />
-						</a>
+						</ContactLink>
 
 						{/* GitHub */}
-						<a
+						<ContactLink
+							label="GitHub"
+							copyValue="natan-araujo-dev"
+							copyLabel="Copiar usuário"
 							href="https://github.com/natan-araujo-dev"
-							target="_blank"
-							rel="noopener noreferrer"
-							className="flex flex-row justify-center items-center gap-x-2 hover:text-green-light expand-lg"
 						>
 							<Text variant="tomorrow-sm-extralight">GitHub</Text>{" "}
 							<Github className="w-6 h-6 text-gray-700" />
-						</a>
+						</ContactLink>
 
 						{/* Email */}
-						<a
+						<ContactLink
+							label="Email"
+							copyValue="natan.araujo.dev@gmail.com"
+							copyLabel="Copiar e-mail"
 							href="https://mail.google.com/mail/?view=cm&fs=1&to=natan.araujo.dev@gmail.com"
-							target="_blank"
-							rel="noopener noreferrer"
-							className="flex flex-row justify-center items-center gap-x-2 hover:text-green-light expand-lg"
 						>
 							<Text variant="tomorrow-sm-extralight">Email</Text>
 							<Mail className="w-6 h-6 text-yellow-600" />
-						</a>
+						</ContactLink>
 
 						{/* Currículo */}
-						<a
+						<ContactLink
+							label="Curriculo"
 							href="https://drive.google.com/file/d/1Yjk_E6_Aghy2IOqPNiJ47qalMpqtkJwy/view?usp=sharing"
-							target="_blank"
-							rel="noopener noreferrer"
-							className="flex flex-row justify-center items-center gap-x-2 hover:text-green-light expand-lg"
 						>
 							<Text variant="tomorrow-sm-extralight">Curriculo</Text>{" "}
 							<FileText className="w-6 h-6 text-white" />
-						</a>
+						</ContactLink>
 
 						{/* Whatsapp */}
-						<a
+						<ContactLink
+							label="WhatsApp"
 							href={`https://wa.me/+5521976486646?`}
-							target="_blank"
-							rel="noopener noreferrer"
-							className="flex flex-row justify-center items-center gap-x-2 hover:text-green-light expand-lg"
 						>
 							<Text variant="tomorrow-sm-extralight">WhatsApp</Text>
 							<MessageCircle
@@ -119,13 +141,7 @@ export default function Footer() {
 								aria-hidden="true"
 								className="text-green-500"
 							/>
-						</a>
-
-						{/* Telefone */}
-						<div className="flex flex-row justify-center items-center gap-x-2">
-							<Text variant="tomorrow-sm-extralight">+55 (21) 97648-6646</Text>
-							<Phone size={18} aria-hidden="true" />
-						</div>
+						</ContactLink>
 					</div>
 				</div>
 			</div>

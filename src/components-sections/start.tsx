@@ -54,11 +54,9 @@ function StartMobile() {
 			flex flex-col
 			justify-center items-center
 			lg:hidden
+			w-full px-4 sm:px-6
 			gap-y-5"
 		>
-			<div>
-				<input type="date" placeholder="" className="text-red-500"/>
-			</div>
 			<div>
 				<Text variant="tomorrow-impact">
 					Bem vindo(a)
@@ -71,9 +69,11 @@ function StartMobile() {
 				</Text>
 			</div>
 
-			<div className="flex justify-center">
-				<Text variant="tomorrow-impact-sm">
-					Desenvolvedor FullStack | Engenheiro de Software | Prompt Engineering
+			<div className="flex justify-center text-center">
+				<Text variant="tomorrow-impact-sm" className="leading-relaxed">
+					Desenvolvedor FullStack | Engenheiro
+					<br />
+					de Software | Prompt Engineering
 				</Text>
 			</div>
 
