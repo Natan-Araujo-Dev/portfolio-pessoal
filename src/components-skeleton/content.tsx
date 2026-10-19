@@ -1,5 +1,6 @@
 /** biome-ignore-all lint/correctness/useUniqueElementIds: <ids estáticos> */
 import About from "../components-sections/about";
+import Experiences from "../components-sections/experiences";
 import OthersInfos from "../components-sections/others-infos";
 import Projects from "../components-sections/projects";
 import Skills from "../components-sections/skills";
@@ -20,6 +21,8 @@ export default function Content() {
 			<Start />
 
 			<About />
+
+			<Experiences />
 
 			<Skills />
 

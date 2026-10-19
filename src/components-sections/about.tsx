@@ -28,38 +28,35 @@ export default function About() {
 					<Text className="text-green-dark dark:text-green-light">
 						Desenvolvedor FullStack
 					</Text>
-					.
+					, especializado em{" "}
+					<Text className="text-green-dark dark:text-green-light">.NET</Text> e{" "}
+					<Text className="text-green-dark dark:text-green-light">React</Text>.
 					<br />
 					<br />
-					Comecei minha jornada como{" "}
-					<Text className="text-green-dark dark:text-green-light">
-						Desenvolvedor de Software
-					</Text>{" "}
-					em 2021, criando jogos digitais na Unity.
+					Atuo no frontend, backend, banco de dados, infraestrutura, engenharia
+					de prompt e testes. Desenvolvo aplicações com foco em desempenho,
+					escalabilidade e facilidade de manutenção, utilizando arquiteturas
+					modulares e boas práticas de engenharia de software.
 					<br />
 					<br />
-					Nesses últimos 4 anos, desenvolvi jogos, aplicativos e programas de
-					consoles.
+					Tenho experiência na criação e manutenção de plataformas de mensageria
+					(SMS, e-mail e mensagens de voz), landing pages, APIs REST e automação
+					de processos. Também trabalho com melhorias de UI, UX e acessibilidade
+					para pessoas com deficiência (PCD).
 					<br />
 					<br />
-					Em setembro de 2024, me especializei no{" "}
-					<Text className="text-green-dark dark:text-green-light">
-						Desenvolvimento Web
-					</Text>{" "}
-					através de cursos e estudo por conta própria sobre{" "}
-					<Text className="text-green-dark dark:text-green-light">React</Text> e{" "}
-					<Text className="text-green-dark dark:text-green-light">ASP.NET</Text>
-					.
+					Uso principalmente Codex como assistente de IA e estruturo
+					documentação contextual para reduzir retrabalho, acelerar
+					implementações e diminuir custos operacionais. Equilibro legibilidade,
+					modularização e agilidade na entrega.
 					<br />
 					<br />
-					Desde então, venho desenvolvendo{" "}
-					<Text className="text-green-dark dark:text-green-light">APIs</Text> e{" "}
-					<Text className="text-green-dark dark:text-green-light">sites</Text>{" "}
-					como esse.
+					Moro no Rio de Janeiro - RJ, com disponibilidade para trabalho
+					presencial, remoto ou híbrido.
 				</Text>
 			</Card>
 
-			<ButtonAdvance href="#habilidades" />
+			<ButtonAdvance href="#experiencia-profissional" />
 		</div>
 	);
 }

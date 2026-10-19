@@ -23,19 +23,23 @@ export const otherSkillsList: SkillModel[] = [
 			"Aprendizado contínuo",
 			"Flexibilidade",
 			"Raciocínio lógico",
+			"Pensamento crítico",
 		],
 	},
 
 	{
 		title: "Educação",
 		skills: [
-			"Engenharia de Software (UNINTER)",
-			"Programação de Jogos Digitais (FAETEC)",
+			"Engenharia de Software — Bacharelado EAD, UNINTER (Ago/2024 – Dez/2028, 4º período)",
+			"Programação de Jogos Digitais — Técnico, FAETEC (Jan/2021 – Dez/2023)",
 		],
 	},
 
 	{
 		title: "Cursos",
-		skills: ["Curso React (Rocketseat)", "Curso ASP.NET (Udemy)"],
+		skills: [
+			"Curso React (Rocketseat) — Jul/2025, 6 horas",
+			"Web API ASP.NET Core Essencial (Udemy) — Jan/2025, 46,5 horas",
+		],
 	},
 ];

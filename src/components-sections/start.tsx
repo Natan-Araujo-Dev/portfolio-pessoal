@@ -38,7 +38,7 @@ function StartDesktop() {
 
 			<div className="flex justify-center">
 				<Text variant="tomorrow-impact-sm">
-					Desenvolvedor FullStack | Engenheiro de Software
+					Desenvolvedor FullStack | Engenheiro de Software | Prompt Engineering
 				</Text>
 			</div>
 
@@ -57,6 +57,9 @@ function StartMobile() {
 			gap-y-5"
 		>
 			<div>
+				<input type="date" placeholder="" className="text-red-500"/>
+			</div>
+			<div>
 				<Text variant="tomorrow-impact">
 					Bem vindo(a)
 					<br /> ao meu site.
@@ -70,7 +73,7 @@ function StartMobile() {
 
 			<div className="flex justify-center">
 				<Text variant="tomorrow-impact-sm">
-					Desenvolvedor FullStack | Engenheiro de Software
+					Desenvolvedor FullStack | Engenheiro de Software | Prompt Engineering
 				</Text>
 			</div>
 

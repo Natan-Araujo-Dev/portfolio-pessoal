@@ -11,20 +11,25 @@ export default function ButtonToggleTheme() {
 				type="button"
 				onClick={toggle}
 				className="
-				flex
-				justify-between
-				px-[5px] py-[2px]
+				inline-flex
+				justify-center items-center
+				px-2 py-1
+				text-base
  				cursor-pointer
 				border-2 rounded-md
 				border-gray-light dark:border-gray-medium
 				fill-color
 				expand-lg
-				gap-x-1"
+				gap-x-2"
 			>
-				<div>
-					<Text variant="tomorrow-header-shortcut">Tema</Text>
-				</div>
-				<div>{darkMode ? <Moon /> : <Sun />}</div>
+				<Text variant="tomorrow-header-shortcut" className="leading-none">
+					Tema
+				</Text>
+				{darkMode ? (
+					<Moon size="1em" className="shrink-0" />
+				) : (
+					<Sun size="1em" className="shrink-0" />
+				)}
 			</button>
 		</div>
 	);

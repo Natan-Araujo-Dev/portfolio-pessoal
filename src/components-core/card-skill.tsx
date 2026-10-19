@@ -1,4 +1,3 @@
-import { Dot } from "lucide-react";
 import Card from "../components-base/card";
 import Text from "../components-base/text";
 import type { SkillModel } from "../models/skillModel";
@@ -12,15 +11,15 @@ export default function CardSkill({ skill }: SkillProps) {
 		<Card
 			className="
 			flex flex-col
-			justify-between items-center
+			justify-start items-center
 			w-80
 			p-10
-			text-black dark:text-white"
+			text-gray-dark dark:text-gray-200"
 		>
 			<div
 				className="
 				flex justify-center
-				mb-10"
+				mb-6 text-center"
 			>
 				<Text
 					variant="tomorrow-xl"
@@ -30,20 +29,24 @@ export default function CardSkill({ skill }: SkillProps) {
 				</Text>
 			</div>
 
-			<div
+			<ul
 				className="
 				flex flex-col
-				justify-center items-start
-				h-full w-full"
+				items-start
+				w-full gap-y-3"
 			>
 				{skill.skills.map((skill) => (
-					<Text key={skill} variant="tomorrow-sm">
-						<div className="flex flex-row">
-							<Dot /> {skill}
-						</div>
-					</Text>
+					<li key={skill} className="flex items-start gap-x-3">
+						<span
+							aria-hidden="true"
+							className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-blue-700 dark:bg-blue-400"
+						/>
+						<Text as="span" variant="tomorrow-sm" className="leading-relaxed">
+							{skill}
+						</Text>
+					</li>
 				))}
-			</div>
+			</ul>
 		</Card>
 	);
 }
