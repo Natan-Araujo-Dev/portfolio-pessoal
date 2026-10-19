@@ -55,7 +55,7 @@ export default function Footer() {
 					gap-y-2 
         			text-white dark:text-gray-200"
 				>
-					<Text variant="tomorrow-md-extralight">Contato</Text>
+					<Text variant="tomorrow-md-extralight">Contato:</Text>
 					<div
 						className="
 						flex flex-row flex-wrap

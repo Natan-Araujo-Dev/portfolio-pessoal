@@ -5,6 +5,7 @@ export const experiencesList: SkillModel[] = [
 		title: "Experiência — Reeve",
 		skills: [
 			"Desenvolvedor de Software Fullstack (Fev/2026 – Atual)",
+			"SmartSIG e SmartCidadão: manutenção e evolução dos sistemas, correções em cadastros, mapas e fluxos de atendimento, melhorias de UI e UX, novas funcionalidades e deploys com Docker.",
 			"SendWork: melhorias de UI e UX, mais de 70 erros corrigidos, 9 funções implementadas e atualizações no servidor.",
 			"Plataforma de monitoramento de Webhooks, RabbitMQ e servidores: 18 serviços centralizados, alertas por e-mail e diagnóstico reduzido de 15 para 1 minuto.",
 			"Estruturação e documentação dos 27 endpoints da API pública da SendWork.",

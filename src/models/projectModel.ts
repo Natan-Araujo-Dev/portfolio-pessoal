@@ -4,5 +4,6 @@ export interface ProjectModel {
 	features: string[];
 	technologies: string[];
 	projectLink?: string | null;
-	gitHubLink: string;
+	gitHubLink?: string;
+	gitHubLinks?: { label: string; url: string }[];
 }

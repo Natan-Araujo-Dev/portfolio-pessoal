@@ -19,7 +19,7 @@ export default function About() {
 			<div
 				className="
 				flex flex-row flex-wrap
-				justify-center items-center
+				justify-center items-start
 				gap-8"
 			>
 				{projectsList.map((proj) => (
@@ -31,6 +31,7 @@ export default function About() {
 						technologies={proj.technologies}
 						projectLink={proj.projectLink}
 						gitHubLink={proj.gitHubLink}
+						gitHubLinks={proj.gitHubLinks}
 					/>
 				))}
 			</div>

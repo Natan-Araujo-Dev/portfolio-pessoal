@@ -13,7 +13,11 @@ export default function CardProject({
 	technologies,
 	projectLink,
 	gitHubLink,
+	gitHubLinks,
 }: CardProps) {
+	const repositories =
+		gitHubLinks ?? (gitHubLink ? [{ label: "GitHub", url: gitHubLink }] : []);
+
 	return (
 		<Card
 			className="
@@ -44,7 +48,7 @@ export default function CardProject({
                justify-center items-start
                gap-y-1"
 				>
-					<Text variant="tomorrow-sm">Features:</Text>
+					<Text variant="tomorrow-sm">Minha atuação:</Text>
 					{features.map((feat) => (
 						<Text variant="tomorrow-sm-extralight" key={feat}>
 							<div className="flex flex-row">
@@ -63,21 +67,24 @@ export default function CardProject({
 				</div>
 
 				<div className="flex justify-center items-center w-full gap-x-2">
-					<div
-						className="
+					{repositories.map((repository) => (
+						<div
+							key={repository.url}
+							className="
                   bg-gray-light dark:bg-gray-dark p-1
                   rounded-md"
-					>
-						<a
-							href={gitHubLink}
-							target="_blank"
-							rel="noopener noreferrer"
-							className="flex justify-center items-center gap-x-2"
 						>
-							<Text variant="tomorrow-sm-extralight">GitHub</Text>
-							<Github className="w-5 h-5 text-gray-700 dark:text-gray-light" />
-						</a>
-					</div>
+							<a
+								href={repository.url}
+								target="_blank"
+								rel="noopener noreferrer"
+								className="flex justify-center items-center gap-x-2"
+							>
+								<Text variant="tomorrow-sm-extralight">{repository.label}</Text>
+								<Github className="w-5 h-5 text-gray-700 dark:text-gray-light" />
+							</a>
+						</div>
+					))}
 
 					{projectLink && (
 						<div
