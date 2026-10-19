@@ -87,7 +87,7 @@ export default function ContactLink({
 					if (event.currentTarget.matches(":focus-visible")) showPopup();
 				}}
 				onClick={showPopup}
-				className="flex justify-center items-center gap-x-2 cursor-pointer hover:text-green-light expand-lg"
+				className={`flex justify-center items-center gap-x-2 cursor-pointer ${href ? "hover:text-green-light expand-lg" : ""}`}
 			>
 				{children}
 			</button>
