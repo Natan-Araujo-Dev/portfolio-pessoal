@@ -15,8 +15,8 @@ export default function Card({ className, children }: CardProps) {
          bg-card-light/70 dark:bg-card-dark/95
          transition-all
          duration-[var(--duration-default)] ease-linear
-         shadow-card-shadow-light dark:shadow-card-shadow-dark
-         shadow-none
+         shadow-lg shadow-black/30
+         hover:shadow-[#2596be] dark:hover:shadow-card-shadow-dark
          hover:shadow-[0_0_20px_4px_rgba(0,0,0,0.2)]
 			expand-sm
 			backdrop-blur-xs

@@ -32,7 +32,7 @@ export default function CardProject({
 				<div className="flex justify-center mb-6 items-center">
 					<Text
 						variant="tomorrow-xl"
-						className="text-blue-700 dark:text-blue-400"
+						className="title-shadow text-blue-700 dark:text-blue-400"
 					>
 						{title}
 					</Text>

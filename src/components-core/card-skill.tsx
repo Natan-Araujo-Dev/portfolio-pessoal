@@ -23,7 +23,7 @@ export default function CardSkill({ skill }: SkillProps) {
 			>
 				<Text
 					variant="tomorrow-xl"
-					className="text-blue-700 dark:text-blue-400"
+					className="title-shadow text-blue-700 dark:text-blue-400"
 				>
 					{skill.title}
 				</Text>
