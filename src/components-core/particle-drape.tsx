@@ -54,12 +54,32 @@ export default function ParticleDrape() {
 			aspect: gl.getUniformLocation(program, "aspect"),
 			pixelRatio: gl.getUniformLocation(program, "pixelRatio"),
 			pointer: gl.getUniformLocation(program, "pointer"),
-			ripple: gl.getUniformLocation(program, "ripple"),
-			dark: gl.getUniformLocation(program, "dark"),
+			cursor: gl.getUniformLocation(program, "cursor"),
+			trails: gl.getUniformLocation(program, "trails[0]"),
+			ripples: gl.getUniformLocation(program, "ripples[0]"),
 			pointColor: gl.getUniformLocation(program, "pointColor"),
+			highlightColor: gl.getUniformLocation(program, "highlightColor"),
 		};
 		gl.uniform1f(gl.getUniformLocation(program, "lineWidth"), Math.max(0.1, drapeConfig.lineWidth));
+		gl.uniform1f(gl.getUniformLocation(program, "lineDirectionVariation"), Math.max(0, drapeConfig.lineDirectionVariation));
 		gl.uniform1f(gl.getUniformLocation(program, "pointSize"), Math.max(0.1, drapeConfig.pointSize));
+		gl.uniform1f(gl.getUniformLocation(program, "zoom"), Math.max(0.1, drapeConfig.zoom));
+		gl.uniform2f(
+			gl.getUniformLocation(program, "positionOffset"),
+			drapeConfig.positionX / 50,
+			-drapeConfig.positionY / 50,
+		);
+		gl.uniform1f(gl.getUniformLocation(program, "brush"), Math.max(0, drapeConfig.brush));
+		gl.uniform1f(gl.getUniformLocation(program, "brushRadius"), Math.max(0.01, drapeConfig.brushRadius));
+		gl.uniform1f(gl.getUniformLocation(program, "parallax"), Math.max(0, drapeConfig.parallax));
+		for (const [name, wave] of Object.entries(drapeConfig.waves)) {
+			gl.uniform3f(
+				gl.getUniformLocation(program, `${name}Wave`),
+				wave.amplitude,
+				wave.frequency,
+				wave.speed,
+			);
+		}
 		const root = document.documentElement;
 		let currentLayout = "";
 		let pointCount = 0;
@@ -68,29 +88,45 @@ export default function ParticleDrape() {
 		let time = 0;
 		let pointer = [0, 0];
 		let target = [0, 0];
-		let ripple = [0, 0, -100];
+		let pointerActive = false;
+		let cursorStrength = 0;
+		let trailIndex = 0;
+		let rippleIndex = 0;
+		let lastTrail = -1;
+		const trails = new Float32Array(6 * 4);
+		const ripples = new Float32Array(8 * 3);
+		for (let i = 0; i < 6; i++) trails[i * 4 + 2] = -100;
+		for (let i = 0; i < 8; i++) ripples[i * 3 + 2] = -100;
 
 		function draw(now: number) {
-			time += previous ? Math.min((now - previous) / 1000, 0.05) : 0;
+			const elapsed = previous ? Math.min((now - previous) / 1000, 0.1) : 0;
+			time += elapsed;
 			previous = now;
-			pointer = pointer.map((value, i) => value + (target[i] - value) * 0.05);
+			const smoothing = 1 - Math.exp(-elapsed * 7);
+			pointer = pointer.map((value, i) => value + ((pointerActive ? target[i] : 0) - value) * smoothing);
+			cursorStrength += ((pointerActive ? 1 : 0) - cursorStrength) * smoothing;
 			gl!.clear(gl!.COLOR_BUFFER_BIT);
 			gl!.uniform1f(uniforms.time, time);
 			gl!.uniform2f(uniforms.pointer, pointer[0], pointer[1]);
-			gl!.uniform3f(uniforms.ripple, ripple[0], ripple[1], ripple[2]);
+			gl!.uniform3f(uniforms.cursor, target[0], target[1], cursorStrength);
+			gl!.uniform4fv(uniforms.trails, trails);
+			gl!.uniform3fv(uniforms.ripples, ripples);
 			gl!.drawArrays(gl!.POINTS, 0, pointCount);
 			frame = requestAnimationFrame(draw);
 		}
 
 		function sync() {
-			cancelAnimationFrame(frame);
-			previous = 0;
 			const dark = root.classList.contains("dark");
-			const color = drapeConfig.pointColor[dark ? "dark" : "light"];
-			const rgb = color.slice(1).match(/.{2}/g)!.map((value) => Number.parseInt(value, 16) / 255);
-			gl!.uniform1f(uniforms.dark, dark ? 1 : 0);
-			gl!.uniform3f(uniforms.pointColor, rgb[0], rgb[1], rgb[2]);
-			if (!document.hidden && !root.matches(".reduced-motion, .high-contrast")) {
+			for (const name of ["pointColor", "highlightColor"] as const) {
+				const color = drapeConfig[name][dark ? "dark" : "light"];
+				const rgb = color.slice(1).match(/.{2}/g)!.map((value) => Number.parseInt(value, 16) / 255);
+				gl!.uniform3f(uniforms[name], rgb[0], rgb[1], rgb[2]);
+			}
+			if (document.hidden || root.matches(".reduced-motion, .high-contrast")) {
+				cancelAnimationFrame(frame);
+				frame = 0;
+				previous = 0;
+			} else if (!frame) {
 				frame = requestAnimationFrame(draw);
 			}
 		}
@@ -119,13 +155,28 @@ export default function ParticleDrape() {
 			gl!.uniform1f(uniforms.pixelRatio, ratio);
 		}
 		function move(event: PointerEvent) {
-			target = [event.clientX / window.innerWidth * 2 - 1, 1 - event.clientY / window.innerHeight * 2];
+			const rect = canvas!.getBoundingClientRect();
+			const next = [(event.clientX - rect.left) / rect.width * 2 - 1, 1 - (event.clientY - rect.top) / rect.height * 2];
+			const distance = Math.hypot(next[0] - target[0], next[1] - target[1]);
+			if (pointerActive && distance > 0.002 && time - lastTrail > 0.025) {
+				trails.set([next[0], next[1], time, Math.min(1, distance * 12)], trailIndex * 4);
+				trailIndex = (trailIndex + 1) % 6;
+				lastTrail = time;
+			}
+			target = next;
+			pointerActive = true;
 		}
 		function click(event: MouseEvent) {
-			ripple = [event.clientX / window.innerWidth * 2 - 1, 1 - event.clientY / window.innerHeight * 2, time];
+			if (event.detail === 0) return;
+			const rect = canvas!.getBoundingClientRect();
+			ripples.set([(event.clientX - rect.left) / rect.width * 2 - 1, 1 - (event.clientY - rect.top) / rect.height * 2, time], rippleIndex * 3);
+			rippleIndex = (rippleIndex + 1) % 8;
 		}
 		function leave() {
-			target = [0, 0];
+			pointerActive = false;
+		}
+		function release(event: PointerEvent) {
+			if (event.pointerType !== "mouse") leave();
 		}
 		const observer = new MutationObserver(sync);
 		observer.observe(root, { attributes: true, attributeFilter: ["class"] });
@@ -133,6 +184,9 @@ export default function ParticleDrape() {
 		sizeObserver.observe(canvas);
 		window.addEventListener("pointermove", move, { passive: true });
 		window.addEventListener("click", click);
+		window.addEventListener("blur", leave);
+		window.addEventListener("pointerup", release);
+		window.addEventListener("pointercancel", leave);
 		document.addEventListener("pointerleave", leave);
 		document.addEventListener("visibilitychange", sync);
 		resize();
@@ -144,6 +198,9 @@ export default function ParticleDrape() {
 			sizeObserver.disconnect();
 			window.removeEventListener("pointermove", move);
 			window.removeEventListener("click", click);
+			window.removeEventListener("blur", leave);
+			window.removeEventListener("pointerup", release);
+			window.removeEventListener("pointercancel", leave);
 			document.removeEventListener("pointerleave", leave);
 			document.removeEventListener("visibilitychange", sync);
 			dispose();
