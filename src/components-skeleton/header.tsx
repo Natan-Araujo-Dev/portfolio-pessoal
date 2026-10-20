@@ -17,7 +17,10 @@ export default function Header() {
 			smooth-transition"
 		>
 			<div className="text-green-light expand-sm">
-				<a href="#inicio">
+				<a
+					href="#inicio"
+					className="inline-flex items-center -mx-2 -my-1 px-2 py-1 rounded-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-light"
+				>
 					<Text variant="tomorrow-header-name">Natan Araujo</Text>
 				</a>
 			</div>

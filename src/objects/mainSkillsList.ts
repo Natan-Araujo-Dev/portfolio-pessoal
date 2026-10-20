@@ -31,7 +31,7 @@ export const mainSkillsList: SkillModel[] = [
 
 	{
 		title: "Banco de dados",
-		skills: ["PostgreSQL", "SQL Server", "MySQL"],
+		skills: ["PostgreSQL", "MariaDB", "SQL Server", "MySQL"],
 	},
 
 	{

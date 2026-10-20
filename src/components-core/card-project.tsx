@@ -60,7 +60,7 @@ export default function CardProject({
 			</div>
 
 			<div className="flex flex-col gap-y-2">
-				<div className="flex flex-wrap justify-start gap-2">
+				<div className="flex flex-wrap justify-start gap-2 py-2">
 					{technologies.map((tec) => (
 						<Tecnology name={tec} key={tec} />
 					))}

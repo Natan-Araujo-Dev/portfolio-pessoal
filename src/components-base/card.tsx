@@ -9,6 +9,7 @@ interface CardProps {
 export default function Card({ className, children }: CardProps) {
 	return (
 		<div
+			data-card
 			className={`
          rounded-2xl
          bg-card-light/70 dark:bg-card-dark/95

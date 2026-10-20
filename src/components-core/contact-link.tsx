@@ -54,6 +54,10 @@ export default function ContactLink({
 		setOpen(true);
 	}
 
+	function isMobile() {
+		return window.matchMedia("(max-width: 639px), (pointer: coarse)").matches;
+	}
+
 	async function copy(value: string) {
 		try {
 			await navigator.clipboard.writeText(value);
@@ -94,7 +98,12 @@ export default function ContactLink({
 					onFocus={(event) => {
 						if (event.currentTarget.matches(":focus-visible")) showPopup();
 					}}
-					className="flex justify-center items-center gap-x-2 cursor-pointer hover:text-green-light expand-lg"
+					onClick={(event) => {
+						if (!isMobile()) return;
+						event.preventDefault();
+						showPopup();
+					}}
+					className="flex justify-center items-center gap-x-2 cursor-pointer underline underline-offset-4 hover:text-green-light expand-lg"
 				>
 					{children}
 				</a>
@@ -109,9 +118,9 @@ export default function ContactLink({
 					}}
 					onClick={() => {
 						showPopup();
-						void copy(copyValue ?? "");
+						if (!isMobile()) void copy(copyValue ?? "");
 					}}
-					className="flex justify-center items-center gap-x-2 cursor-pointer"
+					className="flex justify-center items-center gap-x-2 cursor-pointer underline underline-offset-4 sm:no-underline"
 				>
 					{children}
 				</button>

@@ -4,6 +4,19 @@
 
 @theme {
 	--font-tomorrow: "Tomorrow", sans-serif;
+	--text-xs: calc(0.75rem * var(--accessibility-font-scale, 1));
+	--text-sm: calc(0.875rem * var(--accessibility-font-scale, 1));
+	--text-base: calc(1rem * var(--accessibility-font-scale, 1));
+	--text-lg: calc(1.125rem * var(--accessibility-font-scale, 1));
+	--text-xl: calc(1.25rem * var(--accessibility-font-scale, 1));
+	--text-2xl: calc(1.5rem * var(--accessibility-font-scale, 1));
+	--text-3xl: calc(1.875rem * var(--accessibility-font-scale, 1));
+	--text-4xl: calc(2.25rem * var(--accessibility-font-scale, 1));
+	--text-5xl: calc(3rem * var(--accessibility-font-scale, 1));
+	--text-6xl: calc(3.75rem * var(--accessibility-font-scale, 1));
+	--text-7xl: calc(4.5rem * var(--accessibility-font-scale, 1));
+	--text-8xl: calc(6rem * var(--accessibility-font-scale, 1));
+	--text-9xl: calc(8rem * var(--accessibility-font-scale, 1));
 
 	--header-height: 60px;
 
@@ -52,6 +65,115 @@
 
 html {
 	scroll-behavior: smooth;
+	cursor: url("./assets/green-and-black/1-Normal-Select.cur"), default;
+}
+
+html.middle-scroll,
+html.middle-scroll * {
+	cursor: url("./assets/middle-scroll.svg") 14 14, all-scroll !important;
+}
+
+html.middle-scroll[data-scroll-direction="up"],
+html.middle-scroll[data-scroll-direction="up"] * {
+	cursor: url("./assets/middle-scroll-up.svg") 14 14, n-resize !important;
+}
+
+html.middle-scroll[data-scroll-direction="down"],
+html.middle-scroll[data-scroll-direction="down"] * {
+	cursor: url("./assets/middle-scroll-down.svg") 14 14, s-resize !important;
+}
+
+body {
+	font-size: calc(1rem * var(--accessibility-font-scale, 1));
+	overflow-wrap: anywhere;
+}
+
+html.reduced-motion,
+html.reduced-motion *,
+html.reduced-motion *::before,
+html.reduced-motion *::after {
+	animation: none !important;
+	transition: none !important;
+	scroll-behavior: auto !important;
+}
+
+html.reduced-motion :is(.expand-lg, .expand-sm):hover {
+	scale: 1 !important;
+}
+
+html.reduced-motion #root canvas {
+	display: none;
+}
+
+html.high-contrast #root,
+html.high-contrast #root * {
+	color: #fff !important;
+	background-color: transparent !important;
+	border-color: #fff !important;
+	box-shadow: none !important;
+	text-shadow: none !important;
+}
+
+html.high-contrast #root,
+html.high-contrast #root [role="group"],
+html.high-contrast #root section[aria-label="Opções de acessibilidade"] {
+	background-color: #000 !important;
+}
+
+html.high-contrast #root [data-card],
+html.high-contrast #root header,
+html.high-contrast #root header details > div {
+	background-color: #242424 !important;
+}
+
+html.high-contrast #root :is(a, a *, button, button *, summary, summary *) {
+	color: #ffff00 !important;
+}
+
+html.high-contrast #root :focus-visible {
+	outline: 2px solid #ffff00 !important;
+	outline-offset: 3px;
+}
+
+html.high-contrast #root canvas {
+	display: none;
+}
+
+html.high-contrast #root [data-accessibility-trigger] {
+	background-color: #1d4ed8 !important;
+	color: #fff !important;
+}
+
+html.high-contrast #root [data-accessibility-trigger] * {
+	background-color: transparent !important;
+	color: #fff !important;
+}
+
+p,
+span,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+input,
+textarea,
+[contenteditable="true"] {
+	cursor: url("./assets/green-and-black/6-Text-Select.cur"), text;
+}
+
+a,
+a *,
+button,
+button *,
+summary,
+summary *,
+[role="button"],
+[role="button"] *,
+.cursor-pointer,
+.cursor-pointer * {
+	cursor: url("./assets/green-and-black/15-Link-Select.cur"), pointer;
 }
 
 .smooth-transition {
@@ -79,7 +201,7 @@ html {
 	--scrollbar-thumb: var(--color-gray-light);
 }
 
-[class="dark"] {
+.dark {
 	--scrollbar-track: var(--color-gray-darker);
 	--scrollbar-thumb: var(--color-green-dark);
 }

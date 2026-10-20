@@ -95,8 +95,6 @@ export default function Footer() {
 						{/* GitHub */}
 						<ContactLink
 							label="GitHub"
-							copyValue="natan-araujo-dev"
-							copyLabel="Copiar usuário"
 							href="https://github.com/natan-araujo-dev"
 						>
 							<Text variant="tomorrow-sm-extralight">GitHub</Text>{" "}

@@ -4,7 +4,7 @@ export const otherSkillsList: SkillModel[] = [
 	{
 		title: "Línguas",
 		skills: [
-			"Inglês avançado (B2)",
+			"Inglês avançado (C1)",
 
 			"Espanhol básico (A1)",
 
