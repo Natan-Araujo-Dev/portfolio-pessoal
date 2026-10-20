@@ -11,10 +11,10 @@ function App() {
 			justify-center items-center
 			w-full min-h-screen"
 		>
+			<AccessibilityMenu />
 			<Header />
 			<MainContent />
 			<Footer />
-			<AccessibilityMenu />
 			<MiddleScroll />
 		</div>
 	);
