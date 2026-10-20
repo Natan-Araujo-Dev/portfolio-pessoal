@@ -9,22 +9,22 @@ export const backgroundValuesLight = {
 
 	count: 40,
 
-	size: { min: 2, max: 20, pulse: 0 },
+	size: { min: 6, max: 22, pulse: 0 },
 
 	speed: {
-		x: { min: 0, max: 0.8 },
-		y: { min: 0, max: 0.2 },
+		x: { min: 0.15, max: 0.8 },
+		y: { min: 0.08, max: 0.3 },
 	},
 
 	// ===== Colors =====
 
 	backgroundColor: getCssVar("--color-gray-background"),
 
-	particlesColors: ["#A7A5FE", "#FEA5CF", "#FCFEA5", "#A5FED3"],
+	particlesColors: ["#22845b", "#3b927e", "#56846b", "#4b8e98"],
 
 	blending: "none", // "none" | "overlay" | "screen" | "lighten"
 
-	opacity: { center: 0, edge: 1 },
+	opacity: { center: 0.15, edge: 0.75 },
 
 	// ===== Other =====
 

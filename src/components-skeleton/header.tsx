@@ -11,12 +11,12 @@ export default function Header() {
          justify-between items-center
          w-full min-h-(--header-height)
 			p-4 lg:px-12
-         text-white
-         bg-gray-dark/80 dark:bg-gray-darker/90
+         text-gray-dark dark:text-white
+         bg-header-light/90 dark:bg-gray-darker/90
 			backdrop-blur-xs
 			smooth-transition"
 		>
-			<div className="text-green-light expand-sm">
+			<div className="text-green-dark dark:text-green-light expand-sm">
 				<a
 					href="#inicio"
 					className="inline-flex items-center -mx-2 -my-1 px-2 py-1 rounded-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-light"

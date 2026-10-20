@@ -59,7 +59,7 @@ function HeaderShortchutMobile() {
 					gap-y-4
 					p-2
 					rounded-b-md
-					bg-gray-dark/80 dark:bg-gray-darker/90"
+					bg-header-light/95 dark:bg-gray-darker/90"
 				>
 					<Sections />
 				</div>

@@ -29,12 +29,12 @@ export default function Footer() {
 					flex flex-col
 					justify-center items-center"
 				>
-					<div className="text-xl text-green-light">
+					<div className="text-xl text-green-dark dark:text-green-light">
 						<Text variant="tomorrow-xl">Natan do Nascimento de Araujo</Text>
 					</div>
 					<div
 						className="
-         			text-white dark:text-gray-400"
+						text-gray-dark dark:text-gray-400"
 					>
 						<Text variant="tomorrow-md-extralight">
 							Desenvolvedor Fullstack | React | ASP.NET
@@ -47,7 +47,7 @@ export default function Footer() {
 					flex flex-col
 					justify-center items-center
 					gap-y-2 
-        			text-white dark:text-gray-200"
+					text-gray-dark dark:text-gray-200"
 				>
 					<Text variant="tomorrow-md-extralight">Contato:</Text>
 					<div
@@ -107,7 +107,7 @@ export default function Footer() {
 							href="https://drive.google.com/file/d/1Yjk_E6_Aghy2IOqPNiJ47qalMpqtkJwy/view?usp=sharing"
 						>
 							<Text variant="tomorrow-sm-extralight">Curriculo</Text>{" "}
-							<FileText className="w-6 h-6 text-white" />
+							<FileText className="w-6 h-6 text-gray-dark dark:text-white" />
 						</ContactLink>
 					</div>
 				</div>
@@ -119,7 +119,7 @@ export default function Footer() {
 				flex flex-col
 				justify-center items-center
 				text-center
-				text-white dark:text-gray-400
+				text-gray-dark dark:text-gray-400
 				w-full
 				py-3
 				bg-footer-end-light dark:bg-footer-end-dark"

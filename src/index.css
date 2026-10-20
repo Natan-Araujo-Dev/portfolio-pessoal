@@ -24,7 +24,7 @@
 	--screen-with-header: calc(100vh - var(--header-height) - 2px);
 	--scroll-offset: 28px;
 
-	--duration-default: 200ms;
+	--duration-default: 120ms;
 	--duration-background: 800ms;
 
 	/* branco padrão */
@@ -44,7 +44,8 @@
 	/* background escuro */
 	--color-blue-background: #1b1c29;
 	/* background claro */
-	--color-gray-background: #95b7c2;
+	--color-gray-background: #d3e3d9;
+	--color-header-light: #ffffff;
 
 	/* Main */
 	--color-green-dark: #008237;
@@ -52,15 +53,15 @@
 
 	/* Card */
 	--color-card-dark: #242732;
-	--color-card-light: #beccd4;
+	--color-card-light: #ffffff;
 	--color-card-shadow-dark: #164673;
-	--color-card-shadow-light: #2596be;
+	--color-card-shadow-light: #a6cbb7;
 
 	/* Footer */
 	--color-footer-main-dark: #16181a;
 	--color-footer-end-dark: #0e1012;
-	--color-footer-main-light: #6a7282;
-	--color-footer-end-light: #364152;
+	--color-footer-main-light: #e1ebe5;
+	--color-footer-end-light: #d3e1d9;
 }
 
 html {
@@ -193,12 +194,12 @@ summary *,
 }
 
 .fill-color {
-	@apply transition hover:text-[var(--color-green-light)] hover:border-[var(--color-green-light)] duration-[var(--duration-default)];
+	@apply transition hover:text-green-dark hover:border-green-dark dark:hover:text-green-light dark:hover:border-green-light duration-[var(--duration-default)];
 }
 
 :root {
-	--scrollbar-track: var(--color-gray-dark);
-	--scrollbar-thumb: var(--color-gray-light);
+	--scrollbar-track: var(--color-gray-background);
+	--scrollbar-thumb: #789889;
 }
 
 .dark {

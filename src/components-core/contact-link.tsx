@@ -103,7 +103,7 @@ export default function ContactLink({
 						event.preventDefault();
 						showPopup();
 					}}
-					className="flex justify-center items-center gap-x-2 cursor-pointer underline underline-offset-4 hover:text-green-light expand-lg"
+					className="flex justify-center items-center gap-x-2 cursor-pointer underline underline-offset-4 hover:text-green-dark dark:hover:text-green-light expand-lg"
 				>
 					{children}
 				</a>

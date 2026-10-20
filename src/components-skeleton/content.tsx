@@ -16,7 +16,7 @@ export default function Content() {
          z-50
 			mx-20
 			gap-y-20
-			text-white"
+			text-gray-dark dark:text-white"
 		>
 			<Start />
 
