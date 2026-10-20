@@ -159,12 +159,17 @@ export default function ContactLink({
 					)}
 					<button
 						type="button"
+						aria-live="polite"
 						onClick={() => copy(href ?? copyValue ?? "")}
 						className="flex items-center gap-2 p-2 rounded-md cursor-pointer hover:bg-black/10 dark:hover:bg-white/10 hover:text-green-dark dark:hover:text-green-light focus-visible:outline-2 focus-visible:outline-green-light"
 					>
 						<Copy size={16} aria-hidden="true" />
 						<Text variant="tomorrow-sm">
-							{href ? "Copiar link" : copyLabel}
+							{copyStatus === "Copiado!"
+								? copyStatus
+								: href
+									? "Copiar link"
+									: copyLabel}
 						</Text>
 					</button>
 					{href && copyValue && (
@@ -177,9 +182,11 @@ export default function ContactLink({
 							<Text variant="tomorrow-sm">{copyLabel}</Text>
 						</button>
 					)}
-					<span role="status" className="font-tomorrow text-xs">
-						{copyStatus}
-					</span>
+					{copyStatus && copyStatus !== "Copiado!" && (
+						<span role="status" className="font-tomorrow text-xs">
+							{copyStatus}
+						</span>
+					)}
 				</div>
 			</div>
 		</div>

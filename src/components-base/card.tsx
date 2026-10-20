@@ -18,7 +18,6 @@ export default function Card({ className, children }: CardProps) {
          shadow-lg shadow-black/30
          hover:shadow-[#2596be] dark:hover:shadow-card-shadow-dark
          hover:shadow-[0_0_20px_4px_rgba(0,0,0,0.2)]
-			expand-sm
 			backdrop-blur-xs
          ${className}`}
 		>

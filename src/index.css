@@ -25,7 +25,7 @@
 	--screen-with-header: calc(100vh - var(--header-height) - 2px);
 	--scroll-offset: 28px;
 
-	--duration-default: 120ms;
+	--duration-default: 50ms;
 	--duration-background: 800ms;
 
 	/* branco padrão */
@@ -179,7 +179,7 @@ summary *,
 }
 
 .smooth-transition {
-	@apply transition duration-[var(--duration-default)];
+	@apply transition duration-[var(--duration-default)] ease-linear;
 }
 
 .title-shadow {
@@ -216,7 +216,7 @@ summary *,
 }
 
 .fill-color {
-	@apply transition hover:text-green-dark hover:border-green-dark dark:hover:text-green-light dark:hover:border-green-light duration-[var(--duration-default)];
+	@apply transition-[color,border-color,scale] hover:text-green-dark hover:border-green-dark dark:hover:text-green-light dark:hover:border-green-light duration-[var(--duration-default)] ease-linear;
 }
 
 :root {

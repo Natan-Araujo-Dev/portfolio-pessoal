@@ -2,7 +2,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import React from "react";
 
 export const textVariants = cva(
-	"font-tomorrow transition-colors duration-[var(--duration-default)]",
+	"font-tomorrow",
 	{
 		variants: {
 			variant: {

@@ -20,7 +20,7 @@ export default function ButtonToggleTheme() {
 				border-gray-light dark:border-gray-medium
 				fill-color
 				expand-lg
-				gap-x-2"
+					gap-x-2"
 			>
 				<Text variant="tomorrow-header-shortcut" className="leading-none">
 					Tema
