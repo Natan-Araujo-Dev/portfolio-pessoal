@@ -39,7 +39,7 @@ export default function CardProject({
 				</div>
 
 				<div className="flex justify-start items-center w-full">
-					<Text variant="tomorrow-sm-extralight">{summary}</Text>
+					<Text variant="cascadia-prose">{summary}</Text>
 				</div>
 
 				<div
@@ -50,7 +50,7 @@ export default function CardProject({
 				>
 					<Text variant="tomorrow-sm">Minha atuação:</Text>
 					{features.map((feat) => (
-						<Text variant="tomorrow-sm-extralight" key={feat}>
+						<Text variant="cascadia-prose" key={feat}>
 							<div className="flex flex-row">
 								<Dot /> {feat}
 							</div>

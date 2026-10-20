@@ -2,7 +2,7 @@ import type { SkillModel } from "../models/skillModel";
 
 export const experiencesList: SkillModel[] = [
 	{
-		title: "Experiência — Reeve",
+		title: "Reeve",
 		skills: [
 			"Desenvolvedor de Software Fullstack (Fev/2026 – Atual)",
 			"SmartSIG e SmartCidadão: manutenção e evolução dos sistemas, correções em cadastros, mapas e fluxos de atendimento, melhorias de UI e UX, novas funcionalidades e deploys com Docker.",
@@ -15,7 +15,7 @@ export const experiencesList: SkillModel[] = [
 	},
 
 	{
-		title: "Experiência — W Foster Engenharia Civil",
+		title: "W Foster Engenharia Civil",
 		skills: [
 			"Desenvolvedor de Software Fullstack (Dez/2025 – Fev/2026)",
 			"Desenvolvimento individual de plataforma interna de tarefas, centralizando demandas, responsáveis e prazos antes gerenciados por WhatsApp.",

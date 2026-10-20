@@ -23,7 +23,10 @@ export default function About() {
 				lg:w-180
 				p-10"
 			>
-				<Text className="text-gray-dark dark:text-white">
+				<Text
+					variant="cascadia-prose"
+					className="text-gray-dark dark:text-white"
+				>
 					Sou um{" "}
 					<Text className="text-green-dark dark:text-green-light">
 						Desenvolvedor FullStack

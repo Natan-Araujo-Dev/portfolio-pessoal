@@ -22,7 +22,7 @@ export default function Experiences() {
 				gap-8"
 			>
 				{experiencesList.map((experience) => (
-					<CardSkill key={experience.title} skill={experience} />
+					<CardSkill key={experience.title} skill={experience} prose />
 				))}
 			</div>
 

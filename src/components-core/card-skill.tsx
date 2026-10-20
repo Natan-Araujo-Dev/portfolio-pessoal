@@ -4,9 +4,10 @@ import type { SkillModel } from "../models/skillModel";
 
 interface SkillProps {
 	skill: SkillModel;
+	prose?: boolean;
 }
 
-export default function CardSkill({ skill }: SkillProps) {
+export default function CardSkill({ skill, prose = false }: SkillProps) {
 	return (
 		<Card
 			className="
@@ -41,7 +42,11 @@ export default function CardSkill({ skill }: SkillProps) {
 							aria-hidden="true"
 							className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-blue-700 dark:bg-blue-400"
 						/>
-						<Text as="span" variant="tomorrow-sm" className="leading-relaxed">
+						<Text
+							as="span"
+							variant={prose ? "cascadia-prose" : "tomorrow-sm"}
+							className="leading-relaxed"
+						>
 							{skill}
 						</Text>
 					</li>

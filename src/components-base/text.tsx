@@ -6,6 +6,7 @@ export const textVariants = cva(
 	{
 		variants: {
 			variant: {
+				"cascadia-prose": "prose-text text-lg font-normal leading-relaxed",
 				"tomorrow-header-name": "title-shadow text-2xl lg:text-3xl",
 
 				"tomorrow-header-shortcut": "font-light",
@@ -16,7 +17,7 @@ export const textVariants = cva(
 					"text-sm lg:text-xl font-extralight text-gray-900 dark:text-gray-300",
 
 				"tomorrow-section":
-					"title-shadow text-3xl lg:text-4xl font-medium text-green-dark dark:text-green-light",
+					"title-shadow uppercase text-3xl lg:text-4xl font-medium text-green-dark dark:text-green-light",
 
 				"tomorrow-9xl": "text-9xl",
 				"tomorrow-9xl-extralight": "text-9xl font-light",

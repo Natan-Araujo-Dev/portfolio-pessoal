@@ -4,6 +4,7 @@
 
 @theme {
 	--font-tomorrow: "Tomorrow", sans-serif;
+	--font-prose: "Cascadia Code", Consolas, monospace;
 	--text-xs: calc(0.75rem * var(--accessibility-font-scale, 1));
 	--text-sm: calc(0.875rem * var(--accessibility-font-scale, 1));
 	--text-base: calc(1rem * var(--accessibility-font-scale, 1));
@@ -187,6 +188,11 @@ summary *,
 		0 4px 8px rgba(0, 0, 0, 0.425),
 		0 6px 16px rgba(0, 0, 0, 0.375),
 		0 8px 32px rgba(0, 0, 0, 0.325);
+}
+
+.prose-text,
+.prose-text .font-tomorrow {
+	font-family: var(--font-prose);
 }
 
 [data-card] {
