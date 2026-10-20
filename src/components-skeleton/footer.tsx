@@ -1,13 +1,6 @@
 /** biome-ignore-all lint/correctness/useUniqueElementIds: <ids estáticos> */
 
-import {
-	FileText,
-	Github,
-	Linkedin,
-	Mail,
-	MessageCircle,
-	Phone,
-} from "lucide-react";
+import { FileText, Github, Linkedin, Mail, Phone } from "lucide-react";
 import Text from "../components-base/text";
 import ContactLink from "../components-core/contact-link";
 
@@ -110,17 +103,6 @@ export default function Footer() {
 							<Github className="w-6 h-6 text-gray-700" />
 						</ContactLink>
 
-						{/* Email */}
-						<ContactLink
-							label="Email"
-							copyValue="natan.araujo.dev@gmail.com"
-							copyLabel="Copiar e-mail"
-							href="https://mail.google.com/mail/?view=cm&fs=1&to=natan.araujo.dev@gmail.com"
-						>
-							<Text variant="tomorrow-sm-extralight">Email</Text>
-							<Mail className="w-6 h-6 text-yellow-600" />
-						</ContactLink>
-
 						{/* Currículo */}
 						<ContactLink
 							label="Curriculo"
@@ -128,19 +110,6 @@ export default function Footer() {
 						>
 							<Text variant="tomorrow-sm-extralight">Curriculo</Text>{" "}
 							<FileText className="w-6 h-6 text-white" />
-						</ContactLink>
-
-						{/* Whatsapp */}
-						<ContactLink
-							label="WhatsApp"
-							href={`https://wa.me/+5521976486646?`}
-						>
-							<Text variant="tomorrow-sm-extralight">WhatsApp</Text>
-							<MessageCircle
-								size={22}
-								aria-hidden="true"
-								className="text-green-500"
-							/>
 						</ContactLink>
 					</div>
 				</div>

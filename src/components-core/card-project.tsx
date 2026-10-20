@@ -71,17 +71,17 @@ export default function CardProject({
 						<div
 							key={repository.url}
 							className="
-                  bg-gray-light dark:bg-gray-dark p-1
+                  bg-gray-light dark:bg-gray-dark
                   rounded-md"
 						>
 							<a
 								href={repository.url}
 								target="_blank"
 								rel="noopener noreferrer"
-								className="flex justify-center items-center gap-x-2"
+								className="inline-flex justify-center items-center gap-2 px-2 py-1.5"
 							>
 								<Text variant="tomorrow-sm-extralight">{repository.label}</Text>
-								<Github className="w-5 h-5 text-gray-700 dark:text-gray-light" />
+								<Github className="w-5 h-5 shrink-0 text-gray-700 dark:text-gray-light" />
 							</a>
 						</div>
 					))}
@@ -89,17 +89,17 @@ export default function CardProject({
 					{projectLink && (
 						<div
 							className="
-                     bg-gray-light dark:bg-gray-dark p-1
+                     bg-gray-light dark:bg-gray-dark
                      rounded-md"
 						>
 							<a
 								href={projectLink}
 								target="_blank"
 								rel="noopener noreferrer"
-								className="flex justify-center items-center gap-x-2"
+								className="inline-flex justify-center items-center gap-2 px-2 py-1.5"
 							>
-								<Text variant="tomorrow-sm-extralight">Demonstração</Text>
-								<ExternalLink className="w-5 h-5 text-gray-700 dark:text-gray-light" />
+								<Text variant="tomorrow-sm-extralight">Ir para o site</Text>
+								<ExternalLink className="w-5 h-5 shrink-0 text-gray-700 dark:text-gray-light" />
 							</a>
 						</div>
 					)}

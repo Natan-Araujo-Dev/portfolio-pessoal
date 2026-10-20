@@ -20,6 +20,7 @@ export default function ContactLink({
 	const [open, setOpen] = useState(false);
 	const [copyStatus, setCopyStatus] = useState("");
 	const container = useRef<HTMLDivElement>(null);
+	const closeTimer = useRef<number | undefined>(undefined);
 	const popupId = useId();
 
 	useEffect(() => {
@@ -33,7 +34,7 @@ export default function ContactLink({
 			if (event.key !== "Escape") return;
 			if (container.current?.contains(document.activeElement)) {
 				container.current
-					.querySelector("button")
+					.querySelector<HTMLElement>("[data-contact-trigger]")
 					?.focus({ preventScroll: true });
 			}
 			setOpen(false);
@@ -42,6 +43,7 @@ export default function ContactLink({
 		document.addEventListener("pointerdown", closeOutside);
 		document.addEventListener("keydown", closeOnEscape);
 		return () => {
+			window.clearTimeout(closeTimer.current);
 			document.removeEventListener("pointerdown", closeOutside);
 			document.removeEventListener("keydown", closeOnEscape);
 		};
@@ -56,6 +58,8 @@ export default function ContactLink({
 		try {
 			await navigator.clipboard.writeText(value);
 			setCopyStatus("Copiado!");
+			window.clearTimeout(closeTimer.current);
+			closeTimer.current = window.setTimeout(() => setOpen(false), 1000);
 		} catch {
 			setCopyStatus("Não foi possível copiar.");
 		}
@@ -79,18 +83,39 @@ export default function ContactLink({
 				if (!event.currentTarget.contains(event.relatedTarget)) setOpen(false);
 			}}
 		>
-			<button
-				type="button"
-				aria-expanded={open}
-				aria-controls={popupId}
-				onFocus={(event) => {
-					if (event.currentTarget.matches(":focus-visible")) showPopup();
-				}}
-				onClick={showPopup}
-				className={`flex justify-center items-center gap-x-2 cursor-pointer ${href ? "hover:text-green-light expand-lg" : ""}`}
-			>
-				{children}
-			</button>
+			{href ? (
+				<a
+					data-contact-trigger
+					href={href}
+					target="_blank"
+					rel="noopener noreferrer"
+					aria-expanded={open}
+					aria-controls={popupId}
+					onFocus={(event) => {
+						if (event.currentTarget.matches(":focus-visible")) showPopup();
+					}}
+					className="flex justify-center items-center gap-x-2 cursor-pointer hover:text-green-light expand-lg"
+				>
+					{children}
+				</a>
+			) : (
+				<button
+					data-contact-trigger
+					type="button"
+					aria-expanded={open}
+					aria-controls={popupId}
+					onFocus={(event) => {
+						if (event.currentTarget.matches(":focus-visible")) showPopup();
+					}}
+					onClick={() => {
+						showPopup();
+						void copy(copyValue ?? "");
+					}}
+					className="flex justify-center items-center gap-x-2 cursor-pointer"
+				>
+					{children}
+				</button>
+			)}
 
 			<div
 				id={popupId}
@@ -119,7 +144,7 @@ export default function ContactLink({
 								className="flex items-center gap-2 p-2 rounded-md hover:bg-black/10 dark:hover:bg-white/10 hover:text-green-dark dark:hover:text-green-light focus-visible:outline-2 focus-visible:outline-green-light"
 							>
 								<ArrowRight size={16} aria-hidden="true" />
-								<Text variant="tomorrow-sm">Abrir aqui</Text>
+								<Text variant="tomorrow-sm">Abrir nesta guia</Text>
 							</a>
 						</>
 					)}
@@ -129,7 +154,9 @@ export default function ContactLink({
 						className="flex items-center gap-2 p-2 rounded-md cursor-pointer hover:bg-black/10 dark:hover:bg-white/10 hover:text-green-dark dark:hover:text-green-light focus-visible:outline-2 focus-visible:outline-green-light"
 					>
 						<Copy size={16} aria-hidden="true" />
-						<Text variant="tomorrow-sm">{href ? "Copiar link" : copyLabel}</Text>
+						<Text variant="tomorrow-sm">
+							{href ? "Copiar link" : copyLabel}
+						</Text>
 					</button>
 					{href && copyValue && (
 						<button

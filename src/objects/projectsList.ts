@@ -4,6 +4,7 @@ export const projectsList: ProjectModel[] = [
 	// Contribuições profissionais na Reeve
 	{
 		title: "SmartSIG",
+		projectLink: "https://guapimirim.smartsig.com.br",
 		summary:
 			"Manutenção e evolução do sistema de gestão municipal e geoprocessamento da Reeve.",
 		features: [
@@ -24,6 +25,7 @@ export const projectsList: ProjectModel[] = [
 
 	{
 		title: "SmartCidadão",
+		projectLink: "https://guapimirim.smartcidadao.com.br",
 		summary:
 			"Evolução do portal de serviços ao cidadão da Reeve, com foco em acessibilidade e atendimento.",
 		features: [
@@ -44,6 +46,7 @@ export const projectsList: ProjectModel[] = [
 
 	{
 		title: "SendWork",
+		projectLink: "https://app.sendwork.com.br",
 		summary:
 			"Manutenção e evolução da plataforma de mensageria da Reeve: campanhas, chatbots e APIs.",
 		features: [
