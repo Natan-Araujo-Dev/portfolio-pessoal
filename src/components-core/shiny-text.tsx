@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import type { CSSProperties, ReactNode } from "react";
 
-export const SHINY_TEXT_COLOR = "#ffffff";
+export const SHINY_TEXT_COLOR = "var(--shiny-text-highlight)";
 
 type Easing = "smooth" | "linear" | "snappy";
 type Trigger = "loop" | "hover" | "view";
@@ -230,11 +230,15 @@ const ShinyText = ({
 			const s = settingsRef.current!;
 			const color =
 				s.color === "currentColor" ? getComputedStyle(root).color : s.color;
-			const key = `${color}|${s.shineColor}`;
+			const shineVariable = s.shineColor.match(/^var\((--[^,)]+)\)$/)?.[1];
+			const shineColor = shineVariable
+				? getComputedStyle(root).getPropertyValue(shineVariable).trim() || "#ffffff"
+				: s.shineColor;
+			const key = `${color}|${shineColor}`;
 			if (key !== state.colors) {
 				state.colors = key;
 				base = parseColor(color);
-				shine = parseColor(s.shineColor);
+				shine = parseColor(shineColor);
 				clear = shine ? [shine[0], shine[1], shine[2], 0] : null;
 			}
 			if (!base || !shine) {

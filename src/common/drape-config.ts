@@ -1,7 +1,7 @@
 export const drapeConfig = {
-	backgroundColor: { light: "#f3f0fa", dark: "#0a0a0a" },
-	pointColor: { light: "#6a4bff", dark: "#6a4bff" },
-	highlightColor: { light: "#302052", dark: "#e4dbff" },
+	backgroundColor: { light: "#edf4f0", dark: "#0a0a0a" },
+	pointColor: { light: "#488d7c", dark: "#6a4bff" },
+	highlightColor: { light: "#276a83", dark: "#e4dbff" },
 
 	// 44 mil pontos no desktop.
 	pointsPerLine: { mobile: 220, desktop: 220 },
@@ -11,6 +11,7 @@ export const drapeConfig = {
 	// Desvio máximo em graus por fileira, para ambos os lados. 0 = sem desvio.
 	lineDirectionVariation: 10,
 	pointSize: 1,
+	lightPointScale: 1.5,
 
 	// Deslocamento em % da tela: X positivo = direita; Y positivo = baixo.
 	positionX: -2,

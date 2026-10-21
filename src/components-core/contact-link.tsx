@@ -130,7 +130,7 @@ export default function ContactLink({
 				id={popupId}
 				aria-hidden={!open}
 				inert={!open}
-				className={`absolute bottom-full left-1/2 -translate-x-1/2 sm:left-0 sm:translate-x-0 z-10 pb-3 origin-bottom sm:origin-bottom-left transition-all duration-[var(--duration-default)] ease-out motion-reduce:transition-none ${open ? "visible opacity-100 translate-y-0 scale-100" : "invisible opacity-0 translate-y-2 scale-95 pointer-events-none"}`}
+				className={`absolute bottom-full left-1/2 -translate-x-1/2 sm:left-0 sm:translate-x-0 z-10 pb-3 origin-bottom sm:origin-bottom-left transition-all duration-200 ease-out motion-reduce:transition-none ${open ? "visible opacity-100 translate-y-0 scale-100" : "invisible opacity-0 translate-y-2 scale-95 pointer-events-none"}`}
 			>
 				<div
 					role="group"

@@ -57,12 +57,12 @@ export default function ParticleDrape() {
 			cursor: gl.getUniformLocation(program, "cursor"),
 			trails: gl.getUniformLocation(program, "trails[0]"),
 			ripples: gl.getUniformLocation(program, "ripples[0]"),
+			pointSize: gl.getUniformLocation(program, "pointSize"),
 			pointColor: gl.getUniformLocation(program, "pointColor"),
 			highlightColor: gl.getUniformLocation(program, "highlightColor"),
 		};
 		gl.uniform1f(gl.getUniformLocation(program, "lineWidth"), Math.max(0.1, drapeConfig.lineWidth));
 		gl.uniform1f(gl.getUniformLocation(program, "lineDirectionVariation"), Math.max(0, drapeConfig.lineDirectionVariation));
-		gl.uniform1f(gl.getUniformLocation(program, "pointSize"), Math.max(0.1, drapeConfig.pointSize));
 		gl.uniform1f(gl.getUniformLocation(program, "zoom"), Math.max(0.1, drapeConfig.zoom));
 		gl.uniform2f(
 			gl.getUniformLocation(program, "positionOffset"),
@@ -117,6 +117,7 @@ export default function ParticleDrape() {
 
 		function sync() {
 			const dark = root.classList.contains("dark");
+		gl!.uniform1f(uniforms.pointSize, Math.max(0.1, drapeConfig.pointSize * (dark ? 1 : drapeConfig.lightPointScale)));
 			for (const name of ["pointColor", "highlightColor"] as const) {
 				const color = drapeConfig[name][dark ? "dark" : "light"];
 				const rgb = color.slice(1).match(/.{2}/g)!.map((value) => Number.parseInt(value, 16) / 255);

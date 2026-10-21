@@ -31,7 +31,7 @@ export default function CardProject({
 		>
 			<div className="flex flex-col gap-y-3">
 				<div className="flex justify-center mb-6 items-center">
-					<Text variant="tomorrow-xl" className="title-shadow text-[#569CD6]">
+					<Text variant="tomorrow-xl" className="title-shadow text-[#245b91] dark:text-[#569CD6]">
 						{title}
 					</Text>
 				</div>
@@ -52,7 +52,7 @@ export default function CardProject({
 					{features.map((feat) => (
 						<Text variant="cascadia-prose" key={feat}>
 							<div className="flex flex-row">
-								<Dot className="shrink-0 text-[#569CD6]" />{" "}
+								<Dot className="shrink-0 text-[#245b91] dark:text-[#569CD6]" />{" "}
 								<span>
 									<HighlightedText>{feat}</HighlightedText>
 								</span>

@@ -87,7 +87,7 @@ const falloff = (color: string, softness: number) => {
 };
 
 const CARD =
-	"relative isolate overflow-hidden rounded-2xl bg-card-light/45 dark:bg-[#343947]/60 shadow-lg shadow-black/30 backdrop-blur-xs";
+	"relative isolate overflow-hidden rounded-2xl bg-card-light/80 dark:bg-[#343947]/60 shadow-lg shadow-black/30 backdrop-blur-xs";
 
 const SpotlightCard = ({
 	children,
@@ -194,7 +194,13 @@ const SpotlightCard = ({
 				edge.style.background = rim;
 			}
 			light.style.opacity = String(
-				Math.min(1, state.presence * s.intensity * boost),
+				Math.min(
+					1,
+					state.presence *
+						s.intensity *
+						boost *
+						(document.documentElement.classList.contains("dark") ? 1 : 0.35),
+				),
 			);
 			edge.style.opacity = String(
 				Math.min(1, state.presence * s.borderGlow * boost),

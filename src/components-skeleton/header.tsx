@@ -1,9 +1,31 @@
+import { useEffect, useRef } from "react";
 import Text from "../components-base/text";
 import HeaderShortcuts from "../components-core/header-shortcut";
 
 export default function Header() {
+	const header = useRef<HTMLElement>(null);
+
+	useEffect(() => {
+		const element = header.current;
+		if (!element) return;
+
+		const root = document.documentElement;
+		const observer = new ResizeObserver(() => {
+			root.style.setProperty(
+				"--header-height",
+				`${Math.ceil(element.getBoundingClientRect().height)}px`,
+			);
+		});
+		observer.observe(element);
+		return () => {
+			observer.disconnect();
+			root.style.removeProperty("--header-height");
+		};
+	}, []);
+
 	return (
 		<header
+			ref={header}
 			className="
 			fixed top-0 left-0
 			z-60
@@ -12,7 +34,7 @@ export default function Header() {
          w-full min-h-(--header-height)
 			p-4 lg:px-12
          text-gray-dark dark:text-white
-         bg-header-light/90 dark:bg-gray-darker/90
+		 bg-header-light dark:bg-gray-darker/90
 			backdrop-blur-xs
 			smooth-transition"
 		>
