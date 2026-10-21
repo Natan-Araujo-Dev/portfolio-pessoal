@@ -1,4 +1,5 @@
 import Text from "../components-base/text";
+import HighlightedText from "./highlighted-text";
 
 interface TecnologyProps {
 	name: string;
@@ -16,7 +17,9 @@ export default function Tecnology({ name: tecnologyName }: TecnologyProps) {
          bg-gray-300 dark:bg-cyan-800
          rounded-md"
 		>
-			<Text variant="tomorrow-sm-extralight">{tecnologyName}</Text>
+			<Text variant="tomorrow-sm-extralight">
+				<HighlightedText>{tecnologyName}</HighlightedText>
+			</Text>
 			<br />
 		</div>
 	);

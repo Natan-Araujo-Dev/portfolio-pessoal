@@ -3,6 +3,7 @@ import Card from "../components-base/card";
 import Text from "../components-base/text";
 import type { ProjectModel } from "../models/projectModel";
 import Tecnology from "./tecnology";
+import HighlightedText from "./highlighted-text";
 
 interface CardProps extends ProjectModel {}
 
@@ -30,16 +31,15 @@ export default function CardProject({
 		>
 			<div className="flex flex-col gap-y-3">
 				<div className="flex justify-center mb-6 items-center">
-					<Text
-						variant="tomorrow-xl"
-						className="title-shadow text-blue-700 dark:text-blue-400"
-					>
+					<Text variant="tomorrow-xl" className="title-shadow text-[#569CD6]">
 						{title}
 					</Text>
 				</div>
 
 				<div className="flex justify-start items-center w-full">
-					<Text variant="cascadia-prose">{summary}</Text>
+					<Text variant="cascadia-prose">
+						<HighlightedText>{summary}</HighlightedText>
+					</Text>
 				</div>
 
 				<div
@@ -52,7 +52,10 @@ export default function CardProject({
 					{features.map((feat) => (
 						<Text variant="cascadia-prose" key={feat}>
 							<div className="flex flex-row">
-								<Dot /> {feat}
+								<Dot className="shrink-0 text-[#569CD6]" />{" "}
+								<span>
+									<HighlightedText>{feat}</HighlightedText>
+								</span>
 							</div>
 						</Text>
 					))}

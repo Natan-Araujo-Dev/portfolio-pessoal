@@ -141,6 +141,10 @@ html.high-contrast #root canvas {
 	display: none;
 }
 
+html:is(.high-contrast, .reduced-motion) [data-spotlight-card] > [aria-hidden="true"] {
+	display: none;
+}
+
 html.high-contrast #root [data-accessibility-trigger] {
 	background-color: #1d4ed8 !important;
 	color: #fff !important;

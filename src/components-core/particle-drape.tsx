@@ -126,11 +126,20 @@ export default function ParticleDrape() {
 				cancelAnimationFrame(frame);
 				frame = 0;
 				previous = 0;
+				pointerActive = false;
+				pointer = [0, 0];
+				target = [0, 0];
+				cursorStrength = 0;
+				trails.fill(0);
+				for (let i = 0; i < 6; i++) trails[i * 4 + 2] = -100;
+				for (let i = 0; i < 8; i++) ripples[i * 3 + 2] = -100;
 			} else if (!frame) {
+				resize();
 				frame = requestAnimationFrame(draw);
 			}
 		}
 		function resize() {
+			if (!canvas!.clientWidth || !canvas!.clientHeight) return;
 			const layout = window.innerWidth < 640 ? "mobile" : "desktop";
 			if (layout !== currentLayout) {
 				currentLayout = layout;
@@ -154,8 +163,14 @@ export default function ParticleDrape() {
 			gl!.uniform1f(uniforms.aspect, canvas!.width / Math.max(canvas!.height, 1));
 			gl!.uniform1f(uniforms.pixelRatio, ratio);
 		}
-		function move(event: PointerEvent) {
+		function getBounds() {
+			if (document.hidden || root.matches(".reduced-motion, .high-contrast")) return null;
 			const rect = canvas!.getBoundingClientRect();
+			return rect.width > 0 && rect.height > 0 ? rect : null;
+		}
+		function move(event: PointerEvent) {
+			const rect = getBounds();
+			if (!rect) return;
 			const next = [(event.clientX - rect.left) / rect.width * 2 - 1, 1 - (event.clientY - rect.top) / rect.height * 2];
 			const distance = Math.hypot(next[0] - target[0], next[1] - target[1]);
 			if (pointerActive && distance > 0.002 && time - lastTrail > 0.025) {
@@ -168,7 +183,8 @@ export default function ParticleDrape() {
 		}
 		function click(event: MouseEvent) {
 			if (event.detail === 0) return;
-			const rect = canvas!.getBoundingClientRect();
+			const rect = getBounds();
+			if (!rect) return;
 			ripples.set([(event.clientX - rect.left) / rect.width * 2 - 1, 1 - (event.clientY - rect.top) / rect.height * 2, time], rippleIndex * 3);
 			rippleIndex = (rippleIndex + 1) % 8;
 		}

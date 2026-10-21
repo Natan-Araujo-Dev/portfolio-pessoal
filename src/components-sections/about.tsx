@@ -1,6 +1,6 @@
-import Card from "../components-base/card";
 import Text from "../components-base/text";
 import ButtonAdvance from "../components-core/button-advance";
+import SpotlightCard from "../components-core/spotlight-card";
 
 export default function About() {
 	return (
@@ -15,7 +15,10 @@ export default function About() {
 				<Text variant="tomorrow-section">Sobre mim</Text>
 			</div>
 
-			<Card
+			<SpotlightCard
+				spotlightColor="#2596be"
+				intensity={0.22}
+				smoothing={0.1}
 				className="
 				flex
 				justify-center items-center
@@ -27,37 +30,58 @@ export default function About() {
 					variant="cascadia-prose"
 					className="text-gray-dark dark:text-white"
 				>
-					Sou um{" "}
-					<Text className="text-green-dark dark:text-green-light">
-						Desenvolvedor FullStack
+					Sou um <Text className="text-[#4EC9B0]">Desenvolvedor FullStack</Text>
+					, especializado em <Text className="text-[#4EC9B0]">.NET</Text> e{" "}
+					<Text className="text-[#4EC9B0]">React</Text>.
+					<br />
+					<br />
+					Atuo no <Text className="text-[#569CD6]">frontend</Text>,{" "}
+					<Text className="text-[#569CD6]">backend</Text>,{" "}
+					<Text className="text-[#9CDCFE]">banco de dados</Text>,{" "}
+					<Text className="text-[#9CDCFE]">infraestrutura</Text>,{" "}
+					<Text className="text-[#D8A0DF]">engenharia de prompt</Text> e{" "}
+					<Text className="text-[#B8D7A3]">testes</Text>. Desenvolvo aplicações
+					com foco em <Text className="text-[#DCDCAA]">desempenho</Text>,{" "}
+					<Text className="text-[#DCDCAA]">escalabilidade</Text> e{" "}
+					<Text className="text-[#DCDCAA]">facilidade de manutenção</Text>,
+					utilizando{" "}
+					<Text className="text-[#B8D7A3]">arquiteturas modulares</Text> e{" "}
+					<Text className="text-[#B8D7A3]">
+						boas práticas de engenharia de software
 					</Text>
-					, especializado em{" "}
-					<Text className="text-green-dark dark:text-green-light">.NET</Text> e{" "}
-					<Text className="text-green-dark dark:text-green-light">React</Text>.
+					.
 					<br />
 					<br />
-					Atuo no frontend, backend, banco de dados, infraestrutura, engenharia
-					de prompt e testes. Desenvolvo aplicações com foco em desempenho,
-					escalabilidade e facilidade de manutenção, utilizando arquiteturas
-					modulares e boas práticas de engenharia de software.
+					Tenho experiência na criação e manutenção de{" "}
+					<Text className="text-[#569CD6]">plataformas de mensageria</Text>{" "}
+					(SMS, e-mail e mensagens de voz),{" "}
+					<Text className="text-[#D69D85]">landing pages</Text>,{" "}
+					<Text className="text-[#4EC9B0]">APIs REST</Text> e{" "}
+					<Text className="text-[#D8A0DF]">automação de processos</Text>. Também
+					trabalho com melhorias de <Text className="text-[#D69D85]">UI</Text>,{" "}
+					<Text className="text-[#D69D85]">UX</Text> e{" "}
+					<Text className="text-[#57A64A]">
+						acessibilidade para pessoas com deficiência (PCD)
+					</Text>
+					.
 					<br />
 					<br />
-					Tenho experiência na criação e manutenção de plataformas de mensageria
-					(SMS, e-mail e mensagens de voz), landing pages, APIs REST e automação
-					de processos. Também trabalho com melhorias de UI, UX e acessibilidade
-					para pessoas com deficiência (PCD).
+					Uso principalmente <Text className="text-[#4EC9B0]">Codex</Text> como{" "}
+					<Text className="text-[#D8A0DF]">assistente de IA</Text> e estruturo{" "}
+					<Text className="text-[#9CDCFE]">documentação contextual</Text> para{" "}
+					<Text className="text-[#B5CEA8]">reduzir retrabalho</Text>,{" "}
+					<Text className="text-[#B5CEA8]">acelerar implementações</Text> e{" "}
+					<Text className="text-[#B5CEA8]">diminuir custos operacionais</Text>.
+					Equilibro <Text className="text-[#DCDCAA]">legibilidade</Text>,{" "}
+					<Text className="text-[#B8D7A3]">modularização</Text> e{" "}
+					<Text className="text-[#DCDCAA]">agilidade na entrega</Text>.
 					<br />
 					<br />
-					Uso principalmente Codex como assistente de IA e estruturo
-					documentação contextual para reduzir retrabalho, acelerar
-					implementações e diminuir custos operacionais. Equilibro legibilidade,
-					modularização e agilidade na entrega.
-					<br />
-					<br />
-					Moro no Rio de Janeiro - RJ, com disponibilidade para trabalho
-					presencial, remoto ou híbrido.
+					Moro no <Text className="text-[#D69D85]">Rio de Janeiro - RJ</Text>,
+					com disponibilidade para trabalho{" "}
+					<Text className="text-[#9CDCFE]">presencial, remoto ou híbrido</Text>.
 				</Text>
-			</Card>
+			</SpotlightCard>
 
 			<ButtonAdvance href="#experiencia-profissional" />
 		</div>

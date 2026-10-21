@@ -1,6 +1,7 @@
 import Card from "../components-base/card";
 import Text from "../components-base/text";
 import type { SkillModel } from "../models/skillModel";
+import HighlightedText from "./highlighted-text";
 
 interface SkillProps {
 	skill: SkillModel;
@@ -22,10 +23,7 @@ export default function CardSkill({ skill, prose = false }: SkillProps) {
 				flex justify-center
 				mb-6 text-center"
 			>
-				<Text
-					variant="tomorrow-xl"
-					className="title-shadow text-blue-700 dark:text-blue-400"
-				>
+				<Text variant="tomorrow-xl" className="title-shadow text-[#569CD6]">
 					{skill.title}
 				</Text>
 			</div>
@@ -40,14 +38,14 @@ export default function CardSkill({ skill, prose = false }: SkillProps) {
 					<li key={skill} className="flex items-start gap-x-3">
 						<span
 							aria-hidden="true"
-							className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-blue-700 dark:bg-blue-400"
+							className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-[#569CD6]"
 						/>
 						<Text
 							as="span"
 							variant={prose ? "cascadia-prose" : "tomorrow-sm"}
 							className="leading-relaxed"
 						>
-							{skill}
+							<HighlightedText>{skill}</HighlightedText>
 						</Text>
 					</li>
 				))}
