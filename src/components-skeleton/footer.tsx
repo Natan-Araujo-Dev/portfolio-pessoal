@@ -3,6 +3,7 @@
 import { FileText, Github, Linkedin, Mail, Phone } from "lucide-react";
 import Text from "../components-base/text";
 import ContactLink from "../components-core/contact-link";
+import ShinyText, { SHINY_TEXT_COLOR } from "../components-core/shiny-text";
 
 export default function Footer() {
 	return (
@@ -37,7 +38,13 @@ export default function Footer() {
 						text-gray-dark dark:text-gray-400"
 					>
 						<Text variant="tomorrow-md-extralight">
-							Desenvolvedor Fullstack | React | ASP.NET
+							<ShinyText
+								color="currentColor"
+								shineColor={SHINY_TEXT_COLOR}
+								speed={3}
+								delay={1}
+								text="Desenvolvedor Fullstack | React | ASP.NET"
+							/>
 						</Text>
 					</div>
 				</div>

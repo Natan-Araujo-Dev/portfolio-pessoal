@@ -1,17 +1,19 @@
+import ScrollSection from "../components-core/scroll-section";
 /** biome-ignore-all lint/correctness/useUniqueElementIds: <ids estáticos> */
 import Text from "../components-base/text";
 import ButtonAdvance from "../components-core/button-advance";
+import ShinyText, { SHINY_TEXT_COLOR } from "../components-core/shiny-text";
 
 export default function Start() {
 	return (
-		<div
+		<ScrollSection
 			id="inicio"
 			className="
 			custom-section"
 		>
 			<StartDesktop />
 			<StartMobile />
-		</div>
+		</ScrollSection>
 	);
 }
 
@@ -37,8 +39,15 @@ function StartDesktop() {
 			</div>
 
 			<div className="flex justify-center">
-				<Text variant="tomorrow-impact-sm">
-					Desenvolvedor FullStack | Engenheiro de Software | Prompt Engineering
+				<Text variant="tomorrow-impact-sm" className="font-semibold">
+					<ShinyText
+						color="currentColor"
+						shineColor={SHINY_TEXT_COLOR}
+						speed={3}
+						delay={1}
+						style={{ fontWeight: 400 }}
+						text="Desenvolvedor FullStack | Engenheiro de Software | Prompt Engineering"
+					/>
 				</Text>
 			</div>
 
@@ -70,10 +79,21 @@ function StartMobile() {
 			</div>
 
 			<div className="flex justify-center text-center">
-				<Text variant="tomorrow-impact-sm" className="leading-relaxed">
-					Desenvolvedor FullStack | Engenheiro
-					<br />
-					de Software | Prompt Engineering
+				<Text
+					variant="tomorrow-impact-sm"
+					className="leading-relaxed font-extrabold"
+				>
+					<ShinyText
+						color="currentColor"
+						shineColor={SHINY_TEXT_COLOR}
+						speed={5}
+						delay={0}
+						style={{ fontWeight: 400 }}
+					>
+						Desenvolvedor FullStack | Engenheiro
+						<br />
+						de Software | Prompt Engineering
+					</ShinyText>
 				</Text>
 			</div>
 

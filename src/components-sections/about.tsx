@@ -1,3 +1,4 @@
+import ScrollSection from "../components-core/scroll-section";
 import Text from "../components-base/text";
 import ButtonAdvance from "../components-core/button-advance";
 import SpotlightCard from "../components-core/spotlight-card";
@@ -5,10 +6,10 @@ import SpotlightCard from "../components-core/spotlight-card";
 export default function About() {
 	return (
 		// biome-ignore lint/correctness/useUniqueElementIds: <ids estáticos>
-		<div
+		<ScrollSection
 			id="sobre"
 			className="
-			custom-section
+			custom-section about-pattern
          gap-y-10"
 		>
 			<div>
@@ -84,6 +85,6 @@ export default function About() {
 			</SpotlightCard>
 
 			<ButtonAdvance href="#experiencia-profissional" />
-		</div>
+		</ScrollSection>
 	);
 }

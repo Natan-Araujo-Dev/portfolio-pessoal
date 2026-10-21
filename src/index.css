@@ -70,6 +70,102 @@ html {
 	cursor: url("./assets/green-and-black/1-Normal-Select.cur"), default;
 }
 
+/* Lenis controla a inércia; o navegador mantém âncoras e foco nativos. */
+html.lenis {
+	scroll-behavior: auto;
+}
+
+/* Cada painel permanece atrás do próximo durante a sobreposição. */
+.scroll-scene {
+	position: relative;
+	isolation: isolate;
+	width: 100%;
+	scroll-margin-top: calc(var(--header-height) + 20px);
+}
+
+.scroll-scene:nth-child(even) .scroll-panel {
+	background-color: var(--color-gray-background);
+}
+
+.dark .scroll-scene:nth-child(even) .scroll-panel {
+	background-color: var(--color-blue-background);
+}
+
+.about-pattern {
+	position: relative;
+	isolation: isolate;
+}
+
+.about-pattern::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: -1;
+	pointer-events: none;
+	border-radius: inherit;
+	background-image: url("./assets/about-keywords.svg");
+	background-size: 1493.409522px 1493.409522px;
+	background-position: 0 0;
+	opacity: 0.18;
+}
+
+.dark .about-pattern::before {
+	opacity: 0.14;
+}
+
+html.high-contrast .about-pattern::before {
+	display: none;
+}
+
+@keyframes keywords-drift {
+	to { background-position: 1493.409522px -1493.409522px; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	html:not(.reduced-motion) .about-pattern::before {
+		animation: keywords-drift 110s linear infinite;
+	}
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	html:not(.reduced-motion):not(.high-contrast) .scroll-scene {
+		height: calc(var(--panel-height) + 100svh - var(--header-height));
+		margin-bottom: calc(var(--header-height) - 100svh);
+	}
+
+	html:not(.reduced-motion):not(.high-contrast) .scroll-panel {
+		position: sticky;
+		top: min(var(--header-height), calc(100svh - var(--panel-height)));
+		clip-path: inset(-80px -80px var(--covered-bottom, -80px) -80px);
+	}
+
+	html:not(.reduced-motion):not(.high-contrast)
+		.scroll-scene:not(:first-child)
+		.scroll-panel {
+		padding-block: 48px;
+		border-radius: 0;
+		box-shadow: 0 -24px 64px rgb(0 0 0 / 30%);
+	}
+
+	/* O último painel termina no fluxo normal; o footer não participa da pilha. */
+	html:not(.reduced-motion):not(.high-contrast) .scroll-scene:last-child {
+		height: auto;
+		margin-bottom: 0;
+	}
+
+	html:not(.reduced-motion):not(.high-contrast) .scroll-scene:last-child .scroll-panel {
+		position: relative;
+		top: auto;
+		clip-path: none;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+}
+
 html.middle-scroll,
 html.middle-scroll * {
 	cursor: url("./assets/middle-scroll.svg") 14 14, all-scroll !important;

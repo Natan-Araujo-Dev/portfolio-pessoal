@@ -1,3 +1,4 @@
+import ScrollSection from "../components-core/scroll-section";
 import Text from "../components-base/text";
 import ButtonAdvance from "../components-core/button-advance";
 import CardProject from "../components-core/card-project";
@@ -6,7 +7,7 @@ import { projectsList } from "../objects/projectsList";
 export default function About() {
 	return (
 		// biome-ignore lint/correctness/useUniqueElementIds: <ids estáticos>
-		<div
+		<ScrollSection
 			id="projetos"
 			className="
 			custom-section
@@ -37,6 +38,6 @@ export default function About() {
 			</div>
 
 			<ButtonAdvance href="#contato" />
-		</div>
+		</ScrollSection>
 	);
 }

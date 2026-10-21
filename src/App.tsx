@@ -2,6 +2,7 @@ import Footer from "./components-skeleton/footer";
 import Header from "./components-skeleton/header";
 import MainContent from "./components-skeleton/main-content";
 import MiddleScroll from "./components-core/middle-scroll";
+import SmoothScroll from "./components-core/smooth-scroll";
 
 function App() {
 	return (
@@ -16,6 +17,7 @@ function App() {
 			<MainContent />
 			<Footer />
 			<MiddleScroll />
+			<SmoothScroll />
 		</div>
 	);
 }

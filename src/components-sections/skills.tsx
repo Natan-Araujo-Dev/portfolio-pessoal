@@ -1,3 +1,4 @@
+import ScrollSection from "../components-core/scroll-section";
 import Text from "../components-base/text";
 import ButtonAdvance from "../components-core/button-advance";
 import CardSkill from "../components-core/card-skill";
@@ -6,7 +7,7 @@ import { mainSkillsList } from "../objects/mainSkillsList";
 export default function Skills() {
 	return (
 		// biome-ignore lint/correctness/useUniqueElementIds: <ids estáticos>
-		<div
+		<ScrollSection
 			id="habilidades"
 			className="
 			custom-section
@@ -27,6 +28,6 @@ export default function Skills() {
 			</div>
 
 			<ButtonAdvance href="#outras-informacoes" />
-		</div>
+		</ScrollSection>
 	);
 }
