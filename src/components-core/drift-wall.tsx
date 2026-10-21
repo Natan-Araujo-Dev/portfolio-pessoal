@@ -6,6 +6,7 @@ import './drift-wall.css';
 
 export interface DriftWallItem {
   image: string;
+  mobileImage?: string;
   title?: string;
   href?: string;
 }
@@ -100,7 +101,10 @@ const DriftWall = ({
 
   const [containerHeight, setContainerHeight] = useState(600);
   const [containerWidth, setContainerWidth] = useState(0);
-  const columnCount = fillWidth
+  const mobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  const columnCount = mobile
+    ? Math.max(1, Math.min(columns, Math.ceil(containerWidth / ((tileWidth + gap) * 1.18))))
+    : fillWidth
     ? Math.max(columns, Math.ceil(containerWidth / ((tileWidth + gap) * 1.18)))
     : columns;
   const [activeId, setActiveId] = useState<string | null>(null);
@@ -179,6 +183,10 @@ const DriftWall = ({
 
   useEffect(() => {
     const animate = (ts: number) => {
+      if (lastTsRef.current !== null && ts - lastTsRef.current < 1000 / (mobile ? 30 : 60) - 1) {
+        rafRef.current = requestAnimationFrame(animate);
+        return;
+      }
       if (lastTsRef.current === null) lastTsRef.current = ts;
       const dt = Math.min(0.05, Math.max(0, ts - lastTsRef.current) / 1000);
       lastTsRef.current = ts;
@@ -189,7 +197,7 @@ const DriftWall = ({
       const damp = 1 - Math.exp(-dt / 0.12);
       pointerDampedRef.current.x += (targetX - pointerDampedRef.current.x) * damp;
       pointerDampedRef.current.y += (targetY - pointerDampedRef.current.y) * damp;
-      applyPlaneTransform(pointerDampedRef.current.x, pointerDampedRef.current.y);
+      if (parallax > 0) applyPlaneTransform(pointerDampedRef.current.x, pointerDampedRef.current.y);
 
       if (!reduced) {
         for (let c = 0; c < trackRefs.current.length; c++) {
@@ -230,7 +238,7 @@ const DriftWall = ({
       rafRef.current = null;
       lastTsRef.current = null;
     };
-  }, [baseVelocities, columnMeta, pauseOnHover, parallax, reduced, visible, applyPlaneTransform]);
+  }, [baseVelocities, columnMeta, pauseOnHover, parallax, reduced, visible, mobile, applyPlaneTransform]);
 
   const activate = useCallback((id: string, index: number): void => {
     activeIdRef.current = id;
@@ -292,7 +300,10 @@ const DriftWall = ({
   const renderTile = (item: DriftWallItem, id: string, colIndex: number) => {
     const inner = (
       <span className="drift-wall__inner">
-        <img src={item.image} alt={item.title ?? ''} loading="lazy" decoding="async" draggable={false} />
+        <picture>
+          {item.mobileImage && <source media="(max-width: 767px)" srcSet={item.mobileImage} type="image/webp" />}
+          <img src={item.image} alt={item.title ?? ''} width={tileWidth} height={tileHeight} loading="lazy" decoding="async" draggable={false} />
+        </picture>
         <span className="drift-wall__overlay" aria-hidden="true" />
       </span>
     );

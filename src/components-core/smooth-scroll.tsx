@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import Lenis from "lenis";
+import type Lenis from "lenis";
 import "lenis/dist/lenis.css";
 
 export default function SmoothScroll() {
@@ -8,16 +8,20 @@ export default function SmoothScroll() {
 		const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
 		const desktop = matchMedia("(min-width: 768px) and (pointer: fine)");
 		let lenis: Lenis | null = null;
+		let loading = false;
+		let disposed = false;
+		const isDisabled = () => !desktop.matches || reducedMotion.matches ||
+			root.matches(".reduced-motion, .middle-scroll");
 
-		function sync() {
-			const disabled =
-				!desktop.matches ||
-				reducedMotion.matches ||
-				root.matches(".reduced-motion, .middle-scroll");
-			if (disabled) {
+		async function sync() {
+			if (isDisabled()) {
 				lenis?.destroy();
 				lenis = null;
-			} else if (!lenis) {
+			} else if (!lenis && !loading) {
+				loading = true;
+				const { default: Lenis } = await import("lenis");
+				loading = false;
+				if (disposed || isDisabled()) return;
 				lenis = new Lenis({
 					autoRaf: true,
 					lerp: 0.085,
@@ -35,6 +39,7 @@ export default function SmoothScroll() {
 		desktop.addEventListener("change", sync);
 		sync();
 		return () => {
+			disposed = true;
 			observer.disconnect();
 			reducedMotion.removeEventListener("change", sync);
 			desktop.removeEventListener("change", sync);

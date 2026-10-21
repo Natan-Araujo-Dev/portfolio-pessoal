@@ -1,6 +1,8 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
+
+const HOVER_QUERY = "(min-width: 768px) and (hover: hover) and (pointer: fine)";
 
 export type SpotlightShape = "circle" | "beam";
 
@@ -130,12 +132,20 @@ const SpotlightCard = ({
 	};
 	const settingsRef = useRef(settings);
 	settingsRef.current = settings;
+	const [canHover, setCanHover] = useState(() => matchMedia(HOVER_QUERY).matches);
+	useEffect(() => {
+		const hover = matchMedia(HOVER_QUERY);
+		const sync = () => setCanHover(hover.matches);
+		hover.addEventListener("change", sync);
+		return () => hover.removeEventListener("change", sync);
+	}, []);
 
 	useEffect(() => {
 		wakeRef.current?.();
 	});
 
 	useEffect(() => {
+		if (!canHover) return;
 		const root = rootRef.current;
 		const light = lightRef.current;
 		const noise = grainRef.current;
@@ -143,7 +153,6 @@ const SpotlightCard = ({
 		if (!root || !light || !noise || !edge) return undefined;
 
 		const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
-		const hover = window.matchMedia("(min-width: 768px) and (hover: hover) and (pointer: fine)");
 		let reduce = motion.matches;
 		let enabled = true;
 		const state = {
@@ -303,7 +312,7 @@ const SpotlightCard = ({
 
 		const syncAvailability = () => {
 			reduce = motion.matches;
-			const next = hover.matches && !reduce && !document.hidden &&
+			const next = !reduce && !document.hidden &&
 				!document.documentElement.matches(".reduced-motion, .high-contrast");
 			if (next === enabled) return;
 			enabled = next;
@@ -367,7 +376,6 @@ const SpotlightCard = ({
 		const accessibility = new MutationObserver(syncAvailability);
 		accessibility.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
 		motion.addEventListener("change", syncAvailability);
-		hover.addEventListener("change", syncAvailability);
 		document.addEventListener("visibilitychange", syncAvailability);
 		syncAvailability();
 		window.addEventListener("pointermove", onMove);
@@ -389,7 +397,6 @@ const SpotlightCard = ({
 			observer.disconnect();
 			accessibility.disconnect();
 			motion.removeEventListener("change", syncAvailability);
-			hover.removeEventListener("change", syncAvailability);
 			document.removeEventListener("visibilitychange", syncAvailability);
 			window.removeEventListener("pointermove", onMove);
 			window.removeEventListener("pointerup", onUp);
@@ -399,9 +406,10 @@ const SpotlightCard = ({
 			root.removeEventListener("pointerdown", onDown);
 			root.removeEventListener("focusin", onFocusIn);
 			root.removeEventListener("focusout", onFocusOut);
+			light.style.opacity = edge.style.opacity = noise.style.opacity = "0";
 			wakeRef.current = null;
 		};
-	}, []);
+	}, [canHover]);
 
 	return (
 		<div

@@ -191,6 +191,8 @@ const ShinyText = ({
 		let timer = 0;
 		let last = 0;
 		let alive = true;
+		let colorsDirty = true;
+		const gradients = new Map<string, { edge: string; stops: [number, string][] }>();
 
 		const extent = () => {
 			const s = settingsRef.current!;
@@ -204,42 +206,57 @@ const ShinyText = ({
 
 		const gradient = (pos: number, fill: number[]) => {
 			const s = settingsRef.current!;
-			const half = s.shineWidth / 2;
-			const core = half * (1 - s.softness);
-			const fade = half - core;
-			const stops: [number, number][] = [];
-			for (let band = 0; band < s.bands; band++) {
-				const center = pos - s.sign * band * s.shineWidth * 1.3;
-				const strength = 1 - band * 0.28;
-				for (const side of [-1, 1]) {
-					for (const f of FALLOFF) {
-						const at = center + side * (core + fade * (1 - f));
-						const amount = f * f * (3 - 2 * f) * strength;
-						stops.push([at, amount]);
+			const key = fill.join(",");
+			let cached = gradients.get(key);
+			if (!cached) {
+				const half = s.shineWidth / 2;
+				const core = half * (1 - s.softness);
+				const fade = half - core;
+				const stops: [number, number][] = [];
+				for (let band = 0; band < s.bands; band++) {
+					const center = -s.sign * band * s.shineWidth * 1.3;
+					const strength = 1 - band * 0.28;
+					for (const side of [-1, 1]) {
+						for (const f of FALLOFF) {
+							const at = center + side * (core + fade * (1 - f));
+							const amount = f * f * (3 - 2 * f) * strength;
+							stops.push([at, amount]);
+						}
 					}
 				}
+				stops.sort((a, b) => a[0] - b[0]);
+				cached = {
+					edge: blend(fill, shine!, 0),
+					stops: stops.map(([at, amount]) => [at, blend(fill, shine!, amount)]),
+				};
+				gradients.set(key, cached);
 			}
-			stops.sort((a, b) => a[0] - b[0]);
-			const list = stops.map(
-				([at, amount]) => `${blend(fill, shine!, amount)} ${at.toFixed(2)}%`,
+			const list = cached.stops.map(
+				([at, color]) => `${color} ${(at + pos).toFixed(2)}%`,
 			);
-			return `linear-gradient(${s.angle}deg, ${blend(fill, shine!, 0)} 0%, ${list.join(", ")}, ${blend(fill, shine!, 0)} 100%)`;
+			return `linear-gradient(${s.angle}deg, ${cached.edge} 0%, ${list.join(", ")}, ${cached.edge} 100%)`;
 		};
 
 		const draw = () => {
 			const s = settingsRef.current!;
-			const color =
-				s.color === "currentColor" ? getComputedStyle(root).color : s.color;
-			const shineVariable = s.shineColor.match(/^var\((--[^,)]+)\)$/)?.[1];
-			const shineColor = shineVariable
-				? getComputedStyle(root).getPropertyValue(shineVariable).trim() || "#ffffff"
-				: s.shineColor;
-			const key = `${color}|${shineColor}`;
-			if (key !== state.colors) {
-				state.colors = key;
-				base = parseColor(color);
-				shine = parseColor(shineColor);
-				clear = shine ? [shine[0], shine[1], shine[2], 0] : null;
+			// No celular, as cores só precisam ser relidas ao mudar tema, estilo ou viewport.
+			if (colorsDirty || window.innerWidth >= 768 || document.documentElement.classList.contains("theme-transition")) {
+				const computed = getComputedStyle(root);
+				const color =
+					s.color === "currentColor" ? computed.color : s.color;
+				const shineVariable = s.shineColor.match(/^var\((--[^,)]+)\)$/)?.[1];
+				const shineColor = shineVariable
+					? computed.getPropertyValue(shineVariable).trim() || "#ffffff"
+					: s.shineColor;
+				const key = `${color}|${shineColor}`;
+				if (key !== state.colors) {
+					gradients.clear();
+					state.colors = key;
+					base = parseColor(color);
+					shine = parseColor(shineColor);
+					clear = shine ? [shine[0], shine[1], shine[2], 0] : null;
+				}
+				colorsDirty = false;
 			}
 			if (!base || !shine) {
 				root.style.backgroundImage = `linear-gradient(${s.color}, ${s.color})`;
@@ -405,6 +422,7 @@ const ShinyText = ({
 				window.clearTimeout(timer);
 				return;
 			}
+			colorsDirty = true;
 			if (s.trigger === "view" && !state.seen && !reduce && !s.disabled) {
 				state.seen = true;
 				sweep(entry(), exit(), performance.now());
@@ -418,6 +436,8 @@ const ShinyText = ({
 		root.addEventListener("pointerleave", onLeave);
 
 		syncRef.current = () => {
+			colorsDirty = true;
+			gradients.clear();
 			const s = settingsRef.current!;
 			if (s.disabled) {
 				state.pos = null;
@@ -432,10 +452,14 @@ const ShinyText = ({
 		draw();
 		wake();
 
-		const accessibility = new MutationObserver(wake);
+		const invalidateColors = () => {
+			colorsDirty = true;
+			wake();
+		};
+		const accessibility = new MutationObserver(invalidateColors);
 		accessibility.observe(document.documentElement, {
 			attributes: true,
-			attributeFilter: ["class"],
+			attributeFilter: ["class", "style"],
 		});
 		const syncMotion = () => {
 			reduce = motion.matches;
@@ -443,6 +467,7 @@ const ShinyText = ({
 		};
 		motion.addEventListener("change", syncMotion);
 		document.addEventListener("visibilitychange", wake);
+		window.addEventListener("resize", invalidateColors, { passive: true });
 
 		return () => {
 			alive = false;
@@ -452,6 +477,7 @@ const ShinyText = ({
 			accessibility.disconnect();
 			motion.removeEventListener("change", syncMotion);
 			document.removeEventListener("visibilitychange", wake);
+			window.removeEventListener("resize", invalidateColors);
 			root.removeEventListener("pointerenter", onEnter);
 			root.removeEventListener("pointermove", onMove);
 			root.removeEventListener("pointerleave", onLeave);

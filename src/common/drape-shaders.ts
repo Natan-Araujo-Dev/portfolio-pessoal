@@ -11,6 +11,7 @@ export const drapeVertex = `
 	uniform float brush;
 	uniform float brushRadius;
 	uniform float parallax;
+	uniform bool interactive;
 	// Cada onda recebe amplitude, frequência e velocidade, nesta ordem.
 	uniform vec3 primaryWave;
 	uniform vec3 secondaryWave;
@@ -59,6 +60,9 @@ export const drapeVertex = `
 		screen.x /= aspect;
 		screen = screen * zoom + positionOffset;
 
+		float waveLight = 0.0;
+		// No celular, evita calcular rastros e ondas de mouse que não serão usados.
+		if (interactive) {
 		// Pincel local imediato; a rotação da cortina usa outro ponteiro, suavizado.
 		vec2 metric = vec2(aspect, 1.0);
 		vec2 delta = (screen - cursor.xy) * metric;
@@ -74,7 +78,6 @@ export const drapeVertex = `
 		screen += displacement * brush / metric;
 
 		// Ondas independentes: cliques consecutivos se somam.
-		float waveLight = 0.0;
 		for (int i = 0; i < 8; i++) {
 			float age = time - ripples[i].z;
 			vec2 offset = (screen - ripples[i].xy) * metric;
@@ -84,6 +87,7 @@ export const drapeVertex = `
 			float wave = exp(-band * band) * envelope;
 			screen += offset / max(distance, 0.001) * wave * 0.055 / metric;
 			waveLight += wave * 1.3 + envelope * 0.12;
+		}
 		}
 		float edge = smoothstep(0.0, 0.5, 4.0 - abs(uv.x))
 			* smoothstep(0.0, 0.6, 4.0 - abs(uv.y));

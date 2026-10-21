@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { drapeConfig } from "../common/drape-config";
 import { drapeFragment, drapeVertex } from "../common/drape-shaders";
 
-export default function ParticleDrape() {
+export default function ParticleDrape({ visibilitySelector }: { visibilitySelector?: string } = {}) {
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 
 	useEffect(() => {
@@ -60,6 +60,7 @@ export default function ParticleDrape() {
 			pointSize: gl.getUniformLocation(program, "pointSize"),
 			pointColor: gl.getUniformLocation(program, "pointColor"),
 			highlightColor: gl.getUniformLocation(program, "highlightColor"),
+			interactive: gl.getUniformLocation(program, "interactive"),
 		};
 		gl.uniform1f(gl.getUniformLocation(program, "lineWidth"), Math.max(0.1, drapeConfig.lineWidth));
 		gl.uniform1f(gl.getUniformLocation(program, "lineDirectionVariation"), Math.max(0, drapeConfig.lineDirectionVariation));
@@ -81,6 +82,10 @@ export default function ParticleDrape() {
 			);
 		}
 		const root = document.documentElement;
+		const mobile = matchMedia("(max-width: 767px)");
+		const sections = visibilitySelector ? document.querySelectorAll(visibilitySelector) : [];
+		const visibleSections = new Set<Element>();
+		let visible = sections.length === 0;
 		let currentLayout = "";
 		let pointCount = 0;
 		let frame = 0;
@@ -125,7 +130,7 @@ export default function ParticleDrape() {
 				const rgb = color.slice(1).match(/.{2}/g)!.map((value) => Number.parseInt(value, 16) / 255);
 				gl!.uniform3f(uniforms[name], rgb[0], rgb[1], rgb[2]);
 			}
-			if (document.hidden || root.matches(".reduced-motion, .high-contrast")) {
+			if (document.hidden || (mobile.matches && !visible) || root.matches(".reduced-motion, .high-contrast")) {
 				cancelAnimationFrame(frame);
 				frame = 0;
 				previous = 0;
@@ -147,6 +152,7 @@ export default function ParticleDrape() {
 			frameInterval = 1000 / drapeConfig.framesPerSecond[layout];
 			if (layout !== currentLayout) {
 				currentLayout = layout;
+				gl!.uniform1i(uniforms.interactive, layout === "desktop" ? 1 : 0);
 				const columns = Math.min(500, Math.max(2, Math.round(drapeConfig.pointsPerLine[layout])));
 				const rows = Math.min(500, Math.max(2, Math.round(drapeConfig.lineCount[layout])));
 				pointCount = columns * rows;
@@ -161,14 +167,18 @@ export default function ParticleDrape() {
 				gl!.bufferData(gl!.ARRAY_BUFFER, points, gl!.STATIC_DRAW);
 			}
 			const ratio = Math.min(window.devicePixelRatio || 1, drapeConfig.maxPixelRatio[layout]);
-			canvas!.width = Math.round(canvas!.clientWidth * ratio);
-			canvas!.height = Math.round(canvas!.clientHeight * ratio);
+			const width = Math.round(canvas!.clientWidth * ratio);
+			const height = Math.round(canvas!.clientHeight * ratio);
+			if (canvas!.width !== width || canvas!.height !== height) {
+				canvas!.width = width;
+				canvas!.height = height;
+			}
 			gl!.viewport(0, 0, canvas!.width, canvas!.height);
 			gl!.uniform1f(uniforms.aspect, canvas!.width / Math.max(canvas!.height, 1));
 			gl!.uniform1f(uniforms.pixelRatio, ratio);
 		}
 		function getBounds() {
-			if (document.hidden || root.matches(".reduced-motion, .high-contrast")) return null;
+			if (document.hidden || (mobile.matches && !visible) || root.matches(".reduced-motion, .high-contrast")) return null;
 			const rect = canvas!.getBoundingClientRect();
 			return rect.width > 0 && rect.height > 0 ? rect : null;
 		}
@@ -203,6 +213,16 @@ export default function ParticleDrape() {
 		observer.observe(root, { attributes: true, attributeFilter: ["class"] });
 		const sizeObserver = new ResizeObserver(resize);
 		sizeObserver.observe(canvas);
+		const visibility = new IntersectionObserver(entries => {
+			for (const entry of entries) {
+				if (entry.isIntersecting) visibleSections.add(entry.target);
+				else visibleSections.delete(entry.target);
+			}
+			visible = visibleSections.size > 0;
+			sync();
+		}, { rootMargin: `-${document.querySelector("header")?.getBoundingClientRect().height ?? 0}px 0px 0px` });
+		for (const section of sections) visibility.observe(section);
+		mobile.addEventListener("change", sync);
 		window.addEventListener("pointermove", move, { passive: true });
 		window.addEventListener("click", click);
 		window.addEventListener("blur", leave);
@@ -217,6 +237,8 @@ export default function ParticleDrape() {
 			cancelAnimationFrame(frame);
 			observer.disconnect();
 			sizeObserver.disconnect();
+			visibility.disconnect();
+			mobile.removeEventListener("change", sync);
 			window.removeEventListener("pointermove", move);
 			window.removeEventListener("click", click);
 			window.removeEventListener("blur", leave);
@@ -226,7 +248,7 @@ export default function ParticleDrape() {
 			document.removeEventListener("visibilitychange", sync);
 			dispose();
 		};
-	}, []);
+	}, [visibilitySelector]);
 
 	return <canvas ref={canvasRef} aria-hidden="true" className="absolute inset-0 h-full w-full" />;
 }

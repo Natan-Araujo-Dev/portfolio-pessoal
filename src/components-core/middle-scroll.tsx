@@ -1,7 +1,16 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function MiddleScroll() {
+	const [hasMouse, setHasMouse] = useState(() => matchMedia("(any-pointer: fine)").matches);
 	useEffect(() => {
+		const mouse = matchMedia("(any-pointer: fine)");
+		const sync = () => setHasMouse(mouse.matches);
+		mouse.addEventListener("change", sync);
+		return () => mouse.removeEventListener("change", sync);
+	}, []);
+
+	useEffect(() => {
+		if (!hasMouse) return;
 		const deadZone = 25;
 		const speedMultiplier = 2;
 		let origin: { x: number; y: number } | null = null;
@@ -107,7 +116,7 @@ export default function MiddleScroll() {
 			document.removeEventListener("wheel", stop);
 			window.removeEventListener("blur", stop);
 		};
-	}, []);
+	}, [hasMouse]);
 
 	return null;
 }

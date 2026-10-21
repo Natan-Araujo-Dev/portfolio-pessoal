@@ -118,6 +118,19 @@
     0 0 0 2px rgba(255, 255, 255, 0.9);
 }
 
+/* O mural decorativo não precisa de uma camada 3D para cada imagem no celular. */
+@media (max-width: 767px) {
+  .experience-wall .drift-wall__col,
+  .experience-wall .drift-wall__track,
+  .experience-wall .drift-wall__tile {
+    transform-style: flat;
+  }
+
+  .experience-wall .drift-wall__inner {
+    transform: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .drift-wall__plane,
   .drift-wall__track {

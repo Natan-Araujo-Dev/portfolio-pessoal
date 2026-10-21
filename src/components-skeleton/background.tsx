@@ -16,7 +16,7 @@ export default function Background() {
          z-0
 			bg-[var(--drape-background-light)] dark:bg-[var(--drape-background-dark)]"
 		>
-			<ParticleDrape />
+			<ParticleDrape visibilitySelector=".scroll-scene:nth-child(odd):not(#experiencia-profissional), footer" />
 		</div>
 	);
 }

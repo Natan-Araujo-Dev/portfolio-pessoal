@@ -184,7 +184,7 @@ html.high-contrast .experience-wall {
 	to { background-position: 1493.409522px -1493.409522px; }
 }
 
-@media (prefers-reduced-motion: no-preference) {
+@media (prefers-reduced-motion: no-preference) and (min-width: 768px) {
 	html:not(.reduced-motion) .about-pattern::before {
 		animation: keywords-drift 110s linear infinite;
 	}
