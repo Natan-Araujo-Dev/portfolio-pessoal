@@ -154,6 +154,32 @@ html.high-contrast .about-pattern::before {
 	display: none;
 }
 
+html.high-contrast .experience-wall {
+	display: none;
+}
+
+#experiencia-profissional,
+#experiencia-profissional > .scroll-panel {
+	--experience-background: #0b1c14;
+	background-color: var(--experience-background);
+}
+
+/* Preenche o intervalo entre as seções sem alterar sua posição no scroll. */
+#experiencia-profissional::after {
+	content: "";
+	position: absolute;
+	inset: 100% 0 auto;
+	height: 2.5rem;
+	background: var(--experience-background);
+	pointer-events: none;
+}
+
+@media (min-width: 768px) {
+	#experiencia-profissional::after {
+		height: 5rem;
+	}
+}
+
 @keyframes keywords-drift {
 	to { background-position: 1493.409522px -1493.409522px; }
 }

@@ -59,6 +59,7 @@ export default function AnimatedContent() {
 				) {
 					if (
 						!block.getClientRects().length ||
+						block.hasAttribute("data-scroll-background") ||
 						block.classList.contains("animate-bounce")
 					)
 						return;
