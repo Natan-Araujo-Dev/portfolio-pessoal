@@ -3,6 +3,7 @@ import Header from "./components-skeleton/header";
 import MainContent from "./components-skeleton/main-content";
 import MiddleScroll from "./components-core/middle-scroll";
 import SmoothScroll from "./components-core/smooth-scroll";
+import AnimatedContent from "./components-core/animated-content";
 
 function App() {
 	return (
@@ -18,6 +19,7 @@ function App() {
 			<Footer />
 			<MiddleScroll />
 			<SmoothScroll />
+			<AnimatedContent />
 		</div>
 	);
 }
