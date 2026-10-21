@@ -278,7 +278,7 @@ const ShinyText = ({
 
 		const tick = (now: number) => {
 			raf = 0;
-			if (!alive) return;
+			if (!alive || !state.visible || document.hidden) return;
 			const s = settingsRef.current!;
 			const dt = Math.min(0.05, Math.max(0, (now - last) / 1000));
 			last = now;
@@ -399,7 +399,12 @@ const ShinyText = ({
 			const visible = entries.some((item) => item.isIntersecting);
 			state.visible = visible;
 			const s = settingsRef.current!;
-			if (!visible) return;
+			if (!visible) {
+				cancelAnimationFrame(raf);
+				raf = 0;
+				window.clearTimeout(timer);
+				return;
+			}
 			if (s.trigger === "view" && !state.seen && !reduce && !s.disabled) {
 				state.seen = true;
 				sweep(entry(), exit(), performance.now());
@@ -437,6 +442,7 @@ const ShinyText = ({
 			wake();
 		};
 		motion.addEventListener("change", syncMotion);
+		document.addEventListener("visibilitychange", wake);
 
 		return () => {
 			alive = false;
@@ -445,6 +451,7 @@ const ShinyText = ({
 			observer.disconnect();
 			accessibility.disconnect();
 			motion.removeEventListener("change", syncMotion);
+			document.removeEventListener("visibilitychange", wake);
 			root.removeEventListener("pointerenter", onEnter);
 			root.removeEventListener("pointermove", onMove);
 			root.removeEventListener("pointerleave", onLeave);

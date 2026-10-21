@@ -3,9 +3,11 @@ export const drapeConfig = {
 	pointColor: { light: "#488d7c", dark: "#6a4bff" },
 	highlightColor: { light: "#276a83", dark: "#e4dbff" },
 
-	// 44 mil pontos no desktop.
-	pointsPerLine: { mobile: 220, desktop: 220 },
-	lineCount: { mobile: 150, desktop: 200 },
+	// 6 mil pontos no mobile; 44 mil no desktop.
+	pointsPerLine: { mobile: 120, desktop: 220 },
+	lineCount: { mobile: 50, desktop: 200 },
+	maxPixelRatio: { mobile: 1.25, desktop: 2 },
+	framesPerSecond: { mobile: 30, desktop: 60 },
 
 	lineWidth: 1,
 	// Desvio máximo em graus por fileira, para ambos os lados. 0 = sem desvio.

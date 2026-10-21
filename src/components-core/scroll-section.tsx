@@ -10,10 +10,12 @@ export default function ScrollSection({
 	useEffect(() => {
 		const element = panel.current;
 		if (!element) return;
+		const desktop = matchMedia("(min-width: 768px)");
+		let visible = false;
 		let frame = 0;
 		function clip() {
 			frame = 0;
-			if (!element) return;
+			if (!element || !desktop.matches) return;
 			const next = element.parentElement?.nextElementSibling;
 			const bottom = next
 				? element.getBoundingClientRect().bottom -
@@ -26,10 +28,10 @@ export default function ScrollSection({
 			);
 		}
 		function scheduleClip() {
-			if (!frame) frame = requestAnimationFrame(clip);
+			if (desktop.matches && visible && !frame) frame = requestAnimationFrame(clip);
 		}
 		function resize() {
-			if (!element) return;
+			if (!element || !desktop.matches) return;
 			// Seções longas só ficam fixas quando seu fim chega à tela.
 			element.parentElement?.style.setProperty(
 				"--panel-height",
@@ -39,6 +41,11 @@ export default function ScrollSection({
 		}
 		const observer = new ResizeObserver(resize);
 		observer.observe(element);
+		const visibility = new IntersectionObserver(([entry]) => {
+			visible = entry.isIntersecting;
+			scheduleClip();
+		});
+		visibility.observe(element.parentElement!);
 		const rootObserver = new MutationObserver(scheduleClip);
 		rootObserver.observe(document.documentElement, {
 			attributes: true,
@@ -46,13 +53,16 @@ export default function ScrollSection({
 		});
 		window.addEventListener("scroll", scheduleClip, { passive: true });
 		window.addEventListener("resize", resize);
+		desktop.addEventListener("change", resize);
 		resize();
 		return () => {
 			observer.disconnect();
+			visibility.disconnect();
 			rootObserver.disconnect();
 			cancelAnimationFrame(frame);
 			window.removeEventListener("scroll", scheduleClip);
 			window.removeEventListener("resize", resize);
+			desktop.removeEventListener("change", resize);
 		};
 	}, []);
 

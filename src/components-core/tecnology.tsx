@@ -7,20 +7,10 @@ interface TecnologyProps {
 
 export default function Tecnology({ name: tecnologyName }: TecnologyProps) {
 	return (
-		<div
-			className="
-         flex
-         justify-center items-center
-			h-6
-         p-1
-			border-gray-500 border-1
-         bg-gray-300 dark:bg-cyan-800
-         rounded-md"
-		>
-			<Text variant="tomorrow-sm-extralight">
+		<span className="inline-flex max-w-full rounded-md border border-emerald-900/15 bg-emerald-950/5 px-2.5 py-1 dark:border-slate-400/20 dark:bg-slate-900/35">
+			<Text variant="tomorrow-sm" className="leading-snug">
 				<HighlightedText>{tecnologyName}</HighlightedText>
 			</Text>
-			<br />
-		</div>
+		</span>
 	);
 }

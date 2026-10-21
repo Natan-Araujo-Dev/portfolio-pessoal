@@ -13,7 +13,7 @@ export default function About() {
          gap-y-10"
 		>
 			<div>
-				<Text variant="tomorrow-section">Sobre mim</Text>
+				<Text as="h2" variant="tomorrow-section">Sobre mim</Text>
 			</div>
 
 			<SpotlightCard
@@ -23,9 +23,8 @@ export default function About() {
 				className="
 				flex
 				justify-center items-center
-				mx-10
-				lg:w-180
-				p-10"
+				w-full max-w-3xl
+				p-6 sm:p-10"
 			>
 				<Text
 					variant="cascadia-prose"
