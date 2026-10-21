@@ -14,8 +14,7 @@ export default function Content() {
          justify-center items-center
          w-full h-full
          z-50
-			mx-20
-			gap-y-20
+			gap-y-10 md:gap-y-20
 			text-gray-dark dark:text-white"
 		>
 			<Start />

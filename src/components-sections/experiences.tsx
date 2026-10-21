@@ -14,13 +14,13 @@ export default function Experiences() {
          gap-y-10"
 		>
 			<div>
-				<Text variant="tomorrow-section">Experiência profissional</Text>
+				<Text as="h2" variant="tomorrow-section">Experiência profissional</Text>
 			</div>
 
 			<div
 				className="
-				grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2
-				gap-8"
+				grid w-full max-w-6xl grid-cols-1 md:grid-cols-2
+				items-start gap-5 sm:gap-6"
 			>
 				{experiencesList.map((experience) => (
 					<CardSkill key={experience.title} skill={experience} prose />

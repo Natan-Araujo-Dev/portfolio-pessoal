@@ -28,7 +28,7 @@ function StartDesktop() {
 			gap-y-5"
 		>
 			<div>
-				<Text variant="tomorrow-impact">
+				<Text as="h1" variant="tomorrow-impact">
 					Bem vindo(a) ao meu site. <br />
 					Meu nome é{" "}
 					<Text variant="tomorrow-impact" className="text-green-dark">
@@ -63,11 +63,11 @@ function StartMobile() {
 			flex flex-col
 			justify-center items-center
 			lg:hidden
-			w-full px-4 sm:px-6
+			w-full
 			gap-y-5"
 		>
 			<div>
-				<Text variant="tomorrow-impact">
+				<Text as="h1" variant="tomorrow-impact">
 					Bem vindo(a)
 					<br /> ao meu site.
 					<br /> Meu nome é <br />

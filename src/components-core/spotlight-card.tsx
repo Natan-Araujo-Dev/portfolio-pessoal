@@ -87,7 +87,7 @@ const falloff = (color: string, softness: number) => {
 };
 
 const CARD =
-	"relative isolate overflow-hidden rounded-2xl bg-card-light/45 dark:bg-[#343947]/60 shadow-lg shadow-black/30 backdrop-blur-xs";
+	"relative isolate overflow-hidden rounded-2xl bg-card-light/95 dark:bg-[#292e3b]/90 shadow-lg shadow-black/15 md:backdrop-blur-xs";
 
 const SpotlightCard = ({
 	children,
@@ -142,8 +142,10 @@ const SpotlightCard = ({
 		const edge = edgeRef.current;
 		if (!root || !light || !noise || !edge) return undefined;
 
-		const reduce =
-			window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
+		const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
+		const hover = window.matchMedia("(min-width: 768px) and (hover: hover) and (pointer: fine)");
+		let reduce = motion.matches;
+		let enabled = true;
 		const state = {
 			x: 0,
 			y: 0,
@@ -151,7 +153,7 @@ const SpotlightCard = ({
 			flare: 0,
 			time: Math.random() * 60,
 			pressed: false,
-			visible: true,
+			visible: false,
 		};
 		const pointer = { x: 0, y: 0, active: false };
 		const drawn = { light: "", edge: "", noise: "" };
@@ -194,7 +196,13 @@ const SpotlightCard = ({
 				edge.style.background = rim;
 			}
 			light.style.opacity = String(
-				Math.min(1, state.presence * s.intensity * boost),
+				Math.min(
+					1,
+					state.presence *
+						s.intensity *
+						boost *
+						(document.documentElement.classList.contains("dark") ? 1 : 0.35),
+				),
 			);
 			edge.style.opacity = String(
 				Math.min(1, state.presence * s.borderGlow * boost),
@@ -213,7 +221,7 @@ const SpotlightCard = ({
 
 		const tick = (now: number) => {
 			raf = 0;
-			if (!alive) return;
+			if (!alive || !enabled || !state.visible) return;
 			const s = settingsRef.current;
 			const dt = Math.min(0.05, Math.max(0.001, (now - last) / 1000));
 			last = now;
@@ -277,13 +285,33 @@ const SpotlightCard = ({
 		};
 
 		const wake = () => {
+			if (!enabled || !state.visible) {
+				cancelAnimationFrame(raf);
+				raf = 0;
+				state.presence = 0;
+				state.flare = 0;
+				state.pressed = false;
+				pointer.active = false;
+				light.style.opacity = edge.style.opacity = noise.style.opacity = "0";
+				return;
+			}
 			if (raf || !alive) return;
 			last = performance.now();
 			raf = requestAnimationFrame(tick);
 		};
 		wakeRef.current = wake;
 
+		const syncAvailability = () => {
+			reduce = motion.matches;
+			const next = hover.matches && !reduce && !document.hidden &&
+				!document.documentElement.matches(".reduced-motion, .high-contrast");
+			if (next === enabled) return;
+			enabled = next;
+			wake();
+		};
+
 		const onMove = (event: PointerEvent) => {
+			if (!enabled || !state.visible || event.pointerType !== "mouse") return;
 			pointer.x = event.clientX;
 			pointer.y = event.clientY;
 			pointer.active = true;
@@ -300,6 +328,7 @@ const SpotlightCard = ({
 			wake();
 		};
 		const onDown = (event: PointerEvent) => {
+			if (!enabled || event.pointerType !== "mouse") return;
 			pointer.x = event.clientX;
 			pointer.y = event.clientY;
 			pointer.active = true;
@@ -332,9 +361,15 @@ const SpotlightCard = ({
 
 		const observer = new IntersectionObserver((entries) => {
 			state.visible = entries.some((entry) => entry.isIntersecting);
-			if (state.visible) wake();
+			wake();
 		});
 		observer.observe(root);
+		const accessibility = new MutationObserver(syncAvailability);
+		accessibility.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+		motion.addEventListener("change", syncAvailability);
+		hover.addEventListener("change", syncAvailability);
+		document.addEventListener("visibilitychange", syncAvailability);
+		syncAvailability();
 		window.addEventListener("pointermove", onMove);
 		window.addEventListener("pointerup", onUp);
 		window.addEventListener("pointercancel", onUp);
@@ -352,6 +387,10 @@ const SpotlightCard = ({
 			alive = false;
 			cancelAnimationFrame(raf);
 			observer.disconnect();
+			accessibility.disconnect();
+			motion.removeEventListener("change", syncAvailability);
+			hover.removeEventListener("change", syncAvailability);
+			document.removeEventListener("visibilitychange", syncAvailability);
 			window.removeEventListener("pointermove", onMove);
 			window.removeEventListener("pointerup", onUp);
 			window.removeEventListener("pointercancel", onUp);

@@ -1,5 +1,5 @@
 const keywords = {
-	"text-[#4EC9B0]": [
+	"text-[#126653] dark:text-[#4EC9B0]": [
 		"React",
 		"Next.js",
 		"Axios",
@@ -36,7 +36,7 @@ const keywords = {
 		"SendWork",
 		"Desenvolvedor de Software Fullstack",
 	],
-	"text-[#569CD6]": [
+	"text-[#245b91] dark:text-[#569CD6]": [
 		"frontend",
 		"backend",
 		"fullstack",
@@ -55,7 +55,7 @@ const keywords = {
 		"webhooks",
 		"endpoints",
 	],
-	"text-[#9CDCFE]": [
+	"text-[#276478] dark:text-[#9CDCFE]": [
 		"banco de dados",
 		"PostgreSQL",
 		"MariaDB",
@@ -80,7 +80,7 @@ const keywords = {
 		"documentação",
 		"mapas",
 	],
-	"text-[#D8A0DF]": [
+	"text-[#80448a] dark:text-[#D8A0DF]": [
 		"prompts",
 		"engenharia de prompt",
 		"automação",
@@ -95,7 +95,7 @@ const keywords = {
 		"Engenharia de Software",
 		"Programação de Jogos Digitais",
 	],
-	"text-[#B8D7A3]": [
+	"text-[#486637] dark:text-[#B8D7A3]": [
 		"Clean Architecture",
 		"Domain Driven Design",
 		"DDD",
@@ -114,7 +114,7 @@ const keywords = {
 		"Raciocínio lógico",
 		"Pensamento crítico",
 	],
-	"text-[#DCDCAA]": [
+	"text-[#78601f] dark:text-[#DCDCAA]": [
 		"desempenho",
 		"responsividade",
 		"manutenção",
@@ -125,7 +125,7 @@ const keywords = {
 		"auditoria",
 		"persistência",
 	],
-	"text-[#D69D85]": [
+	"text-[#925033] dark:text-[#D69D85]": [
 		"UI",
 		"UX",
 		"CAD",
@@ -142,14 +142,14 @@ const keywords = {
 		"Rocketseat",
 		"Udemy",
 	],
-	"text-[#57A64A]": [
+	"text-[#306b35] dark:text-[#57A64A]": [
 		"acessibilidade",
 		"teclado",
 		"contraste",
 		"descrição de imagens",
 		"PCD",
 	],
-	"text-[#B5CEA8]": ["C1", "A1", "C2", "avançado", "básico", "fluente"],
+	"text-[#52692c] dark:text-[#B5CEA8]": ["C1", "A1", "C2", "avançado", "básico", "fluente"],
 };
 
 const colors = new Map(
@@ -170,7 +170,7 @@ export default function HighlightedText({ children }: { children: string }) {
 	return children.split(matcher).map((part, index) => {
 		const color =
 			colors.get(part.toLowerCase()) ??
-			(/^\d/.test(part) ? "text-[#B5CEA8]" : undefined);
+			(/^\d/.test(part) ? "text-[#52692c] dark:text-[#B5CEA8]" : undefined);
 		return color ? (
 			<span key={`${index}-${part}`} className={color}>
 				{part}

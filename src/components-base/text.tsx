@@ -6,18 +6,18 @@ export const textVariants = cva(
 	{
 		variants: {
 			variant: {
-				"cascadia-prose": "prose-text text-lg font-normal leading-relaxed",
+				"cascadia-prose": "prose-text text-base font-normal leading-relaxed",
 				"tomorrow-header-name": "title-shadow text-2xl lg:text-3xl",
 
 				"tomorrow-header-shortcut": "font-light",
 
-				"tomorrow-impact": "title-shadow lg:text-6xl text-5xl font-bold",
+				"tomorrow-impact": "title-shadow text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight tracking-tight",
 
 				"tomorrow-impact-sm":
 					"text-sm lg:text-xl font-extralight text-gray-900 dark:text-gray-300",
 
 				"tomorrow-section":
-					"title-shadow uppercase text-3xl lg:text-4xl font-medium text-green-dark dark:text-green-light",
+					"section-title title-shadow uppercase text-2xl sm:text-3xl lg:text-4xl font-medium text-green-dark dark:text-green-light",
 
 				"tomorrow-9xl": "text-9xl",
 				"tomorrow-9xl-extralight": "text-9xl font-light",

@@ -14,16 +14,16 @@ export default function Skills() {
          gap-y-10"
 		>
 			<div>
-				<Text variant="tomorrow-section">Habilidades</Text>
+				<Text as="h2" variant="tomorrow-section">Habilidades</Text>
 			</div>
 
 			<div
 				className="
-				grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3
-				gap-8"
+				grid w-full max-w-6xl grid-cols-1 sm:grid-cols-2 lg:grid-cols-3
+				items-stretch gap-5 sm:gap-6"
 			>
 				{mainSkillsList.map((skill) => (
-					<CardSkill key={skill.title} skill={skill} />
+					<CardSkill key={skill.title} skill={skill} tags />
 				))}
 			</div>
 

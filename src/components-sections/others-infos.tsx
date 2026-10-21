@@ -14,16 +14,16 @@ export default function OthersInfos() {
          gap-y-10"
 		>
 			<div>
-				<Text variant="tomorrow-section">Outras informações</Text>
+				<Text as="h2" variant="tomorrow-section">Outras informações</Text>
 			</div>
 
 			<div
 				className="
-				grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2
-				gap-8"
+				grid w-full max-w-6xl grid-cols-1 md:grid-cols-2
+				items-start gap-5 sm:gap-6"
 			>
 				{otherSkillsList.map((skill) => (
-					<CardSkill key={skill.title} skill={skill} />
+					<CardSkill key={skill.title} skill={skill} columns={skill.title === "Soft skills"} />
 				))}
 			</div>
 

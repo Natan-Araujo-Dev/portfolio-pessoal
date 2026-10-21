@@ -57,12 +57,12 @@ export default function ParticleDrape() {
 			cursor: gl.getUniformLocation(program, "cursor"),
 			trails: gl.getUniformLocation(program, "trails[0]"),
 			ripples: gl.getUniformLocation(program, "ripples[0]"),
+			pointSize: gl.getUniformLocation(program, "pointSize"),
 			pointColor: gl.getUniformLocation(program, "pointColor"),
 			highlightColor: gl.getUniformLocation(program, "highlightColor"),
 		};
 		gl.uniform1f(gl.getUniformLocation(program, "lineWidth"), Math.max(0.1, drapeConfig.lineWidth));
 		gl.uniform1f(gl.getUniformLocation(program, "lineDirectionVariation"), Math.max(0, drapeConfig.lineDirectionVariation));
-		gl.uniform1f(gl.getUniformLocation(program, "pointSize"), Math.max(0.1, drapeConfig.pointSize));
 		gl.uniform1f(gl.getUniformLocation(program, "zoom"), Math.max(0.1, drapeConfig.zoom));
 		gl.uniform2f(
 			gl.getUniformLocation(program, "positionOffset"),
@@ -85,6 +85,7 @@ export default function ParticleDrape() {
 		let pointCount = 0;
 		let frame = 0;
 		let previous = 0;
+		let frameInterval = 1000 / drapeConfig.framesPerSecond.desktop;
 		let time = 0;
 		let pointer = [0, 0];
 		let target = [0, 0];
@@ -99,6 +100,8 @@ export default function ParticleDrape() {
 		for (let i = 0; i < 8; i++) ripples[i * 3 + 2] = -100;
 
 		function draw(now: number) {
+			frame = requestAnimationFrame(draw);
+			if (previous && now - previous < frameInterval - 1) return;
 			const elapsed = previous ? Math.min((now - previous) / 1000, 0.1) : 0;
 			time += elapsed;
 			previous = now;
@@ -112,11 +115,11 @@ export default function ParticleDrape() {
 			gl!.uniform4fv(uniforms.trails, trails);
 			gl!.uniform3fv(uniforms.ripples, ripples);
 			gl!.drawArrays(gl!.POINTS, 0, pointCount);
-			frame = requestAnimationFrame(draw);
 		}
 
 		function sync() {
 			const dark = root.classList.contains("dark");
+			gl!.uniform1f(uniforms.pointSize, Math.max(0.1, drapeConfig.pointSize * (dark ? 1 : drapeConfig.lightPointScale)));
 			for (const name of ["pointColor", "highlightColor"] as const) {
 				const color = drapeConfig[name][dark ? "dark" : "light"];
 				const rgb = color.slice(1).match(/.{2}/g)!.map((value) => Number.parseInt(value, 16) / 255);
@@ -140,7 +143,8 @@ export default function ParticleDrape() {
 		}
 		function resize() {
 			if (!canvas!.clientWidth || !canvas!.clientHeight) return;
-			const layout = window.innerWidth < 640 ? "mobile" : "desktop";
+			const layout = window.innerWidth < 768 ? "mobile" : "desktop";
+			frameInterval = 1000 / drapeConfig.framesPerSecond[layout];
 			if (layout !== currentLayout) {
 				currentLayout = layout;
 				const columns = Math.min(500, Math.max(2, Math.round(drapeConfig.pointsPerLine[layout])));
@@ -156,7 +160,7 @@ export default function ParticleDrape() {
 				}
 				gl!.bufferData(gl!.ARRAY_BUFFER, points, gl!.STATIC_DRAW);
 			}
-			const ratio = Math.min(window.devicePixelRatio || 1, 2);
+			const ratio = Math.min(window.devicePixelRatio || 1, drapeConfig.maxPixelRatio[layout]);
 			canvas!.width = Math.round(canvas!.clientWidth * ratio);
 			canvas!.height = Math.round(canvas!.clientHeight * ratio);
 			gl!.viewport(0, 0, canvas!.width, canvas!.height);
@@ -169,6 +173,7 @@ export default function ParticleDrape() {
 			return rect.width > 0 && rect.height > 0 ? rect : null;
 		}
 		function move(event: PointerEvent) {
+			if (event.pointerType !== "mouse" || currentLayout === "mobile") return;
 			const rect = getBounds();
 			if (!rect) return;
 			const next = [(event.clientX - rect.left) / rect.width * 2 - 1, 1 - (event.clientY - rect.top) / rect.height * 2];
@@ -182,7 +187,7 @@ export default function ParticleDrape() {
 			pointerActive = true;
 		}
 		function click(event: MouseEvent) {
-			if (event.detail === 0) return;
+			if (event.detail === 0 || currentLayout === "mobile") return;
 			const rect = getBounds();
 			if (!rect) return;
 			ripples.set([(event.clientX - rect.left) / rect.width * 2 - 1, 1 - (event.clientY - rect.top) / rect.height * 2, time], rippleIndex * 3);

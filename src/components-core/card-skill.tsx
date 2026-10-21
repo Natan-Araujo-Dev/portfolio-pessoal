@@ -2,54 +2,43 @@ import Card from "../components-base/card";
 import Text from "../components-base/text";
 import type { SkillModel } from "../models/skillModel";
 import HighlightedText from "./highlighted-text";
+import Tecnology from "./tecnology";
+import ExpandableCardContent from "./expandable-card-content";
 
 interface SkillProps {
 	skill: SkillModel;
 	prose?: boolean;
+	tags?: boolean;
+	columns?: boolean;
 }
 
-export default function CardSkill({ skill, prose = false }: SkillProps) {
-	return (
-		<Card
-			className="
-			flex flex-col
-			justify-start items-center
-			w-80
-			p-10
-			text-gray-dark dark:text-gray-200"
-		>
-			<div
-				className="
-				flex justify-center
-				mb-6 text-center"
-			>
-				<Text variant="tomorrow-xl" className="title-shadow text-[#569CD6]">
-					{skill.title}
-				</Text>
-			</div>
+export default function CardSkill({ skill, prose = false, tags = false, columns = false }: SkillProps) {
+	const visibleSkills = prose ? skill.skills.slice(0, 2) : skill.skills;
+	const moreSkills = prose ? skill.skills.slice(2) : [];
 
-			<ul
-				className="
-				flex flex-col
-				items-start
-				w-full gap-y-3"
-			>
-				{skill.skills.map((skill) => (
-					<li key={skill} className="flex items-start gap-x-3">
-						<span
-							aria-hidden="true"
-							className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-[#569CD6]"
-						/>
-						<Text
-							as="span"
-							variant={prose ? "cascadia-prose" : "tomorrow-sm"}
-							className="leading-relaxed"
-						>
-							<HighlightedText>{skill}</HighlightedText>
-						</Text>
+	return (
+		<Card className="flex w-full min-w-0 flex-col gap-5 p-6 sm:p-8 text-gray-dark dark:text-gray-200">
+			<Text as="h3" variant="tomorrow-xl" className="card-heading">{skill.title}</Text>
+			<ul className={tags ? "flex flex-wrap gap-2" : columns ? "card-list grid grid-cols-1 gap-y-3 sm:grid-cols-2 sm:gap-x-4 lg:grid-cols-3" : "card-list space-y-3"}>
+				{visibleSkills.map((item) => (
+					<li key={item}>
+						{tags ? <Tecnology name={item} /> : (
+							<Text variant={prose ? "cascadia-prose" : "tomorrow-sm"} className="leading-relaxed">
+								<HighlightedText>{item}</HighlightedText>
+							</Text>
+						)}
 					</li>
 				))}
 			</ul>
+			{moreSkills.length > 0 && (
+				<ExpandableCardContent label="Mais sobre minha atuação" ariaLabel={`Mais sobre minha atuação na ${skill.title}`}>
+					<ul className="card-list prose-text mt-4 space-y-3 text-base leading-relaxed">
+						{moreSkills.map((item) => (
+							<li key={item}><HighlightedText>{item}</HighlightedText></li>
+						))}
+					</ul>
+				</ExpandableCardContent>
+			)}
 		</Card>
 	);
 }

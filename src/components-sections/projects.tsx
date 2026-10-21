@@ -14,14 +14,13 @@ export default function About() {
          gap-y-10"
 		>
 			<div>
-				<Text variant="tomorrow-section">Projetos em destaque</Text>
+				<Text as="h2" variant="tomorrow-section">Projetos em destaque</Text>
 			</div>
 
 			<div
 				className="
-				flex flex-row flex-wrap
-				justify-center items-start
-				gap-8"
+				grid w-full max-w-6xl grid-cols-1 md:grid-cols-2
+				items-start gap-5 sm:gap-6"
 			>
 				{projectsList.map((proj) => (
 					<CardProject

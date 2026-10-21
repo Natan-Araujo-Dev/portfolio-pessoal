@@ -33,33 +33,21 @@ function HeaderShortchutMobile() {
 			flex flex-col
 			justify-start items-start"
 		>
-			<details
-				className="
-				flex flex-col
-				justify-center items-center
-				gap-y-4"
-			>
+			<details className="mobile-navigation">
 				<summary
-					className="
-					cursor-pointer
-					list-none
-					min-h-(--header-height)
-					p-4
-					absolute right-0 top-1/2 -translate-y-1/2"
+					aria-label="Menu de navegação"
+					className="absolute right-4 top-1/2 -translate-y-1/2 flex min-h-11 min-w-11 items-center justify-center rounded-lg list-none"
 				>
 					<Menu />
 				</summary>
 
 				<div
-					className="
-					absolute
-					flex flex-col
-					right-0 top-0
-					mt-16
-					gap-y-4
-					p-2
-					rounded-b-md
-					bg-header-light/95 dark:bg-gray-darker/90"
+					className="absolute right-4 top-full mt-2 flex w-64 max-w-[calc(100vw-2rem)] flex-col gap-1 rounded-xl border border-slate-500/20 bg-card-light p-3 shadow-xl dark:bg-card-dark"
+					onClick={(event) => {
+						if ((event.target as HTMLElement).closest("a")) {
+							event.currentTarget.closest("details")?.removeAttribute("open");
+						}
+					}}
 				>
 					<Sections />
 				</div>
