@@ -23,7 +23,7 @@ export default function SmoothScroll() {
 					lerp: 0.085,
 					smoothWheel: true,
 					syncTouch: false,
-					anchors: true,
+					anchors: { duration: 0.55 },
 					allowNestedScroll: true,
 				});
 			}
