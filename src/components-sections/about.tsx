@@ -3,7 +3,7 @@ import ScrollSection from "../components-core/scroll-section";
 import Text from "../components-base/text";
 import TextPatternBackground from "../components-core/text-pattern-background";
 import SpotlightCard from "../components-core/spotlight-card";
-import AboutDetails from "../components-core/about-details";
+import HighlightedText from "../components-core/highlighted-text";
 
 export default function About() {
 	return (
@@ -19,83 +19,27 @@ export default function About() {
 							<span className="text-green-dark dark:text-green-light">Software com clareza e propósito.</span>
 						</h3>
 						<Text as="p" variant="cascadia-prose" className="md:mt-5">
-							Especializado em .NET e React, com atuação do frontend à infraestrutura.
+							<HighlightedText>Especializado em .NET e React, com atuação do frontend à infraestrutura.</HighlightedText>
 						</Text>
 						<Text as="p" variant="cascadia-prose" className="md:mt-4">
-							Uso de IA e documentação contextual para acelerar entregas e reduzir retrabalho.
+							Uso de <Text className="text-[#80448a] dark:text-[#D8A0DF]">IA</Text> e{" "}
+							<Text className="text-[#276478] dark:text-[#9CDCFE]">documentação contextual</Text> para{" "}
+							<Text className="text-[#52692c] dark:text-[#B5CEA8]">acelerar entregas</Text> e{" "}
+							<Text className="text-[#52692c] dark:text-[#B5CEA8]">reduzir retrabalho</Text>.
 						</Text>
-						<div className="order-2 max-md:[&>.project-link]:mt-0 md:order-none">
-						<AboutDetails>
-							<Text
-								variant="cascadia-prose"
-								className="text-gray-dark dark:text-white"
-							>
-								Sou um <Text className="text-[#126653] dark:text-[#4EC9B0]">Desenvolvedor FullStack</Text>
-								, especializado em <Text className="text-[#126653] dark:text-[#4EC9B0]">.NET</Text> e{" "}
-								<Text className="text-[#126653] dark:text-[#4EC9B0]">React</Text>.
-								<br />
-								<br />
-								Atuo no <Text className="text-[#245b91] dark:text-[#569CD6]">frontend</Text>,{" "}
-								<Text className="text-[#245b91] dark:text-[#569CD6]">backend</Text>,{" "}
-								<Text className="text-[#276478] dark:text-[#9CDCFE]">banco de dados</Text>,{" "}
-								<Text className="text-[#276478] dark:text-[#9CDCFE]">infraestrutura</Text>,{" "}
-								<Text className="text-[#80448a] dark:text-[#D8A0DF]">engenharia de prompt</Text> e{" "}
-								<Text className="text-[#486637] dark:text-[#B8D7A3]">testes</Text>. Desenvolvo aplicações
-								com foco em <Text className="text-[#78601f] dark:text-[#DCDCAA]">desempenho</Text>,{" "}
-								<Text className="text-[#78601f] dark:text-[#DCDCAA]">escalabilidade</Text> e{" "}
-								<Text className="text-[#78601f] dark:text-[#DCDCAA]">facilidade de manutenção</Text>,
-								utilizando{" "}
-								<Text className="text-[#486637] dark:text-[#B8D7A3]">arquiteturas modulares</Text> e{" "}
-								<Text className="text-[#486637] dark:text-[#B8D7A3]">
-									boas práticas de engenharia de software
-								</Text>
-								.
-								<br />
-								<br />
-								Tenho experiência na criação e manutenção de{" "}
-								<Text className="text-[#245b91] dark:text-[#569CD6]">plataformas de mensageria</Text>{" "}
-								(SMS, e-mail e mensagens de voz),{" "}
-								<Text className="text-[#925033] dark:text-[#D69D85]">landing pages</Text>,{" "}
-								<Text className="text-[#126653] dark:text-[#4EC9B0]">APIs REST</Text> e{" "}
-								<Text className="text-[#80448a] dark:text-[#D8A0DF]">automação de processos</Text>. Também
-								trabalho com melhorias de <Text className="text-[#925033] dark:text-[#D69D85]">UI</Text>,{" "}
-								<Text className="text-[#925033] dark:text-[#D69D85]">UX</Text> e{" "}
-								<Text className="text-[#306b35] dark:text-[#57A64A]">
-									acessibilidade para pessoas com deficiência (PCD)
-								</Text>
-								.
-								<br />
-								<br />
-								Uso principalmente <Text className="text-[#126653] dark:text-[#4EC9B0]">Codex</Text> como{" "}
-								<Text className="text-[#80448a] dark:text-[#D8A0DF]">assistente de IA</Text> e estruturo{" "}
-								<Text className="text-[#276478] dark:text-[#9CDCFE]">documentação contextual</Text> para{" "}
-								<Text className="text-[#52692c] dark:text-[#B5CEA8]">reduzir retrabalho</Text>,{" "}
-								<Text className="text-[#52692c] dark:text-[#B5CEA8]">acelerar implementações</Text> e{" "}
-								<Text className="text-[#52692c] dark:text-[#B5CEA8]">diminuir custos operacionais</Text>.
-								Equilibro <Text className="text-[#78601f] dark:text-[#DCDCAA]">legibilidade</Text>,{" "}
-								<Text className="text-[#486637] dark:text-[#B8D7A3]">modularização</Text> e{" "}
-								<Text className="text-[#78601f] dark:text-[#DCDCAA]">agilidade na entrega</Text>.
-								<br />
-								<br />
-								Moro no <Text className="text-[#925033] dark:text-[#D69D85]">Rio de Janeiro - RJ</Text>,
-								com disponibilidade para trabalho{" "}
-								<Text className="text-[#276478] dark:text-[#9CDCFE]">presencial, remoto ou híbrido</Text>.
-							</Text>
-						</AboutDetails>
-						</div>
 					</div>
 					<dl className="order-1 space-y-4 border-t border-slate-500/20 pt-4 md:order-none md:space-y-6 md:border-t-0 md:border-l md:pt-0 md:pl-8">
 						<div>
 							<dt className="font-tomorrow text-sm font-medium tracking-wider text-[#245b91] dark:text-[#76b6ec]">O QUE DESENVOLVO</dt>
-							<dd className="prose-text mt-2 text-base leading-relaxed">Sites, aplicações, APIs REST e automações.</dd>
+							<dd className="prose-text mt-2 text-base leading-relaxed"><HighlightedText>Sites, aplicações, APIs REST e </HighlightedText><Text className="text-[#80448a] dark:text-[#D8A0DF]">automações</Text>.</dd>
 						</div>
 						<div>
 							<dt className="font-tomorrow text-sm font-medium tracking-wider text-[#245b91] dark:text-[#76b6ec]">ONDE TENHO EXPERIÊNCIA</dt>
-							<dd className="prose-text mt-2 text-base leading-relaxed">Mensageria, manutenção e evolução de sistemas.</dd>
+							<dd className="prose-text mt-2 text-base leading-relaxed"><HighlightedText>Mensageria, manutenção e evolução de sistemas.</HighlightedText></dd>
 						</div>
 						<div>
 							<dt className="font-tomorrow text-sm font-medium tracking-wider text-[#245b91] dark:text-[#76b6ec]">MEU FOCO</dt>
-							<dd className="prose-text mt-2 text-base leading-relaxed">Desempenho, acessibilidade e facilidade de manutenção.</dd>
+							<dd className="prose-text mt-2 text-base leading-relaxed"><HighlightedText>Desempenho, acessibilidade e facilidade de manutenção.</HighlightedText></dd>
 						</div>
 					</dl>
 				</div>

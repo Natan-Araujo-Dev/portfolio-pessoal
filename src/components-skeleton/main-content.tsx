@@ -8,7 +8,6 @@ export default function MainContent() {
 			flex flex-col grow
 			justify-center items-center
 			w-full h-full
-			mt-(--header-height)
 			bg-gray-background dark:bg-blue-background"
 		>
 			<Content />
