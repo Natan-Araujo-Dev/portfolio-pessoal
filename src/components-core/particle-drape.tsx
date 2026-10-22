@@ -130,7 +130,7 @@ export default function ParticleDrape({ visibilitySelector }: { visibilitySelect
 				const rgb = color.slice(1).match(/.{2}/g)!.map((value) => Number.parseInt(value, 16) / 255);
 				gl!.uniform3f(uniforms[name], rgb[0], rgb[1], rgb[2]);
 			}
-			if (document.hidden || (mobile.matches && !visible) || root.matches(".reduced-motion, .high-contrast")) {
+			if (document.hidden || !visible || root.matches(".reduced-motion, .high-contrast")) {
 				cancelAnimationFrame(frame);
 				frame = 0;
 				previous = 0;
@@ -178,7 +178,7 @@ export default function ParticleDrape({ visibilitySelector }: { visibilitySelect
 			gl!.uniform1f(uniforms.pixelRatio, ratio);
 		}
 		function getBounds() {
-			if (document.hidden || (mobile.matches && !visible) || root.matches(".reduced-motion, .high-contrast")) return null;
+			if (document.hidden || !visible || root.matches(".reduced-motion, .high-contrast")) return null;
 			const rect = canvas!.getBoundingClientRect();
 			return rect.width > 0 && rect.height > 0 ? rect : null;
 		}
@@ -250,5 +250,5 @@ export default function ParticleDrape({ visibilitySelector }: { visibilitySelect
 		};
 	}, [visibilitySelector]);
 
-	return <canvas ref={canvasRef} aria-hidden="true" className="absolute inset-0 h-full w-full" />;
+	return <canvas ref={canvasRef} aria-hidden="true" className="absolute inset-0 h-[100lvh] w-full md:h-full" />;
 }

@@ -116,11 +116,11 @@ html.lenis {
 	scroll-margin-top: var(--header-height);
 }
 
-.scroll-scene:nth-child(even) .scroll-panel {
+.scroll-scene:not(:first-child) .scroll-panel {
 	background-color: var(--color-gray-background);
 }
 
-.dark .scroll-scene:nth-child(even) .scroll-panel {
+.dark .scroll-scene:not(:first-child) .scroll-panel {
 	background-color: var(--color-blue-background);
 }
 

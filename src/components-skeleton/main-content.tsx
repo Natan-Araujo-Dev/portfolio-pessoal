@@ -1,4 +1,3 @@
-import Background from "./background";
 import Content from "./content";
 
 export default function MainContent() {
@@ -12,7 +11,6 @@ export default function MainContent() {
 			mt-(--header-height)
 			bg-gray-background dark:bg-blue-background"
 		>
-			<Background />
 			<Content />
 		</main>
 	);

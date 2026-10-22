@@ -1,4 +1,5 @@
 import ScrollSection from "../components-core/scroll-section";
+import Background from "../components-skeleton/background";
 /** biome-ignore-all lint/correctness/useUniqueElementIds: <ids estáticos> */
 import Text from "../components-base/text";
 import ButtonAdvance from "../components-core/button-advance";
@@ -9,8 +10,9 @@ export default function Start() {
 		<ScrollSection
 			id="inicio"
 			className="
-			custom-section"
+			custom-section isolate"
 		>
+			<Background />
 			<StartDesktop />
 			<StartMobile />
 		</ScrollSection>
