@@ -1,5 +1,6 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import React from "react";
+import useLanguage from "../hooks/useLanguage";
 
 export const textVariants = cva(
 	"font-tomorrow",
@@ -79,12 +80,13 @@ export default function Text({
 	children,
 	...props
 }: TextProps) {
+	const { t } = useLanguage();
 	return React.createElement(
 		as,
 		{
 			className: textVariants({ variant, className }),
 			...props,
 		},
-		children,
+		React.Children.map(children, child => typeof child === "string" ? t(child) : child),
 	);
 }

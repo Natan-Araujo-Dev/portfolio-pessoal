@@ -4,6 +4,7 @@ import type { SkillModel } from "../models/skillModel";
 import HighlightedText from "./highlighted-text";
 import Tecnology from "./tecnology";
 import ExpandableCardContent from "./expandable-card-content";
+import useLanguage from "../hooks/useLanguage";
 
 interface SkillProps {
 	skill: SkillModel;
@@ -13,6 +14,7 @@ interface SkillProps {
 }
 
 export default function CardSkill({ skill, prose = false, tags = false, columns = false }: SkillProps) {
+	const { t } = useLanguage();
 	const visibleSkills = prose ? skill.skills.slice(0, 2) : skill.skills;
 	const moreSkills = prose ? skill.skills.slice(2) : [];
 
@@ -31,7 +33,7 @@ export default function CardSkill({ skill, prose = false, tags = false, columns 
 				))}
 			</ul>
 			{moreSkills.length > 0 && (
-				<ExpandableCardContent label="Mais sobre minha atuação" ariaLabel={`Mais sobre minha atuação na ${skill.title}`}>
+				<ExpandableCardContent label="Mais sobre minha atuação" ariaLabel={t("Mais sobre minha atuação na {company}", { company: skill.title })}>
 					<ul className="card-list prose-text mt-4 space-y-3 text-base leading-relaxed">
 						{moreSkills.map((item) => (
 							<li key={item}><HighlightedText>{item}</HighlightedText></li>

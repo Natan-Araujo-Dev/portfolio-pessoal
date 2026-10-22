@@ -2,6 +2,8 @@ import { Menu } from "lucide-react";
 import { useEffect, useRef } from "react";
 import Text from "../components-base/text";
 import ButtonToggleTheme from "./button-toggle-theme";
+import LanguageSelector from "./language-selector";
+import useLanguage from "../hooks/useLanguage";
 
 export default function HeaderShortcuts({ compact = false }: { compact?: boolean }) {
 	return (
@@ -18,7 +20,7 @@ function HeaderShortchutDesktop({ compact }: { compact: boolean }) {
 			data-header-desktop
 			inert={compact}
 			className="
-			hidden lg:flex
+			hidden xl:flex
          flex-row
          justify-center items-center
          gap-x-4"
@@ -29,6 +31,7 @@ function HeaderShortchutDesktop({ compact }: { compact: boolean }) {
 }
 
 function HeaderShortchutMobile({ compact }: { compact: boolean }) {
+	const { t } = useLanguage();
 	const details = useRef<HTMLDetailsElement>(null);
 	const panel = useRef<HTMLDivElement>(null);
 	const animation = useRef<Animation | null>(null);
@@ -67,13 +70,13 @@ function HeaderShortchutMobile({ compact }: { compact: boolean }) {
 
 	return (
 		<div
-			className={`${compact ? "" : "lg:hidden"}
+			className={`${compact ? "" : "xl:hidden"}
 			flex flex-col
 			justify-start items-start`}
 		>
 			<details ref={details} className="mobile-navigation">
 				<summary
-					aria-label="Menu de navegação"
+					aria-label={t("Menu de navegação")}
 					onClick={event => { event.preventDefault(); setMenuOpen(!expanded.current); }}
 					className={`absolute ${compact ? "right-0" : "right-4"} top-1/2 -translate-y-1/2 flex min-h-11 min-w-11 items-center justify-center rounded-lg list-none`}
 				>
@@ -135,7 +138,10 @@ function Sections() {
 				</a>
 			</div>
 
-			<ButtonToggleTheme />
+			<div className="header-controls flex items-center gap-3">
+				<ButtonToggleTheme />
+				<LanguageSelector />
+			</div>
 		</>
 	);
 }

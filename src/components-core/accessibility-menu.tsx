@@ -2,8 +2,10 @@ import { Contrast, RotateCcw, Wind, X } from "lucide-react";
 import { useEffect, useId, useRef, useState } from "react";
 import Text from "../components-base/text";
 import useAccessibility from "../hooks/useAccessibility";
+import useLanguage from "../hooks/useLanguage";
 
 export default function AccessibilityMenu() {
+	const { t } = useLanguage();
 	const [open, setOpen] = useState(false);
 	const {
 		fontSize,
@@ -68,9 +70,9 @@ export default function AccessibilityMenu() {
 				ref={trigger}
 				data-accessibility-trigger
 				type="button"
-				aria-label="Acessibilidade"
+				aria-label={t("Acessibilidade")}
 				aria-keyshortcuts="F"
-				title="Acessibilidade (F)"
+				title={t("Acessibilidade (F)")}
 				aria-expanded={open}
 				aria-controls={panelId}
 				onClick={() => setOpen(!open)}
@@ -98,7 +100,7 @@ export default function AccessibilityMenu() {
 
 			<section
 				id={panelId}
-				aria-label="Opções de acessibilidade"
+				aria-label={t("Opções de acessibilidade")}
 				aria-hidden={!open}
 				inert={!open}
 				className={`absolute bottom-full right-0 mb-3 w-72 max-w-[calc(100vw-2rem)] max-h-[calc(100dvh-7rem)] overflow-y-auto rounded-2xl border border-gray-light dark:border-gray-medium bg-card-light dark:bg-card-dark p-5 text-gray-dark dark:text-white shadow-lg transition-all duration-200 ease-out motion-reduce:transition-none ${open ? "visible opacity-100 translate-y-0" : "invisible opacity-0 translate-y-2 pointer-events-none"}`}
@@ -109,7 +111,7 @@ export default function AccessibilityMenu() {
 					</Text>
 					<button
 						type="button"
-						aria-label="Fechar acessibilidade"
+						aria-label={t("Fechar acessibilidade")}
 						onClick={() => {
 							setOpen(false);
 							trigger.current?.focus();
@@ -129,7 +131,7 @@ export default function AccessibilityMenu() {
 				<div className="grid grid-cols-3 gap-2 mb-4">
 					<button
 						type="button"
-						aria-label="Diminuir fonte"
+						aria-label={t("Diminuir fonte")}
 						disabled={fontSize === 80}
 						onClick={() => changeFontSize(-10)}
 						className="rounded-md border border-gray-medium px-3 py-2 font-tomorrow text-lg hover:bg-black/10 dark:hover:bg-white/10 disabled:opacity-40 focus-visible:outline-2 focus-visible:outline-blue-600"
@@ -138,7 +140,7 @@ export default function AccessibilityMenu() {
 					</button>
 					<button
 						type="button"
-						aria-label="Aumentar fonte"
+						aria-label={t("Aumentar fonte")}
 						disabled={fontSize === 200}
 						onClick={() => changeFontSize(10)}
 						className="rounded-md border border-gray-medium px-3 py-2 font-tomorrow text-lg hover:bg-black/10 dark:hover:bg-white/10 disabled:opacity-40 focus-visible:outline-2 focus-visible:outline-blue-600"
@@ -147,7 +149,7 @@ export default function AccessibilityMenu() {
 					</button>
 					<button
 						type="button"
-						aria-label="Restaurar fonte para 100%"
+						aria-label={t("Restaurar fonte para 100%")}
 						onClick={() => setFontSize(100)}
 						className="flex justify-center items-center rounded-md border border-gray-medium px-3 py-2 hover:bg-black/10 dark:hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-blue-600"
 					>

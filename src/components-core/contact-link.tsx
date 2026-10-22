@@ -1,6 +1,7 @@
 import { ArrowRight, Copy, ExternalLink } from "lucide-react";
 import { type ReactNode, useEffect, useId, useRef, useState } from "react";
 import Text from "../components-base/text";
+import useLanguage from "../hooks/useLanguage";
 
 interface ContactLinkProps {
 	href?: string;
@@ -17,6 +18,7 @@ export default function ContactLink({
 	copyLabel = "Copiar valor",
 	children,
 }: ContactLinkProps) {
+	const { t } = useLanguage();
 	const [open, setOpen] = useState(false);
 	const [copyStatus, setCopyStatus] = useState("");
 	const container = useRef<HTMLDivElement>(null);
@@ -134,7 +136,7 @@ export default function ContactLink({
 			>
 				<div
 					role="group"
-					aria-label={`Opções de ${label}`}
+					aria-label={t("Opções de {label}", { label: t(label) })}
 					className="flex flex-col gap-1 min-w-40 p-2 rounded-xl border border-gray-light dark:border-gray-medium bg-card-light dark:bg-card-dark text-gray-dark dark:text-gray-200 shadow-lg"
 				>
 					{href && (
@@ -184,7 +186,7 @@ export default function ContactLink({
 					)}
 					{copyStatus && copyStatus !== "Copiado!" && (
 						<span role="status" className="font-tomorrow text-xs">
-							{copyStatus}
+							{t(copyStatus)}
 						</span>
 					)}
 				</div>

@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { Children, useEffect, useRef } from "react";
+import useLanguage from "../hooks/useLanguage";
 import type { CSSProperties, ReactNode } from "react";
 
 export const SHINY_TEXT_COLOR = "var(--shiny-text-highlight)";
@@ -128,11 +129,12 @@ const ShinyText = ({
 	className = "",
 	style,
 }: ShinyTextProps) => {
+	const { t } = useLanguage();
 	const rootRef = useRef<HTMLSpanElement>(null);
 	const glowRef = useRef<HTMLSpanElement>(null);
 	const settingsRef = useRef<Settings | null>(null);
 	const syncRef = useRef<(() => void) | null>(null);
-	const content = children ?? text;
+	const content = Children.map(children ?? text, child => typeof child === "string" ? t(child) : child);
 
 	settingsRef.current = {
 		color,

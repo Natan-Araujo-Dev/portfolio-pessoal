@@ -5,10 +5,12 @@ import type { ProjectModel } from "../models/projectModel";
 import Tecnology from "./tecnology";
 import HighlightedText from "./highlighted-text";
 import ExpandableCardContent from "./expandable-card-content";
+import useLanguage from "../hooks/useLanguage";
 
 export default function CardProject({
 	title, summary, features, technologies, projectLink, gitHubLink, gitHubLinks,
 }: ProjectModel) {
+	const { t } = useLanguage();
 	const repositories =
 		gitHubLinks ?? (gitHubLink ? [{ label: "GitHub", url: gitHubLink }] : []);
 
@@ -19,13 +21,13 @@ export default function CardProject({
 				<HighlightedText>{summary}</HighlightedText>
 			</Text>
 
-			<ul className="flex flex-wrap gap-2" aria-label={`Tecnologias de ${title}`}>
+			<ul className="flex flex-wrap gap-2" aria-label={t("Tecnologias de {title}", { title })}>
 				{technologies.slice(0, 5).map((tec) => (
 					<li key={tec}><Tecnology name={tec} /></li>
 				))}
 			</ul>
 
-			<ExpandableCardContent label="Minha atuação" ariaLabel={`Minha atuação em ${title}`}>
+			<ExpandableCardContent label="Minha atuação" ariaLabel={t("Minha atuação em {title}", { title })}>
 				<ul className="card-list prose-text mt-4 space-y-3 text-base leading-relaxed">
 					{features.map((feature) => (
 						<li key={feature}><HighlightedText>{feature}</HighlightedText></li>
@@ -45,12 +47,12 @@ export default function CardProject({
 
 			<div className="flex flex-wrap items-center gap-3">
 				{projectLink && (
-					<a href={projectLink} target="_blank" rel="noopener noreferrer" className="project-link" aria-label={`Ir para o site de ${title} (nova guia)`}>
-						Ir para o site <ExternalLink size={16} aria-hidden="true" />
+					<a href={projectLink} target="_blank" rel="noopener noreferrer" className="project-link" aria-label={t("Ir para o site de {title} (nova guia)", { title })}>
+						{t("Ir para o site")} <ExternalLink size={16} aria-hidden="true" />
 					</a>
 				)}
 				{repositories.map((repository) => (
-					<a key={repository.url} href={repository.url} target="_blank" rel="noopener noreferrer" className="project-link" aria-label={`${repository.label} de ${title} (nova guia)`}>
+					<a key={repository.url} href={repository.url} target="_blank" rel="noopener noreferrer" className="project-link" aria-label={t("{label} de {title} (nova guia)", { label: repository.label, title })}>
 						{repository.label} <Github size={16} aria-hidden="true" />
 					</a>
 				))}

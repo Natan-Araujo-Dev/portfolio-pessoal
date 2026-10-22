@@ -1,3 +1,5 @@
+import useLanguage, { translate, type Language } from "../hooks/useLanguage";
+
 const keywords = {
 	"text-[#126653] dark:text-[#4EC9B0]": [
 		"React",
@@ -78,12 +80,15 @@ const keywords = {
 		"servidores",
 		"servidor",
 		"documentação",
+		"documentação contextual",
 		"mapas",
 	],
 	"text-[#80448a] dark:text-[#D8A0DF]": [
 		"prompts",
 		"engenharia de prompt",
 		"automação",
+		"automações",
+		"IA",
 		"integração contínua",
 		"autenticação",
 		"autorização",
@@ -149,25 +154,27 @@ const keywords = {
 		"descrição de imagens",
 		"PCD",
 	],
-	"text-[#52692c] dark:text-[#B5CEA8]": ["C1", "A1", "C2", "avançado", "básico", "fluente"],
+	"text-[#52692c] dark:text-[#B5CEA8]": ["C1", "A1", "C2", "avançado", "básico", "fluente", "acelerar entregas", "reduzir retrabalho"],
 };
 
-const colors = new Map(
-	Object.entries(keywords).flatMap(([color, words]) =>
-		words.map((word) => [word.toLowerCase(), color] as const),
-	),
-);
-const pattern = [...colors.keys()]
-	.sort((a, b) => b.length - a.length)
-	.map((word) => word.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"))
-	.join("|");
-const matcher = new RegExp(
-	`(?<![\\p{L}\\p{N}_])(${pattern}|\\d+(?:[.,]\\d+)?)(?![\\p{L}\\p{N}_])`,
-	"giu",
-);
+const cache = new Map<Language, { colors: Map<string, string>; matcher: RegExp }>();
+function getHighlights(language: Language) {
+	const cached = cache.get(language);
+	if (cached) return cached;
+	const colors = new Map(Object.entries(keywords).flatMap(([color, words]) =>
+		words.flatMap(word => [word, translate(word, {}, language)].map(value => [value.toLowerCase(), color] as const)),
+	));
+	const pattern = [...colors.keys()].sort((a, b) => b.length - a.length)
+		.map(word => word.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|");
+	const result = { colors, matcher: new RegExp(`(?<![\\p{L}\\p{N}_])(${pattern}|\\d+(?:[.,]\\d+)?)(?![\\p{L}\\p{N}_])`, "giu") };
+	cache.set(language, result);
+	return result;
+}
 
 export default function HighlightedText({ children }: { children: string }) {
-	return children.split(matcher).map((part, index) => {
+	const { language, t } = useLanguage();
+	const { colors, matcher } = getHighlights(language);
+	return t(children).split(matcher).map((part, index) => {
 		const color =
 			colors.get(part.toLowerCase()) ??
 			(/^\d/.test(part) ? "text-[#52692c] dark:text-[#B5CEA8]" : undefined);

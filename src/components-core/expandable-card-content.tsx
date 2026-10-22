@@ -1,4 +1,5 @@
 import { useId, useState, type ReactNode } from "react";
+import useLanguage from "../hooks/useLanguage";
 
 interface ExpandableCardContentProps {
 	label: string;
@@ -7,6 +8,7 @@ interface ExpandableCardContentProps {
 }
 
 export default function ExpandableCardContent({ label, ariaLabel, children }: ExpandableCardContentProps) {
+	const { t } = useLanguage();
 	const [expanded, setExpanded] = useState(false);
 	const contentId = useId();
 
@@ -20,7 +22,7 @@ export default function ExpandableCardContent({ label, ariaLabel, children }: Ex
 				aria-controls={contentId}
 				onClick={() => setExpanded((value) => !value)}
 			>
-				{label}
+				{t(label)}
 			</button>
 			<div id={contentId} className={`card-details-content${expanded ? " is-expanded" : ""}`} aria-hidden={!expanded}>
 				<div className="card-details-inner">{children}</div>
