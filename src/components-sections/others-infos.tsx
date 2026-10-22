@@ -1,6 +1,5 @@
 import ScrollSection from "../components-core/scroll-section";
 import Text from "../components-base/text";
-import ButtonAdvance from "../components-core/button-advance";
 import CardSkill from "../components-core/card-skill";
 import { otherSkillsList } from "../objects/otherSkillsList";
 
@@ -27,7 +26,6 @@ export default function OthersInfos() {
 				))}
 			</div>
 
-			<ButtonAdvance href="#projetos" />
 		</ScrollSection>
 	);
 }

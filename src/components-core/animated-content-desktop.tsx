@@ -7,7 +7,7 @@ gsap.registerPlugin(ScrollTrigger);
 // Mesmo perfil do Animated Content: escala, subida e entrada em sequência.
 const SETTINGS = {
 	scale: 0.5,
-	delay: 0.2,
+	delay: 0.3,
 	stagger: 0.11,
 	duration: 0.6,
 	distance: 100,
@@ -33,6 +33,13 @@ export default function AnimatedContentDesktop() {
 		let disabled: boolean | undefined;
 		let frame = 0;
 		let width = window.innerWidth;
+		let previousScroll = window.scrollY;
+		let direction = 1;
+		function trackDirection() {
+			const current = window.scrollY;
+			if (current !== previousScroll) direction = current > previousScroll ? 1 : -1;
+			previousScroll = current;
+		}
 
 		function refresh() {
 			cancelAnimationFrame(frame);
@@ -87,6 +94,26 @@ export default function AnimatedContentDesktop() {
 							window.innerHeight,
 							ScrollTrigger.maxScroll(window) - window.innerHeight * 0.45 - 2,
 						);
+						const end = () => {
+							const sceneTop = scene.getBoundingClientRect().top + window.scrollY;
+							const rowTop = layoutTop(row[0]) - layoutTop(container);
+							const rowBottom = Math.max(...row.map(target => layoutTop(target) - layoutTop(container) + target.offsetHeight));
+							const header = document.querySelector("header")?.offsetHeight ?? 0;
+							const stickyTop = Number.parseFloat(getComputedStyle(container).top);
+							const next = scene.nextElementSibling;
+							const covered = getComputedStyle(container).position === "sticky" && next && rowBottom + stickyTop > header;
+							const exit = covered
+								? next.getBoundingClientRect().top + window.scrollY - Math.max(header, stickyTop + rowTop)
+								: sceneTop + rowBottom - header;
+							return Math.max(start() + 1, Math.min(exit, ScrollTrigger.maxScroll(window) + 1));
+						};
+						const enter = (trigger: ScrollTrigger) => {
+							const animation = trigger.animation as gsap.core.Tween | undefined;
+							if (!animation?.vars.startAt) return;
+							trackDirection();
+							animation.vars.startAt.y = (mobile ? 24 : SETTINGS.distance) * direction;
+							animation.invalidate().restart(true);
+						};
 						gsap.fromTo(
 							row,
 							{ y: mobile ? 24 : SETTINGS.distance, scale: mobile ? 0.97 : SETTINGS.scale, opacity: 0 },
@@ -97,21 +124,15 @@ export default function AnimatedContentDesktop() {
 								ease: "power3.out",
 								duration: SETTINGS.duration,
 								stagger: SETTINGS.stagger,
-								delay: mount ? SETTINGS.delay : 0,
-								scrollTrigger: mount
-									? undefined
-									: mobile
-										? { trigger: row[0], start: "top 95%", once: true }
-									: {
-											trigger: block,
-											start,
-											end: () =>
-												Math.min(
-													start() + window.innerHeight * 0.45,
-													ScrollTrigger.maxScroll(window) - 2,
-												),
-											scrub: true,
-										},
+								delay: SETTINGS.delay,
+								scrollTrigger: {
+									trigger: block,
+									start,
+									end,
+									toggleActions: "none reset none reset",
+									onEnter: enter,
+									onEnterBack: enter,
+								},
 							},
 						);
 					}
@@ -154,11 +175,13 @@ export default function AnimatedContentDesktop() {
 			attributeFilter: ["class", "style"],
 		});
 		reducedMotion.addEventListener("change", sync);
+		window.addEventListener("scroll", trackDirection, { passive: true });
 		sync();
 		return () => {
 			observer.disconnect();
 			resizeObserver.disconnect();
 			reducedMotion.removeEventListener("change", sync);
+			window.removeEventListener("scroll", trackDirection);
 			cancelAnimationFrame(frame);
 			context?.revert();
 		};

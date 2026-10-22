@@ -131,27 +131,28 @@ html.lenis {
 .about-pattern {
 	position: relative;
 	isolation: isolate;
+	--about-background-gap: 2.5rem;
 }
 
-.about-pattern::before {
+#sobre > .scroll-panel {
+	clip-path: none;
+}
+
+.about-pattern > .text-pattern-background {
+	inset: calc(-1 * var(--about-background-gap)) 0 calc(-1 * (var(--scroll-overlap-slack) + var(--about-background-gap)));
+}
+
+.about-pattern::after {
 	content: "";
 	position: absolute;
-	inset: 0;
-	z-index: -1;
+	inset: calc(-1 * var(--about-background-gap)) 0 calc(-1 * (var(--scroll-overlap-slack) + var(--about-background-gap)));
+	z-index: -2;
+	background-color: var(--color-gray-background);
 	pointer-events: none;
-	border-radius: inherit;
-	background-image: url("./assets/about-keywords.svg");
-	background-size: 1493.409522px 1493.409522px;
-	background-position: 0 0;
-	opacity: 0.18;
 }
 
-.dark .about-pattern::before {
-	opacity: 0.14;
-}
-
-html.high-contrast .about-pattern::before {
-	display: none;
+.dark .about-pattern::after {
+	background-color: var(--color-blue-background);
 }
 
 html.high-contrast .experience-wall {
@@ -160,8 +161,13 @@ html.high-contrast .experience-wall {
 
 #experiencia-profissional,
 #experiencia-profissional > .scroll-panel {
-	--experience-background: #0b1c14;
+	--experience-background: #edf4f0;
 	background-color: var(--experience-background);
+}
+
+.dark #experiencia-profissional,
+.dark #experiencia-profissional > .scroll-panel {
+	--experience-background: #0a0a0a;
 }
 
 /* Preenche o intervalo entre as seções sem alterar sua posição no scroll. */
@@ -175,24 +181,19 @@ html.high-contrast .experience-wall {
 }
 
 @media (min-width: 768px) {
+	.about-pattern {
+		--about-background-gap: 5rem;
+	}
+
 	#experiencia-profissional::after {
 		height: 5rem;
 	}
 }
 
-@keyframes keywords-drift {
-	to { background-position: 1493.409522px -1493.409522px; }
-}
-
-@media (prefers-reduced-motion: no-preference) and (min-width: 768px) {
-	html:not(.reduced-motion) .about-pattern::before {
-		animation: keywords-drift 110s linear infinite;
-	}
-}
-
 /* A preferência de movimento não altera a geometria das seções. */
 .scroll-scene {
-	height: calc(var(--panel-height) + 100svh - var(--header-height));
+	--scroll-overlap-slack: 100px;
+	height: calc(var(--panel-height) + 100svh - var(--header-height) + var(--scroll-overlap-slack));
 	margin-bottom: calc(var(--header-height) - 100svh);
 }
 
@@ -207,15 +208,13 @@ html.high-contrast .experience-wall {
 	box-shadow: 0 -24px 64px rgb(0 0 0 / 30%);
 }
 
-/* Painéis expansíveis seguem o fluxo normal para abrir detalhes sem saltos. */
-.scroll-scene:last-child,
-.scroll-scene:has(.card-details) {
+/* A última seção permanece no fluxo para manter o footer no fim da página. */
+.scroll-scene:last-child {
 	height: auto;
 	margin-bottom: 0;
 }
 
-.scroll-scene:last-child .scroll-panel,
-.scroll-scene:has(.card-details) .scroll-panel {
+.scroll-scene:last-child .scroll-panel {
 	position: relative;
 	top: auto;
 	clip-path: none;
@@ -522,15 +521,22 @@ html.high-contrast .card-heading::before {
 }
 
 @media (max-width: 767px) {
-	.scroll-scene {
-		height: auto;
-		margin-bottom: 0;
+	#sobre [data-card] .text-xl {
+		font-size: 0.875rem;
 	}
 
-	.scroll-panel {
-		position: relative;
-		top: auto;
-		clip-path: none;
+	#sobre [data-card] .text-base {
+		font-size: 0.7rem;
+	}
+
+	#sobre [data-card] :is(.text-sm, .project-link) {
+		font-size: 0.6125rem;
+	}
+
+	@media (min-width: 640px) {
+		#sobre [data-card] .sm\:text-2xl {
+			font-size: 1.05rem;
+		}
 	}
 
 	.scroll-scene:not(:first-child) .scroll-panel {
@@ -539,10 +545,7 @@ html.high-contrast .card-heading::before {
 
 	.scroll-scene:not(#inicio) .custom-section {
 		min-height: auto;
-	}
-
-	.about-pattern::before {
-		animation: none !important;
+		padding-inline: 60px;
 	}
 
 	[data-spotlight-card] > [aria-hidden="true"] {

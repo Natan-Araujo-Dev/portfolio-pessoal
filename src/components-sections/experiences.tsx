@@ -1,7 +1,6 @@
 import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import ScrollSection from "../components-core/scroll-section";
 import Text from "../components-base/text";
-import ButtonAdvance from "../components-core/button-advance";
 import CardSkill from "../components-core/card-skill";
 import { experiencesList } from "../objects/experiencesList";
 const DriftWall = lazy(() => import("../components-core/drift-wall"));
@@ -60,7 +59,6 @@ export default function Experiences() {
 				))}
 			</div>
 
-			<ButtonAdvance href="#habilidades" />
 		</ScrollSection>
 	);
 }

@@ -103,7 +103,7 @@ const DriftWall = ({
   const [containerWidth, setContainerWidth] = useState(0);
   const mobile = typeof window !== 'undefined' && window.innerWidth < 768;
   const columnCount = mobile
-    ? Math.max(1, Math.min(columns, Math.ceil(containerWidth / ((tileWidth + gap) * 1.18))))
+    ? Math.max(1, Math.ceil(containerHeight / (tileHeight + gap)))
     : fillWidth
     ? Math.max(columns, Math.ceil(containerWidth / ((tileWidth + gap) * 1.18)))
     : columns;
@@ -132,19 +132,24 @@ const DriftWall = ({
   }, []);
 
   const columnItems = useMemo<DriftWallItem[][]>(() => {
+    if (mobile) {
+      return Array.from({ length: columnCount }, (_, row) =>
+        items.map((_, index) => items[(index + row) % items.length])
+      );
+    }
     const cols: DriftWallItem[][] = Array.from({ length: columnCount }, () => []);
     items.forEach((item, i) => cols[i % columnCount].push(item));
     return cols.map(col => (col.length ? col : items.slice(0, 1)));
-  }, [items, columnCount]);
+  }, [items, columnCount, mobile]);
 
   const columnMeta = useMemo<ColumnMeta[]>(() => {
-    const unit = tileHeight + gap;
+    const unit = (mobile ? tileWidth : tileHeight) + gap;
     return columnItems.map(col => {
       const copyHeight = Math.max(unit, col.length * unit);
-      const copies = Math.max(2, Math.ceil((containerHeight * 1.6) / copyHeight) + 1);
+      const copies = Math.max(2, Math.ceil(((mobile ? containerWidth : containerHeight) * 1.6) / copyHeight) + 1);
       return { copyHeight, copies };
     });
-  }, [columnItems, tileHeight, gap, containerHeight]);
+  }, [columnItems, tileWidth, tileHeight, gap, containerHeight, containerWidth, mobile]);
 
   useLayoutEffect(() => {
     if (!containerRef.current) return;
@@ -173,12 +178,16 @@ const DriftWall = ({
     (px: number, py: number) => {
       const plane = planeRef.current;
       if (!plane) return;
+      if (mobile) {
+        plane.style.transform = 'translate(-50%, -50%)';
+        return;
+      }
       plane.style.transform =
         `translate(-50%, -50%) scale(1.18) ` +
         `rotateX(${tilt + py}deg) rotateY(${turn + px}deg) rotateZ(${roll}deg) ` +
         `translateZ(${-depth}px)`;
     },
-    [tilt, turn, roll, depth]
+    [tilt, turn, roll, depth, mobile]
   );
 
   useEffect(() => {
@@ -214,13 +223,13 @@ const DriftWall = ({
           offsetsRef.current[c] = next;
 
           const el = trackRefs.current[c];
-          if (el) el.style.transform = `translate3d(0, ${-next}px, 0)`;
+          if (el) el.style.transform = mobile ? `translate3d(${-next}px, 0, 0)` : `translate3d(0, ${-next}px, 0)`;
         }
       } else {
         for (let c = 0; c < trackRefs.current.length; c++) {
           const el = trackRefs.current[c];
           const meta = columnMeta[c];
-          if (el && meta) el.style.transform = `translate3d(0, ${-(offsetsRef.current[c] ?? 0)}px, 0)`;
+          if (el && meta) el.style.transform = mobile ? `translate3d(${-(offsetsRef.current[c] ?? 0)}px, 0, 0)` : `translate3d(0, ${-(offsetsRef.current[c] ?? 0)}px, 0)`;
         }
       }
 
@@ -229,7 +238,7 @@ const DriftWall = ({
 
     applyPlaneTransform(0, 0);
     trackRefs.current.forEach((track, c) => {
-      if (track) track.style.transform = `translate3d(0, ${-(offsetsRef.current[c] ?? 0)}px, 0)`;
+      if (track) track.style.transform = mobile ? `translate3d(${-(offsetsRef.current[c] ?? 0)}px, 0, 0)` : `translate3d(0, ${-(offsetsRef.current[c] ?? 0)}px, 0)`;
     });
     if (reduced || !visible) return;
     rafRef.current = requestAnimationFrame(animate);

@@ -120,6 +120,25 @@
 
 /* O mural decorativo não precisa de uma camada 3D para cada imagem no celular. */
 @media (max-width: 767px) {
+  .drift-wall__plane {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .drift-wall__col {
+    width: 100%;
+    height: calc(var(--dw-tile-h) + var(--dw-gap));
+    overflow: hidden;
+  }
+
+  .drift-wall__track {
+    flex-direction: row;
+  }
+
+  .drift-wall__tile {
+    width: calc(var(--dw-tile-w) + var(--dw-gap));
+  }
+
   .experience-wall .drift-wall__col,
   .experience-wall .drift-wall__track,
   .experience-wall .drift-wall__tile {

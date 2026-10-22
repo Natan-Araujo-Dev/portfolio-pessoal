@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type HTMLAttributes } from "react";
+import { useEffect, useRef, type HTMLAttributes } from "react";
 
 export default function ScrollSection({
 	id,
@@ -6,24 +6,14 @@ export default function ScrollSection({
 	children,
 }: HTMLAttributes<HTMLDivElement>) {
 	const panel = useRef<HTMLDivElement>(null);
-	const [isDesktop, setIsDesktop] = useState(() => matchMedia("(min-width: 768px)").matches);
 	useEffect(() => {
-		const media = matchMedia("(min-width: 768px)");
-		const sync = () => setIsDesktop(media.matches);
-		media.addEventListener("change", sync);
-		return () => media.removeEventListener("change", sync);
-	}, []);
-
-	useEffect(() => {
-		if (!isDesktop) return;
 		const element = panel.current;
 		if (!element) return;
-		const desktop = matchMedia("(min-width: 768px)");
 		let visible = false;
 		let frame = 0;
 		function clip() {
 			frame = 0;
-			if (!element || !desktop.matches) return;
+			if (!element) return;
 			const next = element.parentElement?.nextElementSibling;
 			const bottom = next
 				? element.getBoundingClientRect().bottom -
@@ -36,10 +26,10 @@ export default function ScrollSection({
 			);
 		}
 		function scheduleClip() {
-			if (desktop.matches && visible && !frame) frame = requestAnimationFrame(clip);
+			if (visible && !frame) frame = requestAnimationFrame(clip);
 		}
 		function resize() {
-			if (!element || !desktop.matches) return;
+			if (!element) return;
 			// Seções longas só ficam fixas quando seu fim chega à tela.
 			element.parentElement?.style.setProperty(
 				"--panel-height",
@@ -61,7 +51,6 @@ export default function ScrollSection({
 		});
 		window.addEventListener("scroll", scheduleClip, { passive: true });
 		window.addEventListener("resize", resize);
-		desktop.addEventListener("change", resize);
 		resize();
 		return () => {
 			observer.disconnect();
@@ -70,11 +59,10 @@ export default function ScrollSection({
 			cancelAnimationFrame(frame);
 			window.removeEventListener("scroll", scheduleClip);
 			window.removeEventListener("resize", resize);
-			desktop.removeEventListener("change", resize);
 			element.style.removeProperty("--covered-bottom");
 			element.parentElement?.style.removeProperty("--panel-height");
 		};
-	}, [isDesktop]);
+	}, []);
 
 	return (
 		<div id={id} className="scroll-scene">

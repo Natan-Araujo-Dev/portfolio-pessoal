@@ -34,8 +34,7 @@ export default function Header() {
          w-full min-h-(--header-height)
 			p-4 lg:px-12
          text-gray-dark dark:text-white
-		 bg-header-light dark:bg-gray-darker/90
-			backdrop-blur-xs
+		 bg-header-light dark:bg-gray-darker
 			smooth-transition"
 		>
 			<div className="text-green-dark dark:text-green-light expand-sm">

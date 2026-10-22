@@ -1,0 +1,40 @@
+.text-pattern-background {
+	overflow: hidden;
+	background-repeat: repeat;
+	opacity: 0.18;
+}
+
+.text-pattern-background__rows {
+	position: absolute;
+	inset: 0;
+	background-repeat: repeat;
+	animation-duration: inherit;
+}
+
+.text-pattern-background__rows--odd {
+	transform: translateX(calc((var(--text-pattern-progress, 1) - 1) * 100%));
+}
+
+.text-pattern-background__rows--even {
+	transform: translateX(calc((1 - var(--text-pattern-progress, 1)) * 100%));
+}
+
+.dark .text-pattern-background {
+	opacity: 0.14;
+}
+
+html.high-contrast .text-pattern-background {
+	display: none;
+}
+
+@keyframes text-pattern-drift {
+	to { background-position: var(--text-pattern-width) 0; }
+}
+
+@media (prefers-reduced-motion: no-preference) and (min-width: 768px) {
+	html:not(.reduced-motion) :is(.text-pattern-background, .text-pattern-background__rows) {
+		animation-name: text-pattern-drift;
+		animation-timing-function: linear;
+		animation-iteration-count: infinite;
+	}
+}
