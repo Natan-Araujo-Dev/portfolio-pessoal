@@ -7,7 +7,7 @@ gsap.registerPlugin(ScrollTrigger);
 // Mesmo perfil do Animated Content: escala, subida e entrada em sequência.
 const SETTINGS = {
 	scale: 0.5,
-	delay: 0.3,
+	delay: 0.11,
 	stagger: 0.11,
 	duration: 0.6,
 	distance: 100,

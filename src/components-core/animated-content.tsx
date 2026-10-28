@@ -53,7 +53,7 @@ export default function AnimatedContent() {
 				const animation = target.animate([
 					{ opacity: 0, transform: `translateY(${24 * direction}px) scale(0.97)` },
 					{ opacity: 1, transform: "none" },
-				], { duration: 600, delay: 300, fill: "backwards", easing: "cubic-bezier(0.215, 0.61, 0.355, 1)" });
+				], { duration: 600, delay: 110, fill: "backwards", easing: "cubic-bezier(0.215, 0.61, 0.355, 1)" });
 				animations.set(target, animation);
 				animation.onfinish = () => {
 					animations.delete(target);

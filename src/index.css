@@ -223,7 +223,8 @@ html.high-contrast .experience-wall {
 .scroll-scene {
 	--scroll-overlap-slack: 100px;
 	--scroll-panel-slack: 0px;
-	height: calc(var(--panel-height) + var(--section-viewport-height) - var(--header-height) + var(--scroll-overlap-slack) - var(--scroll-panel-slack));
+	/* A zona morta de rolagem é independente do padding que centraliza o conteúdo. */
+	height: calc(var(--panel-height) + var(--section-viewport-height) - var(--header-height) + var(--scroll-overlap-slack));
 	margin-bottom: calc(var(--header-height) - var(--section-viewport-height));
 }
 
