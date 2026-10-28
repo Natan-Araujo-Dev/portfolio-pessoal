@@ -35,6 +35,12 @@ html.high-contrast .text-pattern-background {
 	to { background-position: var(--text-pattern-width) 0; }
 }
 
+@media (prefers-reduced-motion: no-preference) and (max-width: 767px) {
+	html:not(.reduced-motion):not(.high-contrast) .text-pattern-background__rows {
+		will-change: transform;
+	}
+}
+
 @media (prefers-reduced-motion: no-preference) and (min-width: 768px) {
 	html:not(.reduced-motion) :is(.text-pattern-background, .text-pattern-background__rows) {
 		animation-name: text-pattern-drift;
