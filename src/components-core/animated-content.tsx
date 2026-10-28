@@ -26,6 +26,7 @@ export default function AnimatedContent() {
 		targets.push(...document.querySelectorAll<HTMLElement>("footer > div:first-child > *"));
 		const original = new Map(targets.map(target => [target, target.style.opacity]));
 		const animations = new Map<HTMLElement, Animation>();
+		const visible = new Set<HTMLElement>();
 		let disabled: boolean | undefined;
 		let previousScroll = window.scrollY;
 		let direction = 1;
@@ -40,16 +41,24 @@ export default function AnimatedContent() {
 				animations.get(target)?.cancel();
 				animations.delete(target);
 				if (!entry.isIntersecting) {
+					visible.delete(target);
 					target.style.opacity = "0";
 					continue;
 				}
+				if (visible.has(target)) continue;
+				visible.add(target);
+				// O próprio deslocamento da animação não deve disparar uma saída.
+				observer.unobserve(target);
 				target.style.opacity = original.get(target) ?? "";
 				const animation = target.animate([
 					{ opacity: 0, transform: `translateY(${24 * direction}px) scale(0.97)` },
 					{ opacity: 1, transform: "none" },
 				], { duration: 600, delay: 300, fill: "backwards", easing: "cubic-bezier(0.215, 0.61, 0.355, 1)" });
 				animations.set(target, animation);
-				animation.onfinish = () => animations.delete(target);
+				animation.onfinish = () => {
+					animations.delete(target);
+					observer.observe(target);
+				};
 			}
 		}, { rootMargin: "0px 0px -5% 0px" });
 
@@ -60,6 +69,7 @@ export default function AnimatedContent() {
 			observer.disconnect();
 			for (const animation of animations.values()) animation.cancel();
 			animations.clear();
+			visible.clear();
 			for (const target of targets) {
 				target.style.opacity = original.get(target) ?? "";
 				if (!reduced) {

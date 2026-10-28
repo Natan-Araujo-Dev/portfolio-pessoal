@@ -7,16 +7,20 @@
 .text-pattern-background__rows {
 	position: absolute;
 	inset: 0;
+	/* End each moving strip between complete repetitions. */
+	width: round(up, 100%, var(--text-pattern-width));
+	clip-path: inset(0 var(--text-pattern-end-gap, 0px) 0 0);
 	background-repeat: repeat;
 	animation-duration: inherit;
 }
 
 .text-pattern-background__rows--odd {
-	transform: translateX(calc((var(--text-pattern-progress, 1) - 1) * 100%));
+	transform: translateX(calc((var(--text-pattern-progress, 1) - 1) * var(--text-pattern-reveal-width, 100vw)));
 }
 
 .text-pattern-background__rows--even {
-	transform: translateX(calc((1 - var(--text-pattern-progress, 1)) * 100%));
+	left: auto;
+	transform: translateX(calc((1 - var(--text-pattern-progress, 1)) * var(--text-pattern-reveal-width, 100vw)));
 }
 
 .dark .text-pattern-background {

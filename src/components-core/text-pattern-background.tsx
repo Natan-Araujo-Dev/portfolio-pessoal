@@ -31,6 +31,11 @@ export default function TextPatternBackground({
 		if (!scrollReveal || !element || !scene) return;
 		const root = document.documentElement;
 		const motion = matchMedia("(prefers-reduced-motion: reduce)");
+		const resizeObserver = new ResizeObserver(() => {
+			element.style.setProperty("--text-pattern-reveal-width", `${element.clientWidth}px`);
+		});
+		resizeObserver.observe(element);
+		element.style.setProperty("--text-pattern-reveal-width", `${element.clientWidth}px`);
 		let frame = 0;
 		function update() {
 			frame = 0;
@@ -52,6 +57,7 @@ export default function TextPatternBackground({
 		return () => {
 			cancelAnimationFrame(frame);
 			observer.disconnect();
+			resizeObserver.disconnect();
 			window.removeEventListener("scroll", schedule);
 			window.removeEventListener("resize", schedule);
 			motion.removeEventListener("change", schedule);
@@ -65,7 +71,7 @@ export default function TextPatternBackground({
 	const textAttributes = `font-family="Consolas,monospace" font-size="${fontSize}" font-weight="700"`;
 	const content = words.map((word, index) => `<tspan dx="${index ? gapBefore(index) : 0}" textLength="${word.length * fontSize * 0.62}" lengthAdjust="spacingAndGlyphs">${escapeXml(word)}</tspan>`).join("");
 	const odd = `<g fill="${escapeXml(color)}"><text x="0" y="${fontSize}" ${textAttributes}>${content}</text></g>`;
-	const even = `<g fill="none" stroke="${escapeXml(color)}" stroke-width="0.8"><text x="${-width / 2}" y="${height + fontSize}" ${textAttributes}>${content}</text><text x="${width / 2}" y="${height + fontSize}" ${textAttributes}>${content}</text></g>`;
+	const even = `<g fill="none" stroke="${escapeXml(color)}" stroke-width="0.8">${(scrollReveal ? [0] : [-width / 2, width / 2]).map(x => `<text x="${x}" y="${height + fontSize}" ${textAttributes}>${content}</text>`).join("")}</g>`;
 	const image = (rows: string) => `url("data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height * 2}">${rows}</svg>`)}")`;
 
 	return (
@@ -77,6 +83,7 @@ export default function TextPatternBackground({
 			style={{
 				backgroundImage: scrollReveal ? undefined : image(odd + even),
 				"--text-pattern-width": `${width}px`,
+				"--text-pattern-end-gap": `${words.at(-1) === "·" ? fontSize * 0.62 + separatorGap * 2 : 0}px`,
 				"--text-pattern-progress": scrollReveal ? 0 : 1,
 				animationDuration: `${duration}s`,
 			} as CSSProperties}
