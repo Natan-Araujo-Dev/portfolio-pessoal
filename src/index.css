@@ -143,7 +143,7 @@ header summary {
 }
 
 #inicio > .scroll-panel {
-	min-height: 100svh;
+	min-height: 100dvh;
 }
 
 /* Cada painel permanece atrás do próximo durante a sobreposição. */
@@ -167,13 +167,12 @@ header summary {
 }
 
 .scroll-scene:not(:first-child) .scroll-panel {
-	padding-block: 48px;
+	padding-block: calc(48px + var(--scroll-panel-slack) / 2);
 }
 
 .about-pattern {
 	position: relative;
 	isolation: isolate;
-	--about-background-gap: 2.5rem;
 }
 
 #sobre > .scroll-panel {
@@ -181,13 +180,13 @@ header summary {
 }
 
 .about-pattern > .text-pattern-background {
-	inset: calc(-1 * var(--about-background-gap)) 0 calc(-1 * (var(--scroll-overlap-slack) + var(--about-background-gap)));
+	inset: 0;
 }
 
 .about-pattern::after {
 	content: "";
 	position: absolute;
-	inset: calc(-1 * var(--about-background-gap)) 0 calc(-1 * (var(--scroll-overlap-slack) + var(--about-background-gap)));
+	inset: 0;
 	z-index: -2;
 	background-color: var(--color-gray-background);
 	pointer-events: none;
@@ -212,36 +211,22 @@ html.high-contrast .experience-wall {
 	--experience-background: var(--color-blue-background);
 }
 
-/* Preenche o intervalo entre as seções sem alterar sua posição no scroll. */
-#experiencia-profissional::after {
-	content: "";
-	position: absolute;
-	inset: 100% 0 auto;
-	height: 2.5rem;
-	background: var(--experience-background);
-	pointer-events: none;
-}
-
-@media (min-width: 768px) {
-	.about-pattern {
-		--about-background-gap: 5rem;
-	}
-
-	#experiencia-profissional::after {
-		height: 5rem;
-	}
-}
-
 /* A preferência de movimento não altera a geometria das seções. */
 .scroll-scene {
 	--scroll-overlap-slack: 100px;
-	height: calc(var(--panel-height) + 100svh - var(--header-height) + var(--scroll-overlap-slack));
-	margin-bottom: calc(var(--header-height) - 100svh);
+	--scroll-panel-slack: 0px;
+	height: calc(var(--panel-height) + 100dvh - var(--header-height) + var(--scroll-overlap-slack) - var(--scroll-panel-slack));
+	margin-bottom: calc(var(--header-height) - 100dvh);
+}
+
+/* Distribui a folga da sobreposição igualmente acima e abaixo do conteúdo. */
+.scroll-scene:not(:first-child):not(:last-child) {
+	--scroll-panel-slack: var(--scroll-overlap-slack);
 }
 
 .scroll-panel {
 	position: sticky;
-	top: min(0px, calc(100svh - var(--panel-height)));
+	top: min(0px, calc(100dvh - var(--panel-height)));
 	clip-path: inset(-80px -80px var(--covered-bottom, -80px) -80px);
 }
 
@@ -260,10 +245,6 @@ html.high-contrast .experience-wall {
 	position: relative;
 	top: auto;
 	clip-path: none;
-}
-
-.scroll-scene:has(.card-details) .scroll-panel {
-	justify-content: flex-start;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -413,6 +394,7 @@ summary *,
 
 .custom-section {
 	@apply flex flex-col justify-center items-center w-full px-4 sm:px-6 lg:px-10 scroll-mt-[calc(var(--header-height)+20px)];
+	min-height: 100dvh;
 }
 
 .section-title {
@@ -645,7 +627,7 @@ html.high-contrast .card-heading::before {
 	}
 
 	#sobre > .scroll-panel {
-		padding-block: 24px;
+		padding-block: calc(24px + var(--scroll-panel-slack) / 2);
 	}
 
 	[data-spotlight-card] > [aria-hidden="true"] {
