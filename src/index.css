@@ -20,6 +20,7 @@
 	--text-9xl: calc(8rem * var(--accessibility-font-scale, 1));
 
 	--header-height: 60px;
+	--section-viewport-height: 100dvh;
 
 	/* 2px é a distância segura */
 	--screen-with-header: calc(100vh - var(--header-height) - 2px);
@@ -87,6 +88,13 @@ html {
 	cursor: var(--cursor-default), default;
 }
 
+/* A barra móvel do navegador não deve redimensionar os painéis durante o gesto. */
+@media (hover: none) and (pointer: coarse) {
+	:root {
+		--section-viewport-height: 100svh;
+	}
+}
+
 html.theme-transition :is([class*="dark:"], [data-card], [data-spotlight-card], header, footer, .scroll-panel) {
 	transition-property: color, background-color, border-color, box-shadow, text-shadow, fill, stroke, opacity;
 	transition-duration: var(--duration-background);
@@ -143,7 +151,7 @@ header summary {
 }
 
 #inicio > .scroll-panel {
-	min-height: 100dvh;
+	min-height: var(--section-viewport-height);
 }
 
 /* Cada painel permanece atrás do próximo durante a sobreposição. */
@@ -215,8 +223,8 @@ html.high-contrast .experience-wall {
 .scroll-scene {
 	--scroll-overlap-slack: 100px;
 	--scroll-panel-slack: 0px;
-	height: calc(var(--panel-height) + 100dvh - var(--header-height) + var(--scroll-overlap-slack) - var(--scroll-panel-slack));
-	margin-bottom: calc(var(--header-height) - 100dvh);
+	height: calc(var(--panel-height) + var(--section-viewport-height) - var(--header-height) + var(--scroll-overlap-slack) - var(--scroll-panel-slack));
+	margin-bottom: calc(var(--header-height) - var(--section-viewport-height));
 }
 
 /* Distribui a folga da sobreposição igualmente acima e abaixo do conteúdo. */
@@ -226,7 +234,7 @@ html.high-contrast .experience-wall {
 
 .scroll-panel {
 	position: sticky;
-	top: min(0px, calc(100dvh - var(--panel-height)));
+	top: min(0px, calc(var(--section-viewport-height) - var(--panel-height)));
 	clip-path: inset(-80px -80px var(--covered-bottom, -80px) -80px);
 }
 
@@ -394,7 +402,7 @@ summary *,
 
 .custom-section {
 	@apply flex flex-col justify-center items-center w-full px-4 sm:px-6 lg:px-10 scroll-mt-[calc(var(--header-height)+20px)];
-	min-height: 100dvh;
+	min-height: var(--section-viewport-height);
 }
 
 .section-title {
