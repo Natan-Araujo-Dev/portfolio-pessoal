@@ -178,7 +178,6 @@ header summary {
 
 #sobre > .scroll-panel {
 	clip-path: none;
-	min-height: calc(100svh - var(--header-height));
 }
 
 .about-pattern > .text-pattern-background {
@@ -413,7 +412,7 @@ summary *,
 }
 
 .custom-section {
-	@apply flex flex-col justify-center items-center w-full min-h-[var(--screen-with-header)] px-4 sm:px-6 lg:px-10 scroll-mt-[calc(var(--header-height)+20px)];
+	@apply flex flex-col justify-center items-center w-full px-4 sm:px-6 lg:px-10 scroll-mt-[calc(var(--header-height)+20px)];
 }
 
 .section-title {
@@ -639,10 +638,6 @@ html.high-contrast .card-heading::before {
 
 	.scroll-scene:not(:first-child) .scroll-panel {
 		box-shadow: none;
-	}
-
-	.scroll-scene:not(#inicio, #sobre) .custom-section {
-		min-height: auto;
 	}
 
 	.scroll-scene:not(#inicio) .custom-section {
