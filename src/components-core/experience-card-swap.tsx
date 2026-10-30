@@ -21,13 +21,11 @@ export default function ExperienceCardSwap() {
 			setSize(previous => previous.width === width && previous.height === height ? previous : { width, height });
 		};
 		const observer = new ResizeObserver(update);
-		const changes = new MutationObserver(update);
-		changes.observe(element, { subtree: true, attributes: true, attributeFilter: ["aria-expanded", "data-front"] });
 		observer.observe(element);
 		element.querySelectorAll("[data-card]").forEach(card => observer.observe(card));
 		element.querySelectorAll(".card-details, .card-details-content").forEach(details => observer.observe(details));
 		update();
-		return () => { observer.disconnect(); changes.disconnect(); };
+		return () => { observer.disconnect(); };
 	}, []);
 	return (
 		<div ref={container} className="w-full max-w-3xl experience-card-swap">

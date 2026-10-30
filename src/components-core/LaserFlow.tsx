@@ -604,6 +604,7 @@ export const LaserFlow = ({
     probe.height = 1;
     const probeContext = probe.getContext('2d', { willReadFrequently: true });
     const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false;
+    const mobile = window.matchMedia('(pointer: coarse)');
     const state = {
       time: 0,
       introTime: settingsRef.current.intro && !reduce ? 0 : INTRO_END,
@@ -711,7 +712,7 @@ export const LaserFlow = ({
       const width = Math.max(1, container.clientWidth);
       const height = Math.max(1, container.clientHeight);
       const s = settingsRef.current;
-      const baseDpr = Math.min(s.dpr || window.devicePixelRatio || 1, 2);
+      const baseDpr = Math.min(s.dpr || window.devicePixelRatio || 1, mobile.matches ? 0.75 : 2);
       const longest = Math.max(width, height) * baseDpr;
       const ratio = longest > MAX_RENDER_DIM ? (baseDpr * MAX_RENDER_DIM) / longest : baseDpr;
       const pixelWidth = Math.max(1, Math.round(width * ratio));
@@ -819,6 +820,11 @@ export const LaserFlow = ({
     const frame = (now: number) => {
       raf = 0;
       if (!alive || !visible || document.hidden) return;
+      // Preserve animation speed while limiting GPU work on touch devices.
+      if (mobile.matches && last && now - last < 1000 / 30 - 1) {
+        raf = requestAnimationFrame(frame);
+        return;
+      }
       const s = settingsRef.current;
       const dt = last ? Math.min(0.05, (now - last) / 1000) : 1 / 60;
       last = now;
@@ -859,6 +865,7 @@ export const LaserFlow = ({
     };
 
     const onPointerMove = (event: PointerEvent) => {
+      if (mobile.matches || !settingsRef.current.mouseInteraction) return;
       const rect = container.getBoundingClientRect();
       const x = event.clientX - rect.left;
       const y = event.clientY - rect.top;
@@ -895,7 +902,7 @@ export const LaserFlow = ({
     wake();
 
     wakeRef.current = () => {
-      if (!raf) render();
+      if (!raf && visible && !document.hidden) render();
       wake();
     };
 

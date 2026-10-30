@@ -457,8 +457,8 @@ const CardSwap = forwardRef<CardSwapHandle, CardSwapProps>(
           shade.style.opacity = (s.dim * 0.62 * depthT).toFixed(3);
         }
         el.style.cursor = card.phase === 'drag' ? 'var(--cursor-grabbing)' : card.pos > 0 ? 'var(--cursor-link)' : s.draggable ? 'var(--cursor-link)' : '';
-        if (card.pos === 0) el.setAttribute('data-front', '');
-        else el.removeAttribute('data-front');
+        if (card.pos === 0 && !el.hasAttribute('data-front')) el.setAttribute('data-front', '');
+        else if (card.pos !== 0 && el.hasAttribute('data-front')) el.removeAttribute('data-front');
       };
 
       const writeStage = (s: Settings) => {
