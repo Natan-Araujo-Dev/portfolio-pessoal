@@ -456,7 +456,7 @@ const CardSwap = forwardRef<CardSwapHandle, CardSwapProps>(
           const depthT = clamp(card.p / Math.max(1, s.visible - 1), 0, 1);
           shade.style.opacity = (s.dim * 0.62 * depthT).toFixed(3);
         }
-        el.style.cursor = card.phase === 'drag' ? 'grabbing' : card.pos > 0 ? 'pointer' : s.draggable ? 'grab' : '';
+        el.style.cursor = card.phase === 'drag' ? 'var(--cursor-grabbing)' : card.pos > 0 ? 'var(--cursor-link)' : s.draggable ? 'var(--cursor-link)' : '';
         if (card.pos === 0) el.setAttribute('data-front', '');
         else el.removeAttribute('data-front');
       };
@@ -699,7 +699,8 @@ const CardSwap = forwardRef<CardSwapHandle, CardSwapProps>(
           card.phase = 'drag';
           card.v = { x: 0, y: 0, z: 0, r: 0, p: 0 };
           root.setPointerCapture?.(event.pointerId);
-          root.style.cursor = 'grabbing';
+          root.setAttribute('data-dragging', '');
+          root.style.cursor = 'var(--cursor-grabbing)';
         }
         const card = deck[drag.index];
         const base = slot(0, s);
@@ -752,6 +753,7 @@ const CardSwap = forwardRef<CardSwapHandle, CardSwapProps>(
         const drag = state.drag;
         if (!drag || drag.id !== event.pointerId) return;
         state.drag = null;
+        root.removeAttribute('data-dragging');
         root.style.cursor = '';
         if (!drag.active) {
           schedule();

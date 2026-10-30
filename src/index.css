@@ -70,6 +70,7 @@
 	--cursor-default: url("./assets/green-and-black/1-Normal-Select-light.cur");
 	--cursor-text: url("./assets/green-and-black/6-Text-Select-light.cur");
 	--cursor-link: url("./assets/green-and-black/15-Link-Select.cur");
+	--cursor-grabbing: url("./assets/hand-closed.svg") 2.4 2.4, grabbing;
 	--cursor-scroll: url("./assets/middle-scroll-light.svg");
 	--cursor-scroll-up: url("./assets/middle-scroll-up-light.svg");
 	--cursor-scroll-down: url("./assets/middle-scroll-down-light.svg");
@@ -86,6 +87,16 @@ html.dark {
 html {
 	scroll-behavior: smooth;
 	cursor: var(--cursor-default), default;
+}
+
+.card-swap[data-dragging],
+.card-swap[data-dragging] * {
+	cursor: var(--cursor-grabbing) !important;
+}
+
+:where(a[href], button:not(:disabled), summary, [role="button"]:not([aria-disabled="true"])),
+:where(a[href], button:not(:disabled), summary, [role="button"]:not([aria-disabled="true"])) * {
+	cursor: var(--cursor-link), pointer;
 }
 
 /* Preenche a tela com a barra recolhida sem redimensionar durante o gesto. */
@@ -142,6 +153,8 @@ header[data-compact="true"] :is([data-header-name], [data-header-desktop]) {
 header summary {
 	transition: opacity 150ms ease, scale 300ms ease;
 }
+
+header a { display: inline-flex; }
 
 @starting-style {
 	header[data-compact="true"] summary {
