@@ -88,10 +88,10 @@ html {
 	cursor: var(--cursor-default), default;
 }
 
-/* A barra móvel do navegador não deve redimensionar os painéis durante o gesto. */
+/* Preenche a tela com a barra recolhida sem redimensionar durante o gesto. */
 @media (hover: none) and (pointer: coarse) {
 	:root {
-		--section-viewport-height: 100svh;
+		--section-viewport-height: 100lvh;
 	}
 }
 
@@ -217,6 +217,36 @@ html.high-contrast .experience-wall {
 .dark #experiencia-profissional,
 .dark #experiencia-profissional > .scroll-panel {
 	--experience-background: var(--color-blue-background);
+}
+
+.experience-laser.laser-flow-container {
+	position: absolute;
+	inset: 0;
+	z-index: -1;
+}
+
+.experience-card-swap .card-swap-card > [data-card] {
+	min-height: 100%;
+}
+
+#experiencia-profissional > .scroll-panel { justify-content: flex-start; }
+
+.experience-scroll-content {
+	height: clamp(220px, 42svh, 380px);
+	overflow-y: auto;
+	overscroll-behavior-y: contain;
+	scrollbar-gutter: stable;
+	padding-right: 8px;
+}
+
+.experience-scroll-content:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+
+html:is(.high-contrast, .reduced-motion) .experience-laser {
+	display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.experience-laser { display: none; }
 }
 
 /* A preferência de movimento não altera a geometria das seções. */
@@ -609,6 +639,10 @@ html.high-contrast .card-heading::before {
 }
 
 @media (max-width: 767px) {
+	.experience-card-swap {
+		width: calc(100% + 88px);
+	}
+
 	[data-card] .text-xl {
 		font-size: 0.875rem;
 	}
@@ -674,6 +708,7 @@ html.high-contrast .card-heading::before {
 
 ::-webkit-scrollbar-track {
 	background: var(--scrollbar-track);
+	border-radius: 6px;
 }
 
 ::-webkit-scrollbar-thumb {
