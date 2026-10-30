@@ -70,7 +70,7 @@
 	--cursor-default: url("./assets/green-and-black/1-Normal-Select-light.cur");
 	--cursor-text: url("./assets/green-and-black/6-Text-Select-light.cur");
 	--cursor-link: url("./assets/green-and-black/15-Link-Select.cur");
-	--cursor-grabbing: url("./assets/hand-closed.svg") 2.4 2.4, grabbing;
+	--cursor-grabbing: url("./assets/hand-closed.svg") 10 10, grabbing;
 	--cursor-scroll: url("./assets/middle-scroll-light.svg");
 	--cursor-scroll-up: url("./assets/middle-scroll-up-light.svg");
 	--cursor-scroll-down: url("./assets/middle-scroll-down-light.svg");
