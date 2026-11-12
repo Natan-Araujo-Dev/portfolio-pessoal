@@ -2,39 +2,17 @@ import ScrollSection from "../components-core/scroll-section";
 import Text from "../components-base/text";
 import CardProject from "../components-core/card-project";
 import { projectsList } from "../objects/projectsList";
+import "./portfolio-showcase.css";
 
-export default function About() {
+export default function Projects() {
 	return (
-		// biome-ignore lint/correctness/useUniqueElementIds: <ids estáticos>
-		<ScrollSection
-			id="projetos"
-			className="
-			custom-section
-         gap-y-10"
-		>
-			<div>
-				<Text as="h2" variant="tomorrow-section">Projetos em destaque</Text>
-			</div>
-
-			<div
-				className="
-				grid w-full max-w-6xl grid-cols-1 md:grid-cols-2
-				items-start gap-5 sm:gap-6"
-			>
-				{projectsList.map((proj) => (
-					<CardProject
-						key={proj.title}
-						title={proj.title}
-						summary={proj.summary}
-						features={proj.features}
-						technologies={proj.technologies}
-						projectLink={proj.projectLink}
-						gitHubLink={proj.gitHubLink}
-						gitHubLinks={proj.gitHubLinks}
-					/>
+		<ScrollSection id="projetos" className="custom-section gap-y-10">
+			<div data-focus-reveal><Text as="h2" variant="tomorrow-section">Projetos em destaque</Text></div>
+			<div className="project-showcase w-full max-w-6xl">
+				{projectsList.map((project, index) => (
+					<CardProject key={project.title} {...project} index={index} />
 				))}
 			</div>
-
 		</ScrollSection>
 	);
 }

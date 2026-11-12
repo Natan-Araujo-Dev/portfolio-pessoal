@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import ClickSpark, { type ClickSparkHandle } from "./ClickSpark";
 
-const BUTTONS = 'button, summary, [role="button"], .project-link, a.expand-lg.fill-color, header a, [data-contact-trigger]';
+const BUTTONS = 'button, summary:not(.showcase-project-row), .showcase-arrow, [role="button"], .project-link, a.expand-lg.fill-color, header a, [data-contact-trigger]';
 type Motion = { x: number; y: number; vx: number; vy: number; tx: number; ty: number; original: string; baseX: string; baseY: string };
 
 export default function ButtonEffects() {

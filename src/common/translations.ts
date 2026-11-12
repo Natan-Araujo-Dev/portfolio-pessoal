@@ -1,4 +1,6 @@
 export const translations: Record<string, readonly [string, string]> = {
+	"Ver todas": ["Show all", "Ver todas"],
+	"Ver menos": ["Show less", "Ver menos"],
 	"Soft skills": ["Soft skills", "Habilidades interpersonales"],
 	"Cloud": ["Cloud", "Nube"],
 	"Natan Araujo - Portfólio": [

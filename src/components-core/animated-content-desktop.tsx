@@ -114,13 +114,15 @@ export default function AnimatedContentDesktop() {
 							animation.vars.startAt.y = (mobile ? 24 : SETTINGS.distance) * direction;
 							animation.invalidate().restart(true);
 						};
+						const focus = block.hasAttribute("data-focus-reveal");
 						gsap.fromTo(
 							row,
-							{ y: mobile ? 24 : SETTINGS.distance, scale: mobile ? 0.97 : SETTINGS.scale, opacity: 0 },
+							{ y: mobile ? 24 : SETTINGS.distance, scale: mobile ? 0.97 : SETTINGS.scale, opacity: 0, ...(focus ? { filter: "blur(6px)" } : {}) },
 							{
 								y: 0,
 								scale: 1,
 								opacity: 1,
+								...(focus ? { filter: "blur(0px)" } : {}),
 								ease: "power3.out",
 								duration: SETTINGS.duration,
 								stagger: SETTINGS.stagger,
