@@ -1,3 +1,4 @@
+import useMobile from "../hooks/useMobile";
 import { lazy, Suspense, useEffect, useRef, useState, type ComponentType } from "react";
 import type { LaserFlowProps } from "../components-core/LaserFlow";
 import ScrollSection from "../components-core/scroll-section";
@@ -10,12 +11,13 @@ const LaserFlow = lazy<ComponentType<LaserFlowProps>>(() => import("../component
 }));
 
 export default function Experiences() {
+	const mobile = useMobile();
 	const background = useRef<HTMLDivElement>(null);
 	const [showLaser, setShowLaser] = useState(false);
 
 	useEffect(() => {
 		const element = background.current;
-		if (!element) return;
+		if (mobile || !element) return;
 		const observer = new IntersectionObserver(([entry]) => {
 			if (!entry.isIntersecting) return;
 			setShowLaser(true);
@@ -23,7 +25,7 @@ export default function Experiences() {
 		}, { rootMargin: "0px 0px 240px" });
 		observer.observe(element);
 		return () => observer.disconnect();
-	}, []);
+	}, [mobile]);
 
 	return (
 		// biome-ignore lint/correctness/useUniqueElementIds: <ids estáticos>
@@ -34,7 +36,7 @@ export default function Experiences() {
          gap-y-10"
 		>
 			<div ref={background} data-scroll-background aria-hidden="true" className="experience-laser">
-				{showLaser && (
+				{!mobile && showLaser && (
 					<Suspense fallback={null}>
 						<LaserFlow beamPosition={0.2} intensity={0.3} spread={2} dust={2} pulse={1.95} revealRadius={400} beamWidth={1.55} spill={2} streaks={2} speed={3} revealOpacity={0.5} flare={1.35} fog={0} dots={2} seed={20} />
 					</Suspense>

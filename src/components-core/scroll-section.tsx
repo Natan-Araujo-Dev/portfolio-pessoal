@@ -1,3 +1,4 @@
+import useMobile from "../hooks/useMobile";
 import { useEffect, useRef, type HTMLAttributes } from "react";
 
 export default function ScrollSection({
@@ -5,8 +6,10 @@ export default function ScrollSection({
 	className,
 	children,
 }: HTMLAttributes<HTMLDivElement>) {
+	const mobile = useMobile();
 	const panel = useRef<HTMLDivElement>(null);
 	useEffect(() => {
+		if (mobile) return;
 		const element = panel.current;
 		if (!element) return;
 		let visible = false;
@@ -62,7 +65,7 @@ export default function ScrollSection({
 			element.style.removeProperty("--covered-bottom");
 			element.parentElement?.style.removeProperty("--panel-height");
 		};
-	}, []);
+	}, [mobile]);
 
 	return (
 		<div id={id} className="scroll-scene">

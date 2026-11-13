@@ -1,8 +1,10 @@
+import useMobile from "../hooks/useMobile";
 import { useEffect, useRef } from "react";
 import { drapeConfig } from "../common/drape-config";
 import { drapeFragment, drapeVertex } from "../common/drape-shaders";
 
 export default function ParticleDrape({ visibilitySelector }: { visibilitySelector?: string } = {}) {
+	const isMobile = useMobile();
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 
 	useEffect(() => {
@@ -148,7 +150,7 @@ export default function ParticleDrape({ visibilitySelector }: { visibilitySelect
 		}
 		function resize() {
 			if (!canvas!.clientWidth || !canvas!.clientHeight) return;
-			const layout = window.innerWidth < 768 ? "mobile" : "desktop";
+			const layout = isMobile ? "mobile" : "desktop";
 			frameInterval = 1000 / drapeConfig.framesPerSecond[layout];
 			if (layout !== currentLayout) {
 				currentLayout = layout;
@@ -248,7 +250,7 @@ export default function ParticleDrape({ visibilitySelector }: { visibilitySelect
 			document.removeEventListener("visibilitychange", sync);
 			dispose();
 		};
-	}, [visibilitySelector]);
+	}, [visibilitySelector, isMobile]);
 
 	return <canvas ref={canvasRef} aria-hidden="true" className="absolute inset-0 h-[100lvh] w-full md:h-full" />;
 }

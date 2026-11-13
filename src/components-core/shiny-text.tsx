@@ -1,4 +1,5 @@
 "use client";
+import useMobile from "../hooks/useMobile";
 
 import { Children, useEffect, useRef } from "react";
 import useLanguage from "../hooks/useLanguage";
@@ -130,6 +131,7 @@ const ShinyText = ({
 	style,
 }: ShinyTextProps) => {
 	const { t } = useLanguage();
+	const mobile = useMobile();
 	const rootRef = useRef<HTMLSpanElement>(null);
 	const glowRef = useRef<HTMLSpanElement>(null);
 	const settingsRef = useRef<Settings | null>(null);
@@ -163,7 +165,7 @@ const ShinyText = ({
 
 	useEffect(() => {
 		const root = rootRef.current;
-		if (!root) return undefined;
+		if (mobile || !root) return undefined;
 
 		const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
 		let reduce = motion.matches;
@@ -485,7 +487,9 @@ const ShinyText = ({
 			root.removeEventListener("pointerleave", onLeave);
 			syncRef.current = null;
 		};
-	}, []);
+	}, [mobile]);
+
+	if (mobile) return <span className={className} style={{ color, ...style }}>{content}</span>;
 
 	return (
 		<span
