@@ -232,10 +232,11 @@ html.high-contrast .experience-wall {
 	--experience-background: var(--color-blue-background);
 }
 
-.experience-laser.laser-flow-container {
+.experience-laser {
 	position: absolute;
 	inset: 0;
 	z-index: -1;
+	pointer-events: none;
 }
 
 .experience-card-swap .card-swap-card > [data-card] {
@@ -456,6 +457,12 @@ summary *,
 	letter-spacing: 0.035em;
 }
 
+.mobile-navigation > div {
+	max-height: calc(100dvh - max(var(--header-height), 60px) - 16px);
+	overflow: hidden auto;
+	overscroll-behavior-y: contain;
+}
+
 .mobile-navigation a {
 	@apply rounded-lg hover:bg-black/5 dark:hover:bg-white/5;
 	display: flex;
@@ -653,33 +660,15 @@ html.high-contrast .card-heading::before {
 
 @media (max-width: 767px) {
 	.experience-card-swap {
-		width: calc(100% + 88px);
+		width: calc(100% + 32px);
 	}
 
-	[data-card] .text-xl {
-		font-size: 0.875rem;
-	}
-
-	[data-card] .text-base {
-		font-size: 0.7rem;
-	}
-
-	[data-card] :is(.text-sm, .project-link, .card-details-toggle) {
-		font-size: 0.6125rem;
-	}
-
-	@media (min-width: 640px) {
-		[data-card] .sm\:text-2xl {
-			font-size: 1.05rem;
-		}
+	.experience-card-swap .card-swap-card > [data-card] {
+		padding-inline: 16px;
 	}
 
 	.scroll-scene:not(:first-child) .scroll-panel {
 		box-shadow: none;
-	}
-
-	.scroll-scene:not(#inicio) .custom-section {
-		padding-inline: 60px;
 	}
 
 	#sobre > .scroll-panel {

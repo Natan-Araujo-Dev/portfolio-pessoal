@@ -21,7 +21,9 @@ export default function AnimatedContent() {
 			if (block.hasAttribute("data-scroll-background") || block.classList.contains("animate-bounce")) continue;
 			const group = block.parentElement?.parentElement?.id === "inicio" ||
 				(!block.matches("[data-card]") && block.querySelector("[data-card]"));
-			targets.push(...(group ? Array.from(block.children).filter((child): child is HTMLElement => child instanceof HTMLElement) : [block]));
+			targets.push(...(group ? Array.from(block.children).filter((child): child is HTMLElement =>
+				child instanceof HTMLElement && !child.querySelector("h1")
+			) : [block]));
 		}
 		targets.push(...document.querySelectorAll<HTMLElement>("footer > div:first-child > *"));
 		const original = new Map(targets.map(target => [target, target.style.opacity]));

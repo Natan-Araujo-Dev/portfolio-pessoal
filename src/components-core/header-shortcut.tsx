@@ -85,7 +85,7 @@ function HeaderShortchutMobile({ compact }: { compact: boolean }) {
 
 				<div
 					ref={panel}
-					className={`absolute ${compact ? "right-0" : "right-4"} top-full mt-2 flex w-64 max-w-[calc(100vw-2rem)] flex-col gap-1 overflow-hidden rounded-xl border border-slate-500/20 bg-card-light p-3 shadow-xl dark:bg-card-dark`}
+					className={`absolute ${compact ? "right-0" : "right-4"} top-full mt-2 flex w-64 max-w-[calc(100vw-2rem)] flex-col gap-1 rounded-xl border border-slate-500/20 bg-card-light p-3 shadow-xl dark:bg-card-dark`}
 					onClick={(event) => {
 						if ((event.target as HTMLElement).closest("a")) {
 							setMenuOpen(false);
