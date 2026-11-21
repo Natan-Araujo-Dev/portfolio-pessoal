@@ -1,4 +1,3 @@
-import useMobile from "../hooks/useMobile";
 import { useEffect, useRef, type CSSProperties } from "react";
 import "./text-pattern-background.css";
 
@@ -25,12 +24,11 @@ export default function TextPatternBackground({
 	scrollReveal = false,
 	className = "",
 }: TextPatternBackgroundProps) {
-	const mobile = useMobile();
 	const background = useRef<HTMLDivElement>(null);
 	useEffect(() => {
 		const element = background.current;
 		const scene = element?.closest(".scroll-scene");
-		if (mobile || !scrollReveal || !element || !scene) return;
+		if (!scrollReveal || !element || !scene) return;
 		const root = document.documentElement;
 		const motion = matchMedia("(prefers-reduced-motion: reduce)");
 		const resizeObserver = new ResizeObserver(() => {
@@ -64,7 +62,7 @@ export default function TextPatternBackground({
 			window.removeEventListener("resize", schedule);
 			motion.removeEventListener("change", schedule);
 		};
-	}, [scrollReveal, mobile]);
+	}, [scrollReveal]);
 	const words = text.trim().split(/\s+/).filter(Boolean);
 	const gapBefore = (index: number) => words[index] === "·" || words[(index + words.length - 1) % words.length] === "·" ? separatorGap : gap;
 	const width = Math.max(1, words.reduce((total, word, index) => total + word.length * fontSize * 0.62 + gapBefore(index), 0));

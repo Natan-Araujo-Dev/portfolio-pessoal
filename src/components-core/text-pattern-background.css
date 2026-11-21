@@ -41,7 +41,7 @@ html.high-contrast .text-pattern-background {
 	}
 }
 
-@media (prefers-reduced-motion: no-preference) and (min-width: 768px) {
+@media (prefers-reduced-motion: no-preference) and (min-width: 768px) and (not (pointer: coarse)) {
 	html:not(.reduced-motion) :is(.text-pattern-background, .text-pattern-background__rows) {
 		animation-name: text-pattern-drift;
 		animation-timing-function: linear;
