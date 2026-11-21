@@ -14,18 +14,24 @@ export default function ScrollSection({
 		if (!element || !scene) return;
 
 		const measurePanel = () => {
-			scene.style.setProperty("--panel-height", `${element.offsetHeight}px`);
+			const panelHeight = element.offsetHeight;
+			const viewportHeight = Math.round(Number.parseFloat(getComputedStyle(element).minHeight));
+			scene.style.setProperty("--panel-height", `${panelHeight}px`);
+			scene.toggleAttribute("data-scroll-tall", panelHeight > viewportHeight);
 		};
 		const observer = new ResizeObserver(() => {
 			measurePanel();
 			if (!mobile) scheduleClip();
 		});
 		observer.observe(element);
+		window.addEventListener("resize", measurePanel);
 		measurePanel();
 
 		const stopMeasuring = () => {
 			observer.disconnect();
+			window.removeEventListener("resize", measurePanel);
 			scene.style.removeProperty("--panel-height");
+			scene.removeAttribute("data-scroll-tall");
 		};
 		if (mobile) return stopMeasuring;
 

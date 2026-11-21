@@ -86,14 +86,13 @@ export default function AnimatedContentDesktop() {
 					}
 					for (const row of rows.values()) {
 						// Mede o layout sem transforms; os painéis sticky continuam na mesma posição.
-						const start = () => Math.min(
-							scene.getBoundingClientRect().top +
-							window.scrollY +
-							layoutTop(row[0]) -
-							layoutTop(container) -
-							window.innerHeight,
-							ScrollTrigger.maxScroll(window) - window.innerHeight * 0.45 - 2,
-						);
+						const pause = () => scene.offsetHeight - container.offsetHeight;
+						const start = () => {
+							const sceneTop = scene.getBoundingClientRect().top + window.scrollY;
+							const entryOffset = layoutTop(row[0]) - layoutTop(container) - window.innerHeight;
+							const hold = scene.hasAttribute("data-scroll-tall") && entryOffset >= 0 ? pause() : 0;
+							return Math.min(sceneTop + entryOffset + hold, ScrollTrigger.maxScroll(window) - window.innerHeight * 0.45 - 2);
+						};
 						const end = () => {
 							const sceneTop = scene.getBoundingClientRect().top + window.scrollY;
 							const rowTop = layoutTop(row[0]) - layoutTop(container);
@@ -101,11 +100,12 @@ export default function AnimatedContentDesktop() {
 							const header = document.querySelector("header")?.offsetHeight ?? 0;
 							const stickyTop = Number.parseFloat(getComputedStyle(container).top);
 							const next = scene.nextElementSibling;
-							const covered = getComputedStyle(container).position === "sticky" && next && rowBottom + stickyTop > header;
-							const finalHold = next ? 0 : scene.offsetHeight - container.offsetHeight;
+							const tall = scene.hasAttribute("data-scroll-tall");
+							const covered = !tall && next && getComputedStyle(container).position === "sticky" && rowBottom + stickyTop > header;
+							const hold = tall || !next ? pause() : 0;
 							const exit = covered
 								? next.getBoundingClientRect().top + window.scrollY - Math.max(header, stickyTop + rowTop)
-								: sceneTop + rowBottom + finalHold - header;
+								: sceneTop + rowBottom + hold - header;
 							return Math.max(start() + 1, Math.min(exit, ScrollTrigger.maxScroll(window) + 1));
 						};
 						const enter = (trigger: ScrollTrigger) => {

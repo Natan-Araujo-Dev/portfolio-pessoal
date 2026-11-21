@@ -277,7 +277,7 @@ html:is(.high-contrast, .reduced-motion) .experience-laser {
 
 .scroll-panel {
 	position: sticky;
-	top: min(0px, calc(var(--section-viewport-height) - var(--panel-height)));
+	top: 0;
 	clip-path: inset(-80px -80px var(--covered-bottom, -80px) -80px);
 }
 
@@ -286,20 +286,24 @@ html:is(.high-contrast, .reduced-motion) .experience-laser {
 	box-shadow: 0 -24px 64px rgb(0 0 0 / 30%);
 }
 
-/* A última seção ganha a mesma pausa antes de dar lugar ao rodapé. */
-.scroll-scene:last-child {
+/* Painéis altos rolam por inteiro após a pausa inicial. O último painel dá lugar ao rodapé. */
+.scroll-scene:is([data-scroll-tall], :last-child) {
 	height: auto;
 	margin-bottom: 0;
 }
 
-.scroll-scene:last-child::after {
+.scroll-scene:is([data-scroll-tall], :last-child)::after {
 	content: "";
 	display: block;
 	height: var(--scroll-overlap-slack);
 }
 
-.scroll-scene:last-child .scroll-panel {
+.scroll-scene:is([data-scroll-tall], :last-child) > .scroll-panel {
 	clip-path: none;
+}
+
+.scroll-scene[data-scroll-tall] > .scroll-panel {
+	justify-content: flex-start;
 }
 
 @media (prefers-reduced-motion: reduce) {
