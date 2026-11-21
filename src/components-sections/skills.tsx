@@ -13,18 +13,16 @@ export default function Skills() {
 	const mobile = useMobile();
 	const [frontIndex, setFrontIndex] = useState(0);
 	const skill = mainSkillsList[frontIndex] ?? mainSkillsList[0];
-	const details = (
-		<>
-			<Text as="h3" variant="tomorrow-xs" className="skills-orbit-category">{skill.title}</Text>
-			<ul>
-				{skill.skills.map(tech => <li key={tech}><Tecnology name={tech} /></li>)}
-			</ul>
-		</>
+	const technologies = (
+		<ul>
+			{skill.skills.map(tech => <li key={tech}><Tecnology name={tech} /></li>)}
+		</ul>
 	);
 
 	return (
 		<ScrollSection id="habilidades" className="custom-section">
 			<div className="skills-orbit-layout w-full max-w-6xl">
+				<Text as="h2" variant="tomorrow-section" className="skills-orbit-heading">Habilidades</Text>
 				<OrbitImages
 					className="skills-orbit"
 					paused={mobile}
@@ -50,13 +48,14 @@ export default function Skills() {
 						<div className="skills-orbit-center">
 							<Text as="h2" variant="tomorrow-section">HABILIDADES</Text>
 							<div className="skills-orbit-details">
-								{details}
+								<Text as="h3" variant="tomorrow-xs" className="skills-orbit-category">{skill.title}</Text>
+								{technologies}
 							</div>
 						</div>
 					}
 				/>
 				<div className="skills-orbit-details skills-orbit-details-compact">
-					{details}
+					{technologies}
 				</div>
 			</div>
 		</ScrollSection>
