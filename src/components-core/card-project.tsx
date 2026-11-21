@@ -1,4 +1,4 @@
-import { ArrowUpRight, ExternalLink, Github } from "lucide-react";
+import { ChevronRight, ExternalLink, Github } from "lucide-react";
 import Text from "../components-base/text";
 import type { ProjectModel } from "../models/projectModel";
 import Tecnology from "./tecnology";
@@ -27,7 +27,7 @@ export default function CardProject({
 				<span className="showcase-preview" aria-hidden="true">
 					{preview ? <img src={preview} alt="" loading="lazy" decoding="async" /> : <span>{title}</span>}
 				</span>
-				<span className="showcase-arrow" aria-hidden="true"><ArrowUpRight size={20} /></span>
+				<span className="showcase-arrow" aria-hidden="true"><ChevronRight size={20} /></span>
 			</summary>
 			<div className="showcase-project-details">
 				{preview && <img className="showcase-project-image" src={preview} alt={title} loading="lazy" decoding="async" />}

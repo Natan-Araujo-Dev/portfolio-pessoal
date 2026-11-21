@@ -1,4 +1,3 @@
-import useMobile from "../hooks/useMobile";
 import { useState } from "react";
 import Text from "../components-base/text";
 import OrbitImages from "../components-core/OrbitImages";
@@ -10,7 +9,6 @@ import "./portfolio-showcase.css";
 const areas = mainSkillsList.map(({ title }) => ({ label: title }));
 
 export default function Skills() {
-	const mobile = useMobile();
 	const [frontIndex, setFrontIndex] = useState(0);
 	const skill = mainSkillsList[frontIndex] ?? mainSkillsList[0];
 	const technologies = (
@@ -25,7 +23,6 @@ export default function Skills() {
 				<Text as="h2" variant="tomorrow-section" className="skills-orbit-heading">Habilidades</Text>
 				<OrbitImages
 					className="skills-orbit"
-					paused={mobile}
 					images={areas}
 					activeIndex={frontIndex}
 					onFrontChange={setFrontIndex}
