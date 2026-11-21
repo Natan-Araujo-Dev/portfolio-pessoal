@@ -28,6 +28,7 @@ export interface ShinyTextProps {
 	yoyo?: boolean;
 	followPointer?: boolean;
 	pauseOnHover?: boolean;
+	animateOnMobile?: boolean;
 	disabled?: boolean;
 	className?: string;
 	style?: CSSProperties;
@@ -126,12 +127,14 @@ const ShinyText = ({
 	yoyo = false,
 	followPointer = false,
 	pauseOnHover = false,
+	animateOnMobile = false,
 	disabled = false,
 	className = "",
 	style,
 }: ShinyTextProps) => {
 	const { t } = useLanguage();
 	const mobile = useMobile();
+	const staticText = mobile && !animateOnMobile;
 	const rootRef = useRef<HTMLSpanElement>(null);
 	const glowRef = useRef<HTMLSpanElement>(null);
 	const settingsRef = useRef<Settings | null>(null);
@@ -165,7 +168,7 @@ const ShinyText = ({
 
 	useEffect(() => {
 		const root = rootRef.current;
-		if (mobile || !root) return undefined;
+		if (staticText || !root) return undefined;
 
 		const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
 		let reduce = motion.matches;
@@ -487,9 +490,9 @@ const ShinyText = ({
 			root.removeEventListener("pointerleave", onLeave);
 			syncRef.current = null;
 		};
-	}, [mobile]);
+	}, [staticText]);
 
-	if (mobile) return <span className={className} style={{ color, ...style }}>{content}</span>;
+	if (staticText) return <span className={className} style={{ color, ...style }}>{content}</span>;
 
 	return (
 		<span

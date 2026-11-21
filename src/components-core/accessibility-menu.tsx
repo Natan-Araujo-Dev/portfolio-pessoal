@@ -3,9 +3,11 @@ import { useEffect, useId, useRef, useState } from "react";
 import Text from "../components-base/text";
 import useAccessibility from "../hooks/useAccessibility";
 import useLanguage from "../hooks/useLanguage";
+import useMobile from "../hooks/useMobile";
 
 export default function AccessibilityMenu() {
 	const { t } = useLanguage();
+	const mobile = useMobile();
 	const [open, setOpen] = useState(false);
 	const {
 		fontSize,
@@ -72,18 +74,20 @@ export default function AccessibilityMenu() {
 				type="button"
 				aria-label={t("Acessibilidade")}
 				aria-keyshortcuts="F"
-				title={t("Acessibilidade (F)")}
+				title={t(mobile ? "Acessibilidade" : "Acessibilidade (F)")}
 				aria-expanded={open}
 				aria-controls={panelId}
 				onClick={() => setOpen(!open)}
 				className="relative flex items-center justify-center w-14 h-14 rounded-full bg-blue-700 text-white shadow-lg hover:bg-blue-800 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-600 smooth-transition"
 			>
-				<span
-					aria-hidden="true"
-					className="absolute -top-1 -right-1 flex items-center justify-center w-5 h-5 rounded-md border border-white bg-blue-900 text-white text-xs font-bold"
-				>
-					F
-				</span>
+				{!mobile && (
+					<span
+						aria-hidden="true"
+						className="absolute -top-1 -right-1 flex items-center justify-center w-5 h-5 rounded-md border border-white bg-blue-900 text-white text-xs font-bold"
+					>
+						F
+					</span>
+				)}
 				<svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true">
 					<circle cx="16" cy="16" r="13" fill="currentColor" />
 					<circle cx="16" cy="9" r="2.2" fill="#1d4ed8" />

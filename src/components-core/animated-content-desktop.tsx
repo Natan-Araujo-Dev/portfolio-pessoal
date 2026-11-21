@@ -151,14 +151,6 @@ export default function AnimatedContentDesktop() {
 							animate(block, panel, scene, scene.id === "inicio");
 					}
 				}
-				const footer = document.querySelector<HTMLElement>("footer");
-				if (footer) {
-					for (const block of footer.querySelectorAll<HTMLElement>(
-						":scope > div:first-child > *",
-					)) {
-						animate(block, footer, footer);
-					}
-				}
 			});
 			refresh();
 		}

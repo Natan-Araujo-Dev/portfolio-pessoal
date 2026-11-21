@@ -99,9 +99,9 @@ export const translations: Record<string, readonly [string, string]> = {
 		"Engineer | Prompt Engineering",
 		"de Software | Ingeniería de prompts"
 	],
-	"Desenvolvedor Fullstack | React | ASP.NET": [
-		"Full Stack Developer | React | ASP.NET",
-		"Desarrollador FullStack | React | ASP.NET"
+	"Desenvolvedor Fullstack | React | .NET": [
+		"Full Stack Developer | React | .NET",
+		"Desarrollador FullStack | React | .NET"
 	],
 	"Especializado em .NET e React, com atuação do frontend à infraestrutura.": [
 		"Specialized in .NET and React, working from frontend to infrastructure.",

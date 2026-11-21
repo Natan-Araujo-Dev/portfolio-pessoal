@@ -715,6 +715,11 @@ html.high-contrast .card-heading::before {
 	width: 12px;
 }
 
+html::-webkit-scrollbar,
+html::-webkit-scrollbar-corner {
+	background-color: var(--scrollbar-track);
+}
+
 ::-webkit-scrollbar-track {
 	background: var(--scrollbar-track);
 	border-radius: 6px;

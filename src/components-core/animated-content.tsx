@@ -19,7 +19,6 @@ export default function AnimatedContent() {
 				child instanceof HTMLElement && !child.querySelector("h1")
 			) : [block]));
 		}
-		targets.push(...document.querySelectorAll<HTMLElement>("footer > div:first-child > *"));
 		const original = new Map(targets.map(target => [target, target.style.opacity]));
 		const animations = new Map<HTMLElement, Animation>();
 		const visible = new Set<HTMLElement>();

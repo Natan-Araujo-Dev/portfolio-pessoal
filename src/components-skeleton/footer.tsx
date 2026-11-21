@@ -43,7 +43,8 @@ export default function Footer() {
 								shineColor={SHINY_TEXT_COLOR}
 								speed={3}
 								delay={1}
-								text="Desenvolvedor Fullstack | React | ASP.NET"
+								animateOnMobile
+								text="Desenvolvedor Fullstack | React | .NET"
 							/>
 						</Text>
 					</div>
