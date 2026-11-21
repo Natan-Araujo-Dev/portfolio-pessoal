@@ -20,25 +20,25 @@ export default function About() {
 							{t("Desenvolvedor FullStack.")}<br />
 							<span className="text-green-dark dark:text-green-light">{t("Software com clareza e propósito.")}</span>
 						</h3>
-						<Text as="p" variant="cascadia-prose" className="text-sm leading-relaxed md:mt-5 md:text-base">
+						<Text as="p" variant="cascadia-prose" className="text-sm leading-tight md:mt-5 md:text-base md:leading-relaxed">
 							<HighlightedText>Especializado em .NET e React, com atuação do frontend à infraestrutura.</HighlightedText>
 						</Text>
-						<Text as="p" variant="cascadia-prose" className="text-sm leading-relaxed md:mt-4 md:text-base">
+						<Text as="p" variant="cascadia-prose" className="text-sm leading-tight md:mt-4 md:text-base md:leading-relaxed">
 							<HighlightedText>Uso de IA e documentação contextual para acelerar entregas e reduzir retrabalho.</HighlightedText>
 						</Text>
 					</div>
 					<dl className="order-1 space-y-3 border-t border-slate-500/20 pt-3 md:order-none md:space-y-6 md:border-t-0 md:border-l md:pt-0 md:pl-8">
 						<div>
 							<dt className="font-tomorrow text-xs font-medium tracking-wider text-[#245b91] dark:text-[#76b6ec] md:text-sm">{t("O QUE DESENVOLVO")}</dt>
-							<dd className="prose-text mt-1.5 text-sm leading-relaxed md:mt-2 md:text-base"><HighlightedText>Sites, aplicações, APIs REST e automações.</HighlightedText></dd>
+							<dd className="prose-text mt-0.5 text-sm leading-tight md:mt-2 md:text-base md:leading-relaxed"><HighlightedText>Sites, aplicações, APIs REST e automações.</HighlightedText></dd>
 						</div>
 						<div>
 							<dt className="font-tomorrow text-xs font-medium tracking-wider text-[#245b91] dark:text-[#76b6ec] md:text-sm">{t("ONDE TENHO EXPERIÊNCIA")}</dt>
-							<dd className="prose-text mt-1.5 text-sm leading-relaxed md:mt-2 md:text-base"><HighlightedText>Mensageria, manutenção e evolução de sistemas.</HighlightedText></dd>
+							<dd className="prose-text mt-0.5 text-sm leading-tight md:mt-2 md:text-base md:leading-relaxed"><HighlightedText>Mensageria, manutenção e evolução de sistemas.</HighlightedText></dd>
 						</div>
 						<div>
 							<dt className="font-tomorrow text-xs font-medium tracking-wider text-[#245b91] dark:text-[#76b6ec] md:text-sm">{t("MEU FOCO")}</dt>
-							<dd className="prose-text mt-1.5 text-sm leading-relaxed md:mt-2 md:text-base"><HighlightedText>Desempenho, acessibilidade e facilidade de manutenção.</HighlightedText></dd>
+							<dd className="prose-text mt-0.5 text-sm leading-tight md:mt-2 md:text-base md:leading-relaxed"><HighlightedText>Desempenho, acessibilidade e facilidade de manutenção.</HighlightedText></dd>
 						</div>
 					</dl>
 				</div>
