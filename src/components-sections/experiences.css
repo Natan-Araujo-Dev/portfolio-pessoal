@@ -1,0 +1,43 @@
+#experiencia-profissional > .experience-panel {
+	--experience-surface: #e8edf6;
+	--experience-highlight: #f7f9ff;
+	--experience-beam: #5766d0;
+	--experience-halo: rgb(87 102 208 / 18%);
+	background: radial-gradient(ellipse at 20% 55%, var(--experience-highlight), transparent 78%), var(--experience-surface);
+	clip-path: none;
+}
+
+.dark #experiencia-profissional > .experience-panel {
+	--experience-surface: #25293a;
+	--experience-highlight: #343e58;
+	--experience-beam: #a1aeff;
+	--experience-halo: rgb(113 134 255 / 28%);
+}
+
+.experience-laser {
+	position: absolute;
+	inset: 0;
+	z-index: -1;
+	pointer-events: none;
+	mask-image: linear-gradient(to bottom, transparent, #000 8% 88%, transparent);
+}
+
+@media (max-width: 767px), (pointer: coarse) {
+	.experience-laser {
+		background:
+			linear-gradient(var(--experience-beam), var(--experience-beam)) 20% center / 2px 100% no-repeat,
+			radial-gradient(ellipse 9% 65% at 20% 50%, var(--experience-halo), transparent);
+	}
+}
+
+html:is(.high-contrast, .reduced-motion) .experience-laser {
+	display: none;
+}
+
+html.high-contrast #experiencia-profissional > .experience-panel {
+	background: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.experience-laser { display: none; }
+}

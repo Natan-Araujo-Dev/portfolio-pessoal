@@ -4,6 +4,7 @@ import type { LaserFlowProps } from "../components-core/LaserFlow";
 import ScrollSection from "../components-core/scroll-section";
 import Text from "../components-base/text";
 import ExperienceCardSwap from "../components-core/experience-card-swap";
+import ExperienceLaserVideo from "../components-core/experience-laser-video";
 
 const LaserFlow = lazy<ComponentType<LaserFlowProps>>(() => import("../components-core/LaserFlow").catch((error: unknown) => {
 	console.warn("Falha ao carregar o efeito de Experiência.", error);
@@ -36,7 +37,7 @@ export default function Experiences() {
          gap-y-10"
 		>
 			<div ref={background} data-scroll-background aria-hidden="true" className="experience-laser">
-				{!mobile && showLaser && (
+				{mobile ? <ExperienceLaserVideo /> : showLaser && (
 					<Suspense fallback={null}>
 						<LaserFlow beamPosition={0.2} intensity={0.3} spread={2} dust={2} pulse={1.95} revealRadius={400} beamWidth={1.55} spill={2} streaks={2} speed={3} revealOpacity={0.5} flare={1.35} fog={0} dots={2} seed={20} />
 					</Suspense>

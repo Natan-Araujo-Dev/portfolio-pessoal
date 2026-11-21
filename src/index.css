@@ -745,7 +745,4 @@ html.high-contrast .card-heading::before {
   clip-path: none;
   box-shadow: none;
  }
- .experience-laser {
-  background: linear-gradient(90deg, transparent 17%, rgb(100 110 255 / 18%) 20%, transparent 25%);
- }
 }
