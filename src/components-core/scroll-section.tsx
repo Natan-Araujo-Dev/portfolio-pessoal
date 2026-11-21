@@ -1,5 +1,5 @@
 import useMobile from "../hooks/useMobile";
-import { useEffect, useRef, type HTMLAttributes } from "react";
+import { useLayoutEffect, useRef, type HTMLAttributes } from "react";
 
 export default function ScrollSection({
 	id,
@@ -8,16 +8,32 @@ export default function ScrollSection({
 }: HTMLAttributes<HTMLDivElement>) {
 	const mobile = useMobile();
 	const panel = useRef<HTMLDivElement>(null);
-	useEffect(() => {
-		if (mobile) return;
+	useLayoutEffect(() => {
 		const element = panel.current;
-		if (!element) return;
+		const scene = element?.parentElement;
+		if (!element || !scene) return;
+
+		const measurePanel = () => {
+			scene.style.setProperty("--panel-height", `${element.offsetHeight}px`);
+		};
+		const observer = new ResizeObserver(() => {
+			measurePanel();
+			if (!mobile) scheduleClip();
+		});
+		observer.observe(element);
+		measurePanel();
+
+		const stopMeasuring = () => {
+			observer.disconnect();
+			scene.style.removeProperty("--panel-height");
+		};
+		if (mobile) return stopMeasuring;
+
 		let visible = false;
 		let frame = 0;
-		function clip() {
+		const clip = () => {
 			frame = 0;
-			if (!element) return;
-			const next = element.parentElement?.nextElementSibling;
+			const next = scene.nextElementSibling;
 			const bottom = next
 				? element.getBoundingClientRect().bottom -
 					next.getBoundingClientRect().top
@@ -27,43 +43,30 @@ export default function ScrollSection({
 				"--covered-bottom",
 				`${bottom > 0 ? bottom : -80}px`,
 			);
-		}
+		};
 		function scheduleClip() {
 			if (visible && !frame) frame = requestAnimationFrame(clip);
 		}
-		function resize() {
-			if (!element) return;
-			// Seções longas só ficam fixas quando seu fim chega à tela.
-			element.parentElement?.style.setProperty(
-				"--panel-height",
-				`${element.offsetHeight}px`,
-			);
-			scheduleClip();
-		}
-		const observer = new ResizeObserver(resize);
-		observer.observe(element);
 		const visibility = new IntersectionObserver(([entry]) => {
 			visible = entry.isIntersecting;
 			scheduleClip();
 		});
-		visibility.observe(element.parentElement!);
+		visibility.observe(scene);
 		const rootObserver = new MutationObserver(scheduleClip);
 		rootObserver.observe(document.documentElement, {
 			attributes: true,
 			attributeFilter: ["class", "style"],
 		});
 		window.addEventListener("scroll", scheduleClip, { passive: true });
-		window.addEventListener("resize", resize);
-		resize();
+		window.addEventListener("resize", scheduleClip);
 		return () => {
-			observer.disconnect();
+			stopMeasuring();
 			visibility.disconnect();
 			rootObserver.disconnect();
 			cancelAnimationFrame(frame);
 			window.removeEventListener("scroll", scheduleClip);
-			window.removeEventListener("resize", resize);
+			window.removeEventListener("resize", scheduleClip);
 			element.style.removeProperty("--covered-bottom");
-			element.parentElement?.style.removeProperty("--panel-height");
 		};
 	}, [mobile]);
 

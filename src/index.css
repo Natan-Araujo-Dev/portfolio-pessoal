@@ -243,8 +243,6 @@ html.high-contrast .experience-wall {
 	min-height: 100%;
 }
 
-#experiencia-profissional > .scroll-panel { justify-content: flex-start; }
-
 .experience-scroll-content {
 	height: clamp(220px, 42svh, 380px);
 	overflow-y: auto;
@@ -288,15 +286,19 @@ html:is(.high-contrast, .reduced-motion) .experience-laser {
 	box-shadow: 0 -24px 64px rgb(0 0 0 / 30%);
 }
 
-/* A última seção permanece no fluxo para manter o footer no fim da página. */
+/* A última seção ganha a mesma pausa antes de dar lugar ao rodapé. */
 .scroll-scene:last-child {
 	height: auto;
 	margin-bottom: 0;
 }
 
+.scroll-scene:last-child::after {
+	content: "";
+	display: block;
+	height: var(--scroll-overlap-slack);
+}
+
 .scroll-scene:last-child .scroll-panel {
-	position: relative;
-	top: auto;
 	clip-path: none;
 }
 
@@ -727,12 +729,15 @@ html.high-contrast .card-heading::before {
   height: auto;
   margin-bottom: 0;
  }
+ .scroll-scene::after {
+  content: "";
+  display: block;
+  height: var(--scroll-overlap-slack);
+ }
  .scroll-scene:not(:first-child):not(:last-child) {
   --scroll-panel-slack: 0px;
  }
  .scroll-scene > .scroll-panel {
-  position: relative;
-  top: auto;
   clip-path: none;
   box-shadow: none;
  }

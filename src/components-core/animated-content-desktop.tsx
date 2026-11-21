@@ -102,9 +102,10 @@ export default function AnimatedContentDesktop() {
 							const stickyTop = Number.parseFloat(getComputedStyle(container).top);
 							const next = scene.nextElementSibling;
 							const covered = getComputedStyle(container).position === "sticky" && next && rowBottom + stickyTop > header;
+							const finalHold = next ? 0 : scene.offsetHeight - container.offsetHeight;
 							const exit = covered
 								? next.getBoundingClientRect().top + window.scrollY - Math.max(header, stickyTop + rowTop)
-								: sceneTop + rowBottom - header;
+								: sceneTop + rowBottom + finalHold - header;
 							return Math.max(start() + 1, Math.min(exit, ScrollTrigger.maxScroll(window) + 1));
 						};
 						const enter = (trigger: ScrollTrigger) => {
