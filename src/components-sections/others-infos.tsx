@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { RotateCcw } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import ScrollSection from "../components-core/scroll-section";
 import Text from "../components-base/text";
 import Card from "../components-base/card";
@@ -24,18 +24,28 @@ export default function OthersInfos() {
 					));
 					return (
 						<Card key={skill.title} className="profile-card flex min-w-0 flex-col gap-4 p-5 sm:p-7">
-							<Text as="h3" variant="tomorrow-xl" className="card-heading">{skill.title}</Text>
+							<div className="flex items-start justify-between gap-3">
+								<Text as="h3" variant="tomorrow-xl" className="card-heading">{skill.title}</Text>
+								{soft && (
+									<button
+										className="-my-2 inline-flex size-11 shrink-0 items-center justify-center rounded-lg text-green-dark hover:bg-emerald-900/10 focus-visible:outline-2 focus-visible:outline-offset-2 dark:text-green-light dark:hover:bg-emerald-400/15"
+										type="button"
+										aria-label={t(expanded ? "Ver menos" : "Ver todas")}
+										aria-expanded={expanded}
+										onClick={() => setExpanded(value => !value)}
+									>
+										<ChevronRight size={20} className="profile-soft-chevron" aria-hidden="true" />
+									</button>
+								)}
+							</div>
 							{soft ? (
-								<div className="profile-soft" data-expanded={expanded}>
-									<ul className="card-list space-y-2" aria-hidden={expanded}>{entries.slice(0, 3)}</ul>
-									<ul className="card-list space-y-2" aria-hidden={!expanded}>{entries}</ul>
+								<div>
+									<ul className="card-list space-y-2">{entries.slice(0, 3)}</ul>
+									<div className="profile-soft-extra" aria-hidden={!expanded}>
+										<ul className="card-list space-y-2">{entries.slice(3)}</ul>
+									</div>
 								</div>
 							) : <ul className={timeline ? "profile-timeline" : "card-list space-y-2"}>{entries}</ul>}
-							{soft && (
-								<button className="project-link self-start" type="button" aria-expanded={expanded} onClick={() => setExpanded(value => !value)}>
-									{t(expanded ? "Ver menos" : "Ver todas")} <RotateCcw size={14} aria-hidden="true" />
-								</button>
-							)}
 						</Card>
 					);
 				})}
