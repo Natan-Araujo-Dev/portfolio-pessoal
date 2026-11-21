@@ -1,0 +1,38 @@
+.experience-scroll-content[data-custom-scrollbar] {
+	scrollbar-width: none;
+	padding-inline-end: 20px;
+}
+
+.experience-scroll-content[data-custom-scrollbar]::-webkit-scrollbar {
+	display: none;
+}
+
+.experience-scroll-rail {
+	position: sticky;
+	top: 0;
+	z-index: 1;
+	height: 0;
+	margin-inline-end: -20px;
+	pointer-events: none;
+}
+
+.experience-scroll-track {
+	position: absolute;
+	inset-inline-end: 0;
+	width: 12px;
+	border-radius: 6px;
+	background-color: var(--scrollbar-track);
+	pointer-events: auto;
+}
+
+.experience-scroll-thumb {
+	width: 100%;
+	border-radius: inherit;
+	background-color: var(--scrollbar-thumb);
+	cursor: grab;
+}
+
+html[data-experience-scroll-dragging],
+html[data-experience-scroll-dragging] * {
+	cursor: var(--cursor-grabbing) !important;
+}
