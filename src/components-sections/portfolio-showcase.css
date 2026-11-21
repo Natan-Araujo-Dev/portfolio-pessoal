@@ -114,21 +114,32 @@
 	}
 
 	.skills-orbit-layout {
+		--skills-accent: var(--color-green-dark);
+		--skills-surface: var(--color-card-light);
+		--skills-border: color-mix(in srgb, currentColor 25%, transparent);
 		display: grid;
 		grid-template-rows: minmax(0, 1fr) auto minmax(0, 1.18fr);
+		row-gap: .75rem;
 		height: 100%;
+	}
+
+	.dark .skills-orbit-layout {
+		--skills-accent: var(--color-green-light);
+		--skills-surface: var(--color-card-dark);
 	}
 
 	.skills-orbit-layout > .skills-orbit-heading {
 		display: block;
 		grid-row: 1;
 		align-self: end;
-		margin-bottom: .75rem;
+		padding-bottom: .6rem;
+		border-bottom: 1px solid var(--skills-border);
 	}
 
 	.skills-orbit {
 		--skills-orbit-card-width: clamp(56px, 17vw, 68px);
 		grid-row: 2;
+		background: radial-gradient(ellipse, color-mix(in srgb, var(--skills-accent) 15%, transparent), transparent 70%);
 	}
 
 	.skills-orbit .orbit-item::before {
@@ -159,22 +170,50 @@
 
 	.skills-orbit [aria-pressed="true"] .orbit-item-inner {
 		border-width: 1px;
-		border-color: var(--color-green-dark);
-	}
-
-	.dark .skills-orbit [aria-pressed="true"] .orbit-item-inner {
-		border-color: var(--color-green-light);
+		border-color: var(--skills-accent);
+		background-color: color-mix(in srgb, var(--skills-accent) 12%, var(--skills-surface));
 	}
 
 	.skills-orbit-center > h2,
 	.skills-orbit-center .skills-orbit-details > ul { display: none; }
 	.skills-orbit-center .skills-orbit-details { margin-top: 0; }
+
+	.skills-orbit-category {
+		justify-self: center;
+		max-width: 100%;
+		padding: .3rem .65rem;
+		border: 1px solid var(--skills-accent);
+		border-radius: 999px;
+		background-color: var(--skills-surface);
+		color: var(--skills-accent);
+		overflow-wrap: anywhere;
+	}
+
 	.skills-orbit-details-compact:not(:empty) {
 		display: grid;
 		grid-row: 3;
+		grid-template-rows: auto minmax(0, 1fr);
+		align-self: start;
+		justify-self: center;
+		width: min(100%, 26rem);
+		max-height: 100%;
+		min-height: 0;
+		margin-top: 0;
+		gap: .5rem;
+		padding: .65rem .75rem;
+		border: 1px solid var(--skills-border);
+		border-radius: .85rem;
+		background-color: var(--skills-surface);
+	}
+
+	.skills-orbit-technologies-title {
+		text-align: start;
+	}
+
+	.skills-orbit-details-compact > ul {
+		justify-content: flex-start;
 		align-content: start;
 		min-height: 0;
-		margin-top: 1.25rem;
 		overflow-y: auto;
 	}
 }

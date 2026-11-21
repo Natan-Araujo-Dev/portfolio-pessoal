@@ -3,12 +3,14 @@ import Text from "../components-base/text";
 import OrbitImages from "../components-core/OrbitImages";
 import ScrollSection from "../components-core/scroll-section";
 import Tecnology from "../components-core/tecnology";
+import useLanguage from "../hooks/useLanguage";
 import { mainSkillsList } from "../objects/mainSkillsList";
 import "./portfolio-showcase.css";
 
 const areas = mainSkillsList.map(({ title }) => ({ label: title }));
 
 export default function Skills() {
+	const { t } = useLanguage();
 	const [frontIndex, setFrontIndex] = useState(0);
 	const skill = mainSkillsList[frontIndex] ?? mainSkillsList[0];
 	const technologies = (
@@ -52,6 +54,9 @@ export default function Skills() {
 					}
 				/>
 				<div className="skills-orbit-details skills-orbit-details-compact">
+					<p className="skills-orbit-technologies-title font-tomorrow text-xs font-semibold">
+						{t("Tecnologias de {title}", { title: t(skill.title) })}
+					</p>
 					{technologies}
 				</div>
 			</div>
