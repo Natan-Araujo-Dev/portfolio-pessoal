@@ -107,7 +107,7 @@
 .skills-orbit-details-compact { display: none; }
 
 @media (max-width: 767px) {
-	.scroll-scene#habilidades > .custom-section {
+	.scroll-scene#habilidades .custom-section {
 		height: var(--section-viewport-height);
 		padding-block: 16px;
 		padding-inline: clamp(16px, 5vw, 32px);

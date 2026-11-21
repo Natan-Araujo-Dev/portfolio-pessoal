@@ -163,7 +163,7 @@ header a { display: inline-flex; }
 	}
 }
 
-#inicio > .scroll-panel {
+#inicio .scroll-panel {
 	min-height: var(--section-viewport-height);
 }
 
@@ -196,7 +196,7 @@ header a { display: inline-flex; }
 	isolation: isolate;
 }
 
-#sobre > .scroll-panel {
+#sobre .scroll-panel {
 	clip-path: none;
 }
 
@@ -222,13 +222,13 @@ html.high-contrast .experience-wall {
 }
 
 #experiencia-profissional,
-#experiencia-profissional > .scroll-panel {
+#experiencia-profissional .scroll-panel {
 	--experience-background: var(--color-gray-background);
 	background-color: var(--experience-background);
 }
 
 .dark #experiencia-profissional,
-.dark #experiencia-profissional > .scroll-panel {
+.dark #experiencia-profissional .scroll-panel {
 	--experience-background: var(--color-blue-background);
 }
 
@@ -265,9 +265,11 @@ html:is(.high-contrast, .reduced-motion) .experience-laser {
 .scroll-scene {
 	--scroll-overlap-slack: 100px;
 	--scroll-panel-slack: 0px;
+	--overlap-scene-height: calc(var(--panel-height) + var(--section-viewport-height) - var(--header-height) + var(--scroll-overlap-slack));
+	--overlap-scene-margin: calc(var(--header-height) - var(--section-viewport-height));
 	/* A zona morta de rolagem é independente do padding que centraliza o conteúdo. */
-	height: calc(var(--panel-height) + var(--section-viewport-height) - var(--header-height) + var(--scroll-overlap-slack));
-	margin-bottom: calc(var(--header-height) - var(--section-viewport-height));
+	height: var(--overlap-scene-height);
+	margin-bottom: var(--overlap-scene-margin);
 }
 
 /* Distribui a folga da sobreposição igualmente acima e abaixo do conteúdo. */
@@ -275,10 +277,13 @@ html:is(.high-contrast, .reduced-motion) .experience-laser {
 	--scroll-panel-slack: var(--scroll-overlap-slack);
 }
 
+.scroll-stage { display: contents; }
+
 .scroll-panel {
+	--scroll-overlap-clip: inset(-80px -80px var(--covered-bottom, -80px) -80px);
 	position: sticky;
 	top: 0;
-	clip-path: inset(-80px -80px var(--covered-bottom, -80px) -80px);
+	clip-path: var(--scroll-overlap-clip);
 }
 
 .scroll-scene:not(:first-child) .scroll-panel {
@@ -298,11 +303,11 @@ html:is(.high-contrast, .reduced-motion) .experience-laser {
 	height: var(--scroll-overlap-slack);
 }
 
-.scroll-scene:is([data-scroll-tall], :last-child) > .scroll-panel {
+.scroll-scene:is([data-scroll-tall], :last-child) .scroll-panel {
 	clip-path: none;
 }
 
-.scroll-scene[data-scroll-tall] > .scroll-panel {
+.scroll-scene[data-scroll-tall] .scroll-panel {
 	justify-content: flex-start;
 }
 
@@ -673,11 +678,7 @@ html.high-contrast .card-heading::before {
 		padding-inline: 16px;
 	}
 
-	.scroll-scene:not(:first-child) .scroll-panel {
-		box-shadow: none;
-	}
-
-	#sobre > .scroll-panel {
+	#sobre .scroll-panel {
 		padding-block: calc(24px + var(--scroll-panel-slack) / 2);
 	}
 
@@ -729,20 +730,30 @@ html.high-contrast .card-heading::before {
 }
 
 @media (max-width: 767px), (pointer: coarse) {
- .scroll-scene {
-  height: auto;
-  margin-bottom: 0;
- }
- .scroll-scene::after {
-  content: "";
-  display: block;
-  height: var(--scroll-overlap-slack);
- }
- .scroll-scene:not(:first-child):not(:last-child) {
-  --scroll-panel-slack: 0px;
- }
- .scroll-scene > .scroll-panel {
-  clip-path: none;
-  box-shadow: none;
- }
+	.scroll-scene:not(:first-child):not(:last-child) {
+		--scroll-panel-slack: 0px;
+	}
+
+	.scroll-scene:not(:first-child) .scroll-panel {
+		box-shadow: 0 -12px 32px rgb(0 0 0 / 22%);
+	}
+
+	.scroll-scene[data-scroll-tall]:not(:last-child) {
+		height: var(--overlap-scene-height);
+		margin-bottom: var(--overlap-scene-margin);
+	}
+
+	.scroll-scene[data-scroll-tall]:not(:last-child)::after { content: none; }
+
+	/* A reserva interna segura o início. O estágio fixa o fim antes da sobreposição. */
+	.scroll-scene[data-scroll-tall]:not(:last-child) > .scroll-stage {
+		display: block;
+		position: sticky;
+		height: calc(var(--panel-height) + var(--scroll-overlap-slack));
+		top: calc(var(--section-viewport-height) - var(--panel-height) - var(--scroll-overlap-slack));
+	}
+
+	.scroll-scene[data-scroll-tall]:not(:last-child) .scroll-panel {
+		clip-path: var(--scroll-overlap-clip);
+	}
 }

@@ -18,7 +18,7 @@ export default function Background() {
          -z-10
 			bg-[var(--drape-background-light)] dark:bg-[var(--drape-background-dark)]"
 		>
-			<ParticleDrape visibilitySelector="#inicio > .scroll-panel" />
+			<ParticleDrape visibilitySelector="#inicio .scroll-panel" />
 		</div>
 	);
 }

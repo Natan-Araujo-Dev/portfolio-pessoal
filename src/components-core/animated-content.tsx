@@ -13,7 +13,7 @@ export default function AnimatedContent() {
 		const targets: HTMLElement[] = [];
 		for (const block of document.querySelectorAll<HTMLElement>(".scroll-panel > *")) {
 			if (block.hasAttribute("data-scroll-background") || block.classList.contains("animate-bounce")) continue;
-			const group = block.parentElement?.parentElement?.id === "inicio" ||
+			const group = block.closest(".scroll-scene")?.id === "inicio" ||
 				(!block.matches("[data-card]") && block.querySelector("[data-card]"));
 			targets.push(...(group ? Array.from(block.children).filter((child): child is HTMLElement =>
 				child instanceof HTMLElement && !child.querySelector("h1")

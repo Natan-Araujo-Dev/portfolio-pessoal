@@ -36,10 +36,11 @@ export default function ExperienceLaserVideo() {
 			nearby = entry.isIntersecting;
 			sync();
 		}, { rootMargin: "240px 0px" });
+		const visibleThreshold = 0.001;
 		const visibility = new IntersectionObserver(([entry]) => {
-			visible = entry.isIntersecting && entry.intersectionRatio > 0;
+			visible = entry.intersectionRatio >= visibleThreshold;
 			sync();
-		}, { threshold: 0.001 });
+		}, { threshold: visibleThreshold });
 		const preferences = new MutationObserver(sync);
 
 		proximity.observe(element);

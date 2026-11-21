@@ -144,7 +144,7 @@ export default function AnimatedContentDesktop() {
 				for (const panel of document.querySelectorAll<HTMLElement>(
 					".scroll-panel",
 				)) {
-					const scene = panel.parentElement;
+					const scene = panel.closest<HTMLElement>(".scroll-scene");
 					if (!scene) continue;
 					for (const block of Array.from(panel.children)) {
 						if (block instanceof HTMLElement)
