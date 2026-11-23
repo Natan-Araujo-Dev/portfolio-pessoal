@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { getNextScrollSection } from "./scroll-section-target";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -86,7 +87,10 @@ export default function AnimatedContentDesktop() {
 					}
 					for (const row of rows.values()) {
 						// Mede o layout sem transforms; os painéis sticky continuam na mesma posição.
-						const pause = () => scene.offsetHeight - container.offsetHeight;
+						const pause = () => {
+							const reserve = getNextScrollSection(scene) ? container.parentElement : scene;
+							return (reserve?.offsetHeight ?? container.offsetHeight) - container.offsetHeight;
+						};
 						const start = () => {
 							const sceneTop = scene.getBoundingClientRect().top + window.scrollY;
 							const entryOffset = layoutTop(row[0]) - layoutTop(container) - window.innerHeight;
@@ -98,10 +102,10 @@ export default function AnimatedContentDesktop() {
 							const rowTop = layoutTop(row[0]) - layoutTop(container);
 							const rowBottom = Math.max(...row.map(target => layoutTop(target) - layoutTop(container) + target.offsetHeight));
 							const header = document.querySelector("header")?.offsetHeight ?? 0;
-							const stickyTop = Number.parseFloat(getComputedStyle(container).top);
-							const next = scene.nextElementSibling;
+							const stickyTop = Math.min(0, window.innerHeight - container.offsetHeight);
+							const next = getNextScrollSection(scene);
 							const tall = scene.hasAttribute("data-scroll-tall");
-							const covered = !tall && next && getComputedStyle(container).position === "sticky" && rowBottom + stickyTop > header;
+							const covered = next && rowBottom + stickyTop > header;
 							const hold = tall || !next ? pause() : 0;
 							const exit = covered
 								? next.getBoundingClientRect().top + window.scrollY - Math.max(header, stickyTop + rowTop)

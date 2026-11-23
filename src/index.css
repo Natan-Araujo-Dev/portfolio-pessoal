@@ -192,6 +192,12 @@ header a { display: inline-flex; }
 	padding-block: calc(48px + var(--scroll-panel-slack) / 2);
 }
 
+#experiencia-profissional .scroll-panel,
+#habilidades .scroll-panel {
+	height: var(--section-viewport-height);
+	padding-block: clamp(12px, 5svh, 48px);
+}
+
 .about-pattern {
 	position: relative;
 	isolation: isolate;
@@ -244,6 +250,10 @@ html.high-contrast .experience-wall {
 	min-height: 100%;
 }
 
+.experience-card-swap {
+	min-height: 0;
+}
+
 .experience-scroll-content {
 	height: clamp(220px, 42svh, 380px);
 	overflow-y: auto;
@@ -266,11 +276,9 @@ html:is(.high-contrast, .reduced-motion) .experience-laser {
 .scroll-scene {
 	--scroll-overlap-slack: 100px;
 	--scroll-panel-slack: 0px;
-	--overlap-scene-height: calc(var(--panel-height) + var(--section-viewport-height) - var(--header-height) + var(--scroll-overlap-slack));
-	--overlap-scene-margin: calc(var(--header-height) - var(--section-viewport-height));
 	/* A zona morta de rolagem é independente do padding que centraliza o conteúdo. */
-	height: var(--overlap-scene-height);
-	margin-bottom: var(--overlap-scene-margin);
+	height: calc(var(--panel-height) + var(--section-viewport-height) - var(--header-height) + var(--scroll-overlap-slack));
+	margin-bottom: calc(var(--header-height) - var(--section-viewport-height));
 }
 
 /* Distribui a folga da sobreposição igualmente acima e abaixo do conteúdo. */
@@ -280,11 +288,18 @@ html:is(.high-contrast, .reduced-motion) .experience-laser {
 
 .scroll-stage { display: contents; }
 
+/* A reserva interna segura o início. O estágio fixa o fim antes da sobreposição. */
+.scroll-scene[data-scroll-tall]:is(:not(:last-child), [data-overlap-target]) > .scroll-stage {
+	display: block;
+	position: sticky;
+	height: calc(var(--panel-height) + var(--scroll-overlap-slack));
+	top: calc(var(--section-viewport-height) - var(--panel-height) - var(--scroll-overlap-slack));
+}
+
 .scroll-panel {
-	--scroll-overlap-clip: inset(-80px -80px var(--covered-bottom, -80px) -80px);
 	position: sticky;
 	top: 0;
-	clip-path: var(--scroll-overlap-clip);
+	clip-path: inset(-80px -80px var(--covered-bottom, -80px) -80px);
 }
 
 .scroll-scene:not(:first-child) .scroll-panel {
@@ -292,19 +307,19 @@ html:is(.high-contrast, .reduced-motion) .experience-laser {
 	box-shadow: 0 -24px 64px rgb(0 0 0 / 30%);
 }
 
-/* Painéis altos rolam por inteiro após a pausa inicial. O último painel dá lugar ao rodapé. */
-.scroll-scene:is([data-scroll-tall], :last-child) {
+/* O último painel permanece no fluxo quando não há destino de sobreposição. */
+.scroll-scene:last-child:not([data-overlap-target]) {
 	height: auto;
 	margin-bottom: 0;
 }
 
-.scroll-scene:is([data-scroll-tall], :last-child)::after {
+.scroll-scene:last-child:not([data-overlap-target])::after {
 	content: "";
 	display: block;
 	height: var(--scroll-overlap-slack);
 }
 
-.scroll-scene:is([data-scroll-tall], :last-child) .scroll-panel {
+.scroll-scene:last-child:not([data-overlap-target]) .scroll-panel {
 	clip-path: none;
 }
 
@@ -744,22 +759,4 @@ html::-webkit-scrollbar-corner {
 		box-shadow: 0 -12px 32px rgb(0 0 0 / 22%);
 	}
 
-	.scroll-scene[data-scroll-tall]:not(:last-child) {
-		height: var(--overlap-scene-height);
-		margin-bottom: var(--overlap-scene-margin);
-	}
-
-	.scroll-scene[data-scroll-tall]:not(:last-child)::after { content: none; }
-
-	/* A reserva interna segura o início. O estágio fixa o fim antes da sobreposição. */
-	.scroll-scene[data-scroll-tall]:not(:last-child) > .scroll-stage {
-		display: block;
-		position: sticky;
-		height: calc(var(--panel-height) + var(--scroll-overlap-slack));
-		top: calc(var(--section-viewport-height) - var(--panel-height) - var(--scroll-overlap-slack));
-	}
-
-	.scroll-scene[data-scroll-tall]:not(:last-child) .scroll-panel {
-		clip-path: var(--scroll-overlap-clip);
-	}
 }

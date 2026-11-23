@@ -6,7 +6,7 @@ import "./portfolio-showcase.css";
 
 export default function Projects() {
 	return (
-		<ScrollSection id="projetos" className="custom-section gap-y-10">
+		<ScrollSection id="projetos" className="custom-section gap-y-10" overlapTarget="contato">
 			<div data-focus-reveal><Text as="h2" variant="tomorrow-section">Projetos em destaque</Text></div>
 			<div className="project-showcase w-full max-w-6xl">
 				{projectsList.map((project, index) => (

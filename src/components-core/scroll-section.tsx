@@ -1,10 +1,12 @@
 import { useLayoutEffect, useRef, type HTMLAttributes } from "react";
+import { getNextScrollSection } from "./scroll-section-target";
 
 export default function ScrollSection({
 	id,
 	className,
 	children,
-}: HTMLAttributes<HTMLDivElement>) {
+	overlapTarget,
+}: HTMLAttributes<HTMLDivElement> & { overlapTarget?: string }) {
 	const panel = useRef<HTMLDivElement>(null);
 	useLayoutEffect(() => {
 		const element = panel.current;
@@ -35,7 +37,7 @@ export default function ScrollSection({
 		let frame = 0;
 		const clip = () => {
 			frame = 0;
-			const next = scene.nextElementSibling;
+			const next = getNextScrollSection(scene);
 			const bottom = next
 				? element.getBoundingClientRect().bottom -
 					next.getBoundingClientRect().top
@@ -73,7 +75,7 @@ export default function ScrollSection({
 	}, []);
 
 	return (
-		<div id={id} className="scroll-scene">
+		<div id={id} className="scroll-scene" data-overlap-target={overlapTarget}>
 			<div className="scroll-stage">
 				<div ref={panel} className={`scroll-panel ${className ?? ""}`}>
 					{children}

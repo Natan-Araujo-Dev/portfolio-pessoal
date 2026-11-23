@@ -34,7 +34,7 @@ export default function Experiences() {
 			id="experiencia-profissional"
 			className="
 			custom-section relative isolate
-         gap-y-10"
+         gap-y-[clamp(8px,4svh,40px)]"
 		>
 			<div ref={background} data-scroll-background aria-hidden="true" className="experience-laser">
 				{mobile ? <ExperienceLaserVideo /> : showLaser && (
