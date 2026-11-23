@@ -1,21 +1,28 @@
 import { ChevronRight, ExternalLink, Github } from "lucide-react";
+import { lazy, Suspense, useState } from "react";
 import Text from "../components-base/text";
 import type { ProjectModel } from "../models/projectModel";
 import Tecnology from "./tecnology";
 import HighlightedText from "./highlighted-text";
 import useLanguage from "../hooks/useLanguage";
-import sendWorkPreview from "../assets/experience-wall/mobile/sendwork-1.webp";
+
+const AccordionGallery = lazy(() => import("./accordion-gallery"));
 
 export default function CardProject({
-	title, summary, features, technologies, projectLink, gitHubLink, gitHubLinks, index,
-}: ProjectModel & { index: number }) {
+	title, summary, features, technologies, images, projectLink, gitHubLink, gitHubLinks, index, onToggleRequest,
+}: ProjectModel & { index: number; onToggleRequest: (card: HTMLDetailsElement) => void }) {
 	const { t } = useLanguage();
+	const [open, setOpen] = useState(false);
 	const repositories = gitHubLinks ?? (gitHubLink ? [{ label: "GitHub", url: gitHubLink }] : []);
-	const preview = title === "SendWork" ? sendWorkPreview : undefined;
+	const preview = images?.[0];
 
 	return (
-		<details name="portfolio-projects" className="showcase-project">
-			<summary className="showcase-project-row">
+		<details className="showcase-project" onToggle={event => setOpen(event.currentTarget.open)}>
+			<summary className="showcase-project-row" onClick={event => {
+				event.preventDefault();
+				const card = event.currentTarget.parentElement;
+				if (card instanceof HTMLDetailsElement) onToggleRequest(card);
+			}}>
 				<span className="showcase-index" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
 				<span className="showcase-project-copy">
 					<Text variant="tomorrow-xl" className="font-semibold">{title}</Text>
@@ -25,12 +32,28 @@ export default function CardProject({
 					</span>
 				</span>
 				<span className="showcase-preview" aria-hidden="true">
-					{preview ? <img src={preview} alt="" loading="lazy" decoding="async" /> : <span>{title}</span>}
+					{preview ? <img src={preview.image} alt="" loading="lazy" decoding="async" /> : <span>{title}</span>}
 				</span>
 				<span className="showcase-arrow" aria-hidden="true"><ChevronRight size={20} /></span>
 			</summary>
 			<div className="showcase-project-details">
-				{preview && <img className="showcase-project-image" src={preview} alt={title} loading="lazy" decoding="async" />}
+				{preview && images && (
+					<div className="showcase-project-gallery">
+						{open && <Suspense fallback={<img src={preview.image} alt={t(preview.label)} className="h-full w-full rounded-[5px] object-cover" />}>
+							<AccordionGallery
+								items={images.map(item => ({ ...item, label: t(item.label) }))}
+								label={t("Imagens de {title}", { title })}
+								defaultIndex={0}
+								gap={12}
+								tilt={0}
+								radius={5}
+								stagger={0}
+								expandRatio={0.64}
+								duration={0.3}
+							/>
+						</Suspense>}
+					</div>
+				)}
 				<Text as="h3" variant="tomorrow-sm" className="font-semibold">Minha atuação</Text>
 				<ul className="card-list prose-text space-y-3 leading-relaxed">
 					{features.map(feature => <li key={feature}><HighlightedText>{feature}</HighlightedText></li>)}

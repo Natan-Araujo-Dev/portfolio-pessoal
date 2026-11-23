@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import type Lenis from "lenis";
+import { programmaticScroll, setSmoothScroller } from "./smooth-scroll-controller";
 import "lenis/dist/lenis.css";
 
 export default function SmoothScroll() {
@@ -13,10 +14,15 @@ export default function SmoothScroll() {
 		const isDisabled = () => !desktop.matches || reducedMotion.matches ||
 			root.matches(".reduced-motion, .middle-scroll");
 
+		function destroyScroller() {
+			lenis?.destroy();
+			lenis = null;
+			setSmoothScroller(null);
+		}
+
 		async function sync() {
 			if (isDisabled()) {
-				lenis?.destroy();
-				lenis = null;
+				destroyScroller();
 			} else if (!lenis && !loading) {
 				loading = true;
 				const { default: Lenis } = await import("lenis");
@@ -29,7 +35,13 @@ export default function SmoothScroll() {
 					syncTouch: false,
 					anchors: { duration: 0.55 },
 					allowNestedScroll: true,
+					virtualScroll: ({ event }) => {
+						if (!programmaticScroll || !(event instanceof WheelEvent) || event.ctrlKey) return true;
+						event.preventDefault();
+						return false;
+					},
 				});
+				setSmoothScroller(lenis);
 			}
 		}
 
@@ -43,7 +55,7 @@ export default function SmoothScroll() {
 			observer.disconnect();
 			reducedMotion.removeEventListener("change", sync);
 			desktop.removeEventListener("change", sync);
-			lenis?.destroy();
+			destroyScroller();
 		};
 	}, []);
 

@@ -11,6 +11,15 @@
 	border-block-start: 1px solid color-mix(in srgb, currentColor 18%, transparent);
 }
 
+/* A entrada da seção não deve deslocar um projeto depois que ele foi aberto. */
+.project-showcase:has(.showcase-project[open]) {
+	transform: none !important;
+	opacity: 1 !important;
+}
+
+#projetos,
+#contato { overflow-anchor: none; }
+
 .showcase-project {
 	border-block-end: 1px solid color-mix(in srgb, currentColor 18%, transparent);
 }
@@ -54,7 +63,14 @@
 }
 
 .dark .showcase-project-details { background: var(--color-card-dark); }
-.showcase-project-image { width: min(100%, 32rem); border-radius: .5rem; }
+.showcase-project-gallery {
+	min-width: 0;
+	height: 460px;
+}
+
+@media (max-width: 520px) {
+	.showcase-project-gallery { height: min(420px, 76svh); }
+}
 
 .skills-orbit .orbit-item-inner {
 	display: grid;

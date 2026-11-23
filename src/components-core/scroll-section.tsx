@@ -1,5 +1,5 @@
 import { useLayoutEffect, useRef, type HTMLAttributes } from "react";
-import { getNextScrollSection } from "./scroll-section-target";
+import { clipScrollPanel, measureScrollPanel } from "./scroll-section-layout";
 
 export default function ScrollSection({
 	id,
@@ -13,12 +13,7 @@ export default function ScrollSection({
 		const scene = element?.closest<HTMLElement>(".scroll-scene");
 		if (!element || !scene) return;
 
-		const measurePanel = () => {
-			const panelHeight = element.offsetHeight;
-			const viewportHeight = Math.round(Number.parseFloat(getComputedStyle(element).minHeight));
-			scene.style.setProperty("--panel-height", `${panelHeight}px`);
-			scene.toggleAttribute("data-scroll-tall", panelHeight > viewportHeight);
-		};
+		const measurePanel = () => measureScrollPanel(scene, element);
 		const observer = new ResizeObserver(() => {
 			measurePanel();
 			scheduleClip();
@@ -37,16 +32,7 @@ export default function ScrollSection({
 		let frame = 0;
 		const clip = () => {
 			frame = 0;
-			const next = getNextScrollSection(scene);
-			const bottom = next
-				? element.getBoundingClientRect().bottom -
-					next.getBoundingClientRect().top
-				: -80;
-			// Recorta somente o conteúdo coberto, mantendo o canvas visível atrás.
-			const inset = `${bottom > 0 ? bottom : -80}px`;
-			if (element.style.getPropertyValue("--covered-bottom") !== inset) {
-				element.style.setProperty("--covered-bottom", inset);
-			}
+			clipScrollPanel(scene, element);
 		};
 		function scheduleClip() {
 			if (visible && !frame) frame = requestAnimationFrame(clip);

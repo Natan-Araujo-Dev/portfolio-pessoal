@@ -1,10 +1,25 @@
 import type { ProjectModel } from "../models/projectModel";
+import bazarDesktopHome from "../assets/project-previews/bazar-video-home-desktop.webp";
+import bazarDesktopStore from "../assets/project-previews/bazar-video-store-desktop.webp";
+import bazarDesktopProduct from "../assets/project-previews/bazar-video-product-desktop.webp";
+import bazarMobileHome from "../assets/project-previews/bazar-video-home-mobile.webp";
+import bazarMobileStore from "../assets/project-previews/bazar-video-store-mobile.webp";
+import smartCidadaoDashboard from "../assets/project-previews/smartcidadao-painel.webp";
+import smartCidadaoStats from "../assets/project-previews/smartcidadao-estatisticas.webp";
+import smartSigMap from "../assets/project-previews/smartsig-mapa.webp";
+import smartSigLayers from "../assets/project-previews/smartsig-camadas.webp";
+import sendWorkCampaigns from "../assets/experience-wall/mobile/sendwork-1.webp";
+import sendWorkShortLinks from "../assets/experience-wall/mobile/sendwork-2.webp";
 
 export const projectsList: ProjectModel[] = [
 	// Contribuições profissionais na Reeve
 	{
 		title: "SmartSIG",
 		projectLink: "https://guapimirim.smartsig.com.br",
+		images: [
+			{ image: smartSigMap, label: "Mapa geral" },
+			{ image: smartSigLayers, label: "Camadas do mapa" },
+		],
 		summary:
 			"Manutenção e evolução do sistema de gestão municipal e geoprocessamento da Reeve.",
 		features: [
@@ -26,6 +41,10 @@ export const projectsList: ProjectModel[] = [
 	{
 		title: "SmartCidadão",
 		projectLink: "https://guapimirim.smartcidadao.com.br",
+		images: [
+			{ image: smartCidadaoDashboard, label: "Painel de Gestão Municipal" },
+			{ image: smartCidadaoStats, label: "Estatísticas da ouvidoria" },
+		],
 		summary:
 			"Evolução do portal de serviços ao cidadão da Reeve, com foco em acessibilidade e atendimento.",
 		features: [
@@ -47,6 +66,10 @@ export const projectsList: ProjectModel[] = [
 	{
 		title: "SendWork",
 		projectLink: "https://app.sendwork.com.br",
+		images: [
+			{ image: sendWorkCampaigns, label: "Painel de campanhas" },
+			{ image: sendWorkShortLinks, label: "Encurtador de links" },
+		],
 		summary:
 			"Manutenção e evolução da plataforma de mensageria da Reeve: campanhas, chatbots e APIs.",
 		features: [
@@ -61,6 +84,13 @@ export const projectsList: ProjectModel[] = [
 	// Bazar Carioca
 	{
 		title: "Bazar Carioca",
+		images: [
+			{ image: bazarDesktopHome, label: "Página inicial no desktop" },
+			{ image: bazarDesktopStore, label: "Página da loja no desktop" },
+			{ image: bazarDesktopProduct, label: "Página do produto no desktop" },
+			{ image: bazarMobileHome, label: "Página inicial no celular" },
+			{ image: bazarMobileStore, label: "Página da loja no celular" },
+		],
 		summary:
 			"Projeto pessoal fullstack para conectar pequenos comerciantes e consumidores, reunindo uma aplicação web e sua API.",
 		features: [

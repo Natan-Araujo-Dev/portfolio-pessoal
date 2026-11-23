@@ -163,6 +163,23 @@ export const translations: Record<string, readonly [string, string]> = {
 		"Technologies used in {title}",
 		"Tecnologías de {title}"
 	],
+	"Imagens de {title}": ["Images of {title}", "Imágenes de {title}"],
+	"Ver {image} em tela cheia": ["View {image} in full screen", "Ver {image} en pantalla completa"],
+	"Fechar tela cheia": ["Close full screen", "Cerrar pantalla completa"],
+	"Página inicial no desktop": ["Home page on desktop", "Página de inicio en escritorio"],
+	"Página da loja no desktop": ["Store page on desktop", "Página de la tienda en escritorio"],
+	"Página do produto no desktop": ["Product page on desktop", "Página del producto en escritorio"],
+	"Página inicial no celular": ["Home page on mobile", "Página de inicio en el móvil"],
+	"Página da loja no celular": ["Store page on mobile", "Página de la tienda en el móvil"],
+	"Tela de acesso": ["Sign-in screen", "Pantalla de inicio de sesión"],
+	"Mapa geral": ["Map overview", "Vista general del mapa"],
+	"Camadas do mapa": ["Map layers", "Capas del mapa"],
+	"Painel de Gestão Municipal": ["Municipal management dashboard", "Panel de gestión municipal"],
+	"Estatísticas da ouvidoria": ["Citizen feedback statistics", "Estadísticas de atención ciudadana"],
+	"Painel de campanhas": ["Campaign dashboard", "Panel de campañas"],
+	"Encurtador de links": ["Link shortener", "Acortador de enlaces"],
+	"Cadastro": ["Registration", "Registro"],
+	"Página inicial": ["Home page", "Página de inicio"],
 	"Ir para o site": [
 		"Visit website",
 		"Ir al sitio web"
