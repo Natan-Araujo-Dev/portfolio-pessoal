@@ -29,7 +29,7 @@ export default function Footer() {
 			className="contact-section relative z-60 grid min-h-(--section-viewport-height) w-full grid-rows-[1fr_auto] bg-footer-main-light text-gray-dark dark:bg-footer-main-dark dark:text-gray-200"
 		>
 			<div className="contact-brand-background pointer-events-none absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
-				<img src={reactLogo} className="absolute top-1/2 left-0 aspect-square h-[96%] w-auto max-w-none -translate-x-1/2 -translate-y-1/2 object-contain opacity-15 dark:opacity-20" alt="" />
+				<img src={reactLogo} className="contact-react-logo absolute top-1/2 left-0 aspect-square w-auto max-w-none -translate-x-1/2 -translate-y-1/2 object-contain opacity-15 dark:opacity-20" alt="" />
 				<img src={typescriptLogo} className="absolute top-[8%] left-[38%] aspect-square w-[clamp(2.75rem,7vw,6.5rem)] opacity-10 dark:opacity-15" alt="" />
 				<img src={rabbitmqLogo} className="absolute top-[14%] left-[57%] aspect-square w-[clamp(2.25rem,5vw,5rem)] opacity-10 dark:opacity-15" alt="" />
 				<img src={dockerLogo} className="absolute top-[8%] right-[clamp(1.5rem,7vw,7rem)] aspect-square w-[clamp(4rem,12vw,11rem)] opacity-10 dark:opacity-15" alt="" />
@@ -89,7 +89,7 @@ export default function Footer() {
 				</div>
 			</div>
 
-			<div className="contact-credits bg-footer-end-light/55 dark:bg-footer-end-dark/50">
+			<div className="contact-credits bg-footer-end-light dark:bg-footer-end-dark">
 				<div className="mx-auto flex w-full max-w-6xl flex-wrap justify-between gap-x-6 gap-y-1 py-4 pr-22 pl-5 font-tomorrow text-xs leading-relaxed sm:pl-8 lg:pl-10 xl:pr-10">
 					<Text>© 2025 Natan do Nascimento de Araujo. Todos os direitos reservados.</Text>
 					<Text>Desenvolvido com ❤️ usando React, Tailwind CSS e Vite.</Text>

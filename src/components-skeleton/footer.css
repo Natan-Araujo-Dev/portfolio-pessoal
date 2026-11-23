@@ -15,6 +15,12 @@
 
 html.high-contrast .contact-brand-background { display: none; }
 
+.contact-react-logo { height: 96%; }
+
+@media (max-width: 767px), (pointer: coarse) {
+	.contact-react-logo { height: 48%; }
+}
+
 .contact-heading,
 .contact-icon { color: var(--contact-accent); }
 
