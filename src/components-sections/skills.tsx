@@ -22,7 +22,7 @@ export default function Skills() {
 	return (
 		<ScrollSection id="habilidades" className="custom-section">
 			<div className="skills-orbit-layout w-full max-w-6xl">
-				<Text as="h2" variant="tomorrow-section" className="skills-orbit-heading">Habilidades</Text>
+				<Text as="h2" variant="tomorrow-section" className="skills-orbit-heading max-sm:text-3xl sm:max-md:text-4xl">Habilidades</Text>
 				<OrbitImages
 					className="skills-orbit"
 					images={areas}
@@ -30,6 +30,7 @@ export default function Skills() {
 					onFrontChange={setFrontIndex}
 					onItemClick={setFrontIndex}
 					holdOnClick
+					holdOnDrag
 					touchDragFromFront
 					easing="easeIn"
 					itemSize={104}

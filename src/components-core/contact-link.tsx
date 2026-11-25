@@ -1,6 +1,7 @@
 import { ArrowRight, Copy, ExternalLink } from "lucide-react";
 import { type ReactNode, useEffect, useId, useRef, useState } from "react";
 import Text from "../components-base/text";
+import copyText from "../common/copy-text";
 import useLanguage from "../hooks/useLanguage";
 
 interface ContactLinkProps {
@@ -21,6 +22,7 @@ export default function ContactLink({
 	const { t } = useLanguage();
 	const [open, setOpen] = useState(false);
 	const [copyStatus, setCopyStatus] = useState("");
+	const [manualValue, setManualValue] = useState("");
 	const container = useRef<HTMLDivElement>(null);
 	const closeTimer = useRef<number | undefined>(undefined);
 	const popupId = useId();
@@ -52,7 +54,10 @@ export default function ContactLink({
 	}, [open]);
 
 	function showPopup() {
-		if (!open) setCopyStatus("");
+		if (!open) {
+			setCopyStatus("");
+			setManualValue("");
+		}
 		setOpen(true);
 	}
 
@@ -61,14 +66,17 @@ export default function ContactLink({
 	}
 
 	async function copy(value: string) {
-		try {
-			await navigator.clipboard.writeText(value);
-			setCopyStatus("Copiado!");
-			window.clearTimeout(closeTimer.current);
-			closeTimer.current = window.setTimeout(() => setOpen(false), 1000);
-		} catch {
-			setCopyStatus("Não foi possível copiar.");
+		const element = container.current;
+		if (!element) return;
+		window.clearTimeout(closeTimer.current);
+		if (!await copyText(value, element)) {
+			setCopyStatus("Selecione o texto para copiar.");
+			setManualValue(value);
+			return;
 		}
+		setManualValue("");
+		setCopyStatus("Copiado!");
+		closeTimer.current = window.setTimeout(() => setOpen(false), 1000);
 	}
 
 	return (
@@ -86,7 +94,7 @@ export default function ContactLink({
 					setOpen(false);
 			}}
 			onBlur={(event) => {
-				if (!event.currentTarget.contains(event.relatedTarget)) setOpen(false);
+				if (event.relatedTarget && !event.currentTarget.contains(event.relatedTarget)) setOpen(false);
 			}}
 		>
 			{href ? (
@@ -189,6 +197,16 @@ export default function ContactLink({
 						<span role="status" className="font-tomorrow text-xs">
 							{t(copyStatus)}
 						</span>
+					)}
+					{manualValue && (
+						<input
+							readOnly
+							value={manualValue}
+							size={1}
+							aria-label={t("Texto para copiar")}
+							onFocus={event => event.currentTarget.select()}
+							className="w-full rounded-md border border-gray-medium px-2 py-1 font-tomorrow text-base"
+						/>
 					)}
 				</div>
 			</div>

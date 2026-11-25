@@ -5,11 +5,9 @@ import { getNextScrollSection } from "./scroll-section-target";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Mesmo perfil do Animated Content: escala, subida e entrada em sequência.
+// As entradas mantêm a escala e o deslocamento vertical.
 const SETTINGS = {
 	scale: 0.5,
-	delay: 0.11,
-	stagger: 0.11,
 	duration: 0.6,
 	distance: 100,
 };
@@ -122,8 +120,6 @@ export default function AnimatedContentDesktop({ revealed }: { revealed: WeakSet
 								...(focus ? { filter: "blur(0px)" } : {}),
 								ease: "power3.out",
 								duration: SETTINGS.duration,
-								stagger: SETTINGS.stagger,
-								delay: SETTINGS.delay,
 								scrollTrigger: {
 									trigger: block,
 									start,

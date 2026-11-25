@@ -55,6 +55,7 @@ export interface OrbitImagesProps {
   touchDragFromFront?: boolean;
   clickToFront?: boolean;
   holdOnClick?: boolean;
+  holdOnDrag?: boolean;
   onFrontChange?: (index: number) => void;
   onItemClick?: (index: number, src: string) => void;
   alignToPath?: boolean;
@@ -81,6 +82,7 @@ interface OrbitConfig {
   touchDragFromFront: boolean;
   clickToFront: boolean;
   holdOnClick: boolean;
+  holdOnDrag: boolean;
   onFrontChange?: (index: number) => void;
   onItemClick?: (index: number, src: string) => void;
   alignToPath: boolean;
@@ -515,6 +517,13 @@ const createEngine = (
     if (introRunning) applyDash(easeOutQuint(clamp(elapsed / INTRO_SPREAD, 0, 1)));
   };
 
+  const finishIntro = () => {
+    st.introStart = -2;
+    st.introDone = true;
+    root.removeAttribute('data-intro');
+    applyDash(1);
+  };
+
   const frame = (now: number) => {
     st.raf = 0;
     if (st.destroyed) return;
@@ -532,9 +541,7 @@ const createEngine = (
     }
     if (st.introStart >= 0) {
       if ((now - st.introStart) / 1000 >= INTRO_SPREAD) {
-        st.introStart = -2;
-        st.introDone = true;
-        applyDash(1);
+        finishIntro();
       } else {
         busy = true;
       }
@@ -629,6 +636,12 @@ const createEngine = (
     }
   };
 
+  const holdRotation = () => {
+    st.holding = true;
+    st.speed = 0;
+    if (!st.introDone) finishIntro();
+  };
+
   const onDown = (e: PointerEvent) => {
     const cfg = config.current;
     if (!cfg.draggable || !e.isPrimary || (e.pointerType === 'mouse' && e.button !== 0)) return;
@@ -669,6 +682,7 @@ const createEngine = (
       d.manual = st.manual;
       st.seek = null;
       st.glide = 0;
+      if (config.current.holdOnDrag) holdRotation();
       try {
         root.setPointerCapture(e.pointerId);
       } catch {
@@ -697,7 +711,7 @@ const createEngine = (
     const now = performance.now();
     st.suppressUntil = now + 400;
     const s = d.samples;
-    if (!cancelled && s.length > 1 && d.rate) {
+    if (!cancelled && !config.current.holdOnDrag && s.length > 1 && d.rate) {
       const [t0, a0] = s[0];
       const [t1, a1] = s[s.length - 1];
       if (t1 > t0 && now - t1 < 80) st.glide = clamp((((a1 - a0) / (t1 - t0)) * 1000) / d.rate, -3, 3);
@@ -715,10 +729,7 @@ const createEngine = (
     const cfg = config.current;
     if (index < 0) return;
     if (cfg.clickToFront) {
-      if (cfg.holdOnClick) {
-        st.holding = true;
-        st.speed = 0;
-      }
+      if (cfg.holdOnClick) holdRotation();
       bringToFront(index);
     }
     cfg.onItemClick?.(index, cfg.sources[index]);
@@ -873,6 +884,7 @@ export default function OrbitImages({
   touchDragFromFront = false,
   clickToFront = true,
   holdOnClick = false,
+  holdOnDrag = false,
   onFrontChange,
   onItemClick,
   alignToPath = false,
@@ -947,6 +959,7 @@ export default function OrbitImages({
     touchDragFromFront,
     clickToFront,
     holdOnClick,
+    holdOnDrag,
     onFrontChange,
     onItemClick,
     alignToPath,

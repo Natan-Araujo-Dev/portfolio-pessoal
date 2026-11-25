@@ -301,9 +301,13 @@ export const translations: Record<string, readonly [string, string]> = {
 		"Copied!",
 		"¡Copiado!"
 	],
-	"Não foi possível copiar.": [
-		"Could not copy.",
-		"No se pudo copiar."
+	"Selecione o texto para copiar.": [
+		"Select the text to copy.",
+		"Selecciona el texto para copiar."
+	],
+	"Texto para copiar": [
+		"Text to copy",
+		"Texto para copiar"
 	],
 	"© 2025 Natan do Nascimento de Araujo. Todos os direitos reservados.": [
 		"© 2025 Natan do Nascimento de Araujo. All rights reserved.",

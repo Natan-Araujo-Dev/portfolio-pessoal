@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 
+export const MOBILE_MEDIA_QUERY = "(max-width: 767px), (pointer: coarse)";
+
 export default function useMobile() {
-	const [mobile, setMobile] = useState(() => matchMedia("(max-width: 767px), (pointer: coarse)").matches);
+	const [mobile, setMobile] = useState(() => matchMedia(MOBILE_MEDIA_QUERY).matches);
 	useEffect(() => {
-		const media = matchMedia("(max-width: 767px), (pointer: coarse)");
+		const media = matchMedia(MOBILE_MEDIA_QUERY);
 		const sync = () => setMobile(media.matches);
 		media.addEventListener("change", sync);
 		return () => media.removeEventListener("change", sync);

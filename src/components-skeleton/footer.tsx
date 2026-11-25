@@ -42,7 +42,7 @@ export default function Footer() {
 			</div>
 			<div className="contact-main mx-auto grid w-full max-w-6xl content-center items-center gap-[clamp(1.5rem,5svh,3.5rem)] px-5 py-[clamp(1.75rem,6svh,5rem)] sm:px-8 md:grid-cols-[1.2fr_1fr] lg:px-10">
 				<div className="min-w-0">
-					<Text as="h2" className="contact-heading mb-4 flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.18em]">
+					<Text as="h2" className="contact-heading mb-4 flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.18em] max-md:text-xl">
 						Contato
 					</Text>
 					<Text as="p" className="contact-name mb-4 text-4xl leading-[1.06] font-semibold tracking-tight sm:text-5xl lg:text-6xl">

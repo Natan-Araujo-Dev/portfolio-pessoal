@@ -1,5 +1,5 @@
 import { useLayoutEffect, useRef, type HTMLAttributes } from "react";
-import { clipScrollPanel, measureScrollPanel } from "./scroll-section-layout";
+import { clipScrollPanel, measureScrollPanel, needsDynamicPanelClip } from "./scroll-section-layout";
 
 export default function ScrollSection({
 	id,
@@ -35,7 +35,7 @@ export default function ScrollSection({
 			clipScrollPanel(scene, element);
 		};
 		function scheduleClip() {
-			if (visible && !frame) frame = requestAnimationFrame(clip);
+			if (visible && !frame && needsDynamicPanelClip()) frame = requestAnimationFrame(clip);
 		}
 		const visibility = new IntersectionObserver(([entry]) => {
 			visible = entry.isIntersecting;

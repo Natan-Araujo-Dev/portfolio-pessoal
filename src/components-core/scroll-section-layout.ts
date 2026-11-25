@@ -1,4 +1,11 @@
+import { MOBILE_MEDIA_QUERY } from "../hooks/useMobile";
 import { getNextScrollSection } from "./scroll-section-target";
+
+const mobile = typeof window !== "undefined" ? window.matchMedia(MOBILE_MEDIA_QUERY) : null;
+
+export function needsDynamicPanelClip() {
+	return !mobile?.matches;
+}
 
 export function measureScrollPanel(scene: HTMLElement, panel: HTMLElement) {
 	const height = panel.offsetHeight;
@@ -8,6 +15,7 @@ export function measureScrollPanel(scene: HTMLElement, panel: HTMLElement) {
 }
 
 export function clipScrollPanel(scene: HTMLElement, panel: HTMLElement) {
+	if (!needsDynamicPanelClip()) return;
 	const next = getNextScrollSection(scene);
 	const bottom = next ? panel.getBoundingClientRect().bottom - next.getBoundingClientRect().top : -80;
 	// Recorta somente o conteúdo coberto, mantendo o canvas visível atrás.

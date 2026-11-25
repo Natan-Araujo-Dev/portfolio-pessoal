@@ -326,6 +326,18 @@ html:is(.high-contrast, .reduced-motion) .experience-laser {
 	justify-content: flex-start;
 }
 
+@media (max-width: 767px), (pointer: coarse) {
+	/* O painel seguinte cobre o anterior no mesmo quadro em que a rolagem avança. */
+	.scroll-scene .scroll-panel {
+		clip-path: none;
+		overflow: clip;
+	}
+
+	html.high-contrast #root :is(.scroll-panel, .contact-section) {
+		background-color: #000 !important;
+	}
+}
+
 @media (prefers-reduced-motion: reduce) {
 	html {
 		scroll-behavior: auto;

@@ -69,11 +69,15 @@ function StartMobile() {
 			gap-y-5"
 		>
 			<div>
-				<Text as="h1" variant="tomorrow-impact">
+				<Text
+					as="h1"
+					variant="tomorrow-impact"
+					className="max-md:[font-size:calc(clamp(2.5rem,11vw,3.25rem)*var(--accessibility-font-scale,1))]!"
+				>
 					Bem vindo(a)
 					<br /> ao meu site.
 					<br /> Meu nome é <br />
-					<Text variant="tomorrow-impact" className="text-green-dark">
+					<Text variant="tomorrow-impact" className="text-green-dark max-md:[font-size:inherit]!">
 						Natan Araujo
 					</Text>
 					.
