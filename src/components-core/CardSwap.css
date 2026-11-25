@@ -25,9 +25,17 @@
   left: 50%;
   width: var(--swap-stage-w);
   height: var(--swap-stage-h);
-  perspective: 900px;
+  perspective: var(--swap-perspective, 900px);
   transform: translate(-50%, -50%);
   pointer-events: none;
+}
+
+@supports (zoom: 1) {
+  .card-swap-stage {
+    inset: 0;
+    margin: auto;
+    transform: none;
+  }
 }
 
 .card-swap-slot {
@@ -45,8 +53,8 @@
   user-select: none;
   -webkit-user-select: none;
   touch-action: pan-y;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
+  backface-visibility: var(--swap-backface, hidden);
+  -webkit-backface-visibility: var(--swap-backface, hidden);
 }
 
 .card-swap:focus-visible .card-swap-slot[data-front] {

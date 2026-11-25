@@ -82,6 +82,7 @@
 }
 
 .skills-orbit .orbit-item-inner {
+	font-family: var(--font-tomorrow);
 	display: grid;
 	place-items: center;
 	position: relative;

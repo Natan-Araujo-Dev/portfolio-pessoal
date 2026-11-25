@@ -26,7 +26,7 @@ export default function CardProject({
 				<span className="showcase-index" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
 				<span className="showcase-project-copy">
 					<Text variant="tomorrow-xl" className="font-semibold">{title}</Text>
-					<Text variant="tomorrow-sm">{summary}</Text>
+					<Text variant="tomorrow-sm" className="prose-text">{summary}</Text>
 					<span className="flex flex-wrap gap-2">
 						{technologies.slice(0, 3).map(tech => <Tecnology key={tech} name={tech} />)}
 					</span>

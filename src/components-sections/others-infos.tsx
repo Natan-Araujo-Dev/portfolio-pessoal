@@ -20,7 +20,7 @@ export default function OthersInfos() {
 					const soft = skill.title === "Soft skills";
 					const timeline = skill.title === "Educação" || skill.title === "Cursos";
 					const entries = skill.skills.map(item => (
-						<li key={item}><Text variant="tomorrow-sm"><HighlightedText>{item}</HighlightedText></Text></li>
+						<li key={item}><Text variant="tomorrow-sm" className="prose-text"><HighlightedText>{item}</HighlightedText></Text></li>
 					));
 					return (
 						<Card key={skill.title} className="profile-card flex min-w-0 flex-col gap-4 p-5 sm:p-7">

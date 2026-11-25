@@ -364,6 +364,7 @@ const CardSwap = forwardRef<CardSwapHandle, CardSwapProps>(
       const root = rootRef.current;
       const stage = stageRef.current;
       if (!root || !stage || !count) return undefined;
+      const useLayoutZoom = CSS.supports('zoom', '1');
       const reduce = (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false) || document.documentElement.classList.contains('reduced-motion');
       const now = performance.now();
       const s0 = settingsRef.current;
@@ -447,7 +448,14 @@ const CardSwap = forwardRef<CardSwapHandle, CardSwapProps>(
       const write = (card: DeckCard, s: Settings) => {
         const { el, shade } = card;
         if (!el) return;
-        el.style.transform = `translate3d(${card.x.toFixed(2)}px, ${card.y.toFixed(2)}px, ${card.z.toFixed(2)}px) rotate(${card.r.toFixed(3)}deg) skewY(${s.skew}deg)`;
+        const x = card.x.toFixed(2);
+        const y = card.y.toFixed(2);
+        const translation = s.dz > 0
+          ? `translate3d(${x}px, ${y}px, ${card.z.toFixed(2)}px)`
+          : `translate(${x}px, ${y}px)`;
+        const atOrigin = s.dz === 0 && s.skew === 0 && Math.abs(card.x) <= 0.02 &&
+          Math.abs(card.y) <= 0.02 && Math.abs(card.r) <= 0.02;
+        el.style.transform = atOrigin ? 'none' : `${translation} rotate(${card.r.toFixed(3)}deg) skewY(${s.skew}deg)`;
         el.style.zIndex = String(layerOf(card));
         const fade = clamp(s.visible - card.p, 0, 1);
         el.style.opacity = fade < 1 ? fade.toFixed(3) : '';
@@ -663,7 +671,8 @@ const CardSwap = forwardRef<CardSwapHandle, CardSwapProps>(
         const h = root.clientHeight;
         const scale = Math.min(1, w / s.bounds.width, h > 0 ? h / s.bounds.height : 1);
         state.scale = scale > 0 ? scale : 1;
-        stage.style.transform = `translate(-50%, -50%) scale(${state.scale.toFixed(4)})`;
+        if (useLayoutZoom) stage.style.zoom = String(state.scale);
+        else stage.style.transform = `translate(-50%, -50%) scale(${state.scale.toFixed(4)})`;
       };
 
       const local = (event: PointerEvent) => {
@@ -903,6 +912,8 @@ const CardSwap = forwardRef<CardSwapHandle, CardSwapProps>(
       '--swap-oy': `${bounds.originY}px`,
       '--swap-stage-w': `${bounds.width}px`,
       '--swap-stage-h': `${bounds.height}px`,
+      '--swap-perspective': depth > 0 ? `${PERSPECTIVE}px` : 'none',
+      '--swap-backface': depth > 0 ? 'hidden' : 'visible',
       '--swap-ratio': `${bounds.width} / ${bounds.height}`,
       '--swap-radius': `${Math.max(0, cardRadius)}px`
     } as CSSProperties;
