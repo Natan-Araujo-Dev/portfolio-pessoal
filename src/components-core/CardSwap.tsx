@@ -456,7 +456,7 @@ const CardSwap = forwardRef<CardSwapHandle, CardSwapProps>(
           const depthT = clamp(card.p / Math.max(1, s.visible - 1), 0, 1);
           shade.style.opacity = (s.dim * 0.62 * depthT).toFixed(3);
         }
-        el.style.cursor = card.phase === 'drag' ? 'var(--cursor-grabbing)' : card.pos > 0 ? 'var(--cursor-link)' : s.draggable ? 'var(--cursor-link)' : '';
+        el.style.cursor = card.phase === 'drag' ? 'var(--cursor-grabbing)' : card.pos > 0 || s.draggable ? 'var(--cursor-link), pointer' : '';
         if (card.pos === 0 && !el.hasAttribute('data-front')) el.setAttribute('data-front', '');
         else if (card.pos !== 0 && el.hasAttribute('data-front')) el.removeAttribute('data-front');
       };

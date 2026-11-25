@@ -29,7 +29,7 @@
 	width: 100%;
 	border-radius: inherit;
 	background-color: var(--scrollbar-thumb);
-	cursor: grab;
+	cursor: var(--cursor-link), grab;
 }
 
 html[data-experience-scroll-dragging],

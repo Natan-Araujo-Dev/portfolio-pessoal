@@ -9,13 +9,8 @@
 }
 
 .orbit-container[data-draggable] {
-  cursor: grab;
+  cursor: var(--cursor-link), grab;
   touch-action: pan-y pinch-zoom;
-}
-
-.orbit-container[data-dragging],
-.orbit-container[data-dragging] * {
-  cursor: grabbing;
 }
 
 .orbit-path-svg {
@@ -39,7 +34,12 @@
 }
 
 .orbit-item[data-clickable] {
-  cursor: pointer;
+  cursor: var(--cursor-link), pointer;
+}
+
+.orbit-container[data-dragging],
+.orbit-container[data-dragging] * {
+  cursor: var(--cursor-grabbing);
 }
 
 .orbit-item-inner {

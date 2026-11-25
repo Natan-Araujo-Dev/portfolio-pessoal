@@ -1,10 +1,11 @@
 import useMobile from "../hooks/useMobile";
-import { lazy, Suspense, useEffect } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 
 const AnimatedContentDesktop = lazy(() => import("./animated-content-desktop"));
 
 export default function AnimatedContent() {
 	const desktop = !useMobile();
+	const [revealed] = useState(() => new WeakSet<HTMLElement>());
 
 	useEffect(() => {
 		if (desktop) return;
@@ -21,16 +22,24 @@ export default function AnimatedContent() {
 		}
 		const original = new Map(targets.map(target => [target, target.style.opacity]));
 		const animations = new Map<HTMLElement, Animation>();
-		const visible = new Set<HTMLElement>();
 		let disabled: boolean | undefined;
+		let lastScroll = window.scrollY;
+		let scrollingDown = true;
+
+		function trackDirection() {
+			const current = window.scrollY;
+			if (current !== lastScroll) scrollingDown = current > lastScroll;
+			lastScroll = current;
+		}
+
 		const observer = new IntersectionObserver(entries => {
 			for (const entry of entries) {
 				const target = entry.target as HTMLElement;
-				if (!entry.isIntersecting || visible.has(target)) continue;
-				visible.add(target);
-				// O próprio deslocamento da animação não deve disparar uma saída.
+				if (!entry.isIntersecting || revealed.has(target)) continue;
+				revealed.add(target);
 				observer.unobserve(target);
 				target.style.opacity = original.get(target) ?? "";
+				if (!scrollingDown) continue;
 				const animation = target.animate([
 					{ opacity: 0, transform: "translateY(24px) scale(0.97)" },
 					{ opacity: 1, transform: "none" },
@@ -51,7 +60,7 @@ export default function AnimatedContent() {
 			animations.clear();
 			for (const target of targets) {
 				target.style.opacity = original.get(target) ?? "";
-				if (!reduced && !visible.has(target)) {
+				if (!reduced && !revealed.has(target)) {
 					target.style.opacity = "0";
 					observer.observe(target);
 				}
@@ -60,15 +69,17 @@ export default function AnimatedContent() {
 		const accessibility = new MutationObserver(sync);
 		accessibility.observe(root, { attributes: true, attributeFilter: ["class"] });
 		motion.addEventListener("change", sync);
+		window.addEventListener("scroll", trackDirection, { passive: true });
 		sync();
 		return () => {
 			observer.disconnect();
 			accessibility.disconnect();
 			motion.removeEventListener("change", sync);
+			window.removeEventListener("scroll", trackDirection);
 			for (const animation of animations.values()) animation.cancel();
 			for (const [target, opacity] of original) target.style.opacity = opacity;
 		};
-	}, [desktop]);
+	}, [desktop, revealed]);
 
-	return desktop ? <Suspense fallback={null}><AnimatedContentDesktop /></Suspense> : null;
+	return desktop ? <Suspense fallback={null}><AnimatedContentDesktop revealed={revealed} /></Suspense> : null;
 }

@@ -56,20 +56,29 @@
 .showcase-project[open] .showcase-arrow { transform: rotate(90deg); }
 .showcase-preview { display: none; }
 .showcase-project-details {
+	--project-gallery-inline-padding: clamp(.5rem, 4vw, 3rem);
 	display: grid;
 	gap: 1rem;
-	padding: 1rem clamp(.5rem, 4vw, 3rem) 1.5rem;
+	padding: 1rem var(--project-gallery-inline-padding) 1.5rem;
 	background: var(--color-card-light);
 }
 
 .dark .showcase-project-details { background: var(--color-card-dark); }
 .showcase-project-gallery {
+	--project-gallery-block-padding: 1rem;
+	--project-gallery-height: 460px;
 	min-width: 0;
-	height: 460px;
+	height: calc(var(--project-gallery-height) + 2 * var(--project-gallery-block-padding));
+	margin: calc(-1 * var(--project-gallery-block-padding)) calc(-1 * var(--project-gallery-inline-padding));
+	padding: var(--project-gallery-block-padding) var(--project-gallery-inline-padding);
 }
 
 @media (max-width: 520px) {
-	.showcase-project-gallery { height: min(420px, 76svh); }
+	.showcase-project-gallery { --project-gallery-height: min(420px, 76svh); }
+}
+
+@media (hover: hover) and (pointer: fine) {
+	.showcase-project-gallery { overflow: clip; }
 }
 
 .skills-orbit .orbit-item-inner {

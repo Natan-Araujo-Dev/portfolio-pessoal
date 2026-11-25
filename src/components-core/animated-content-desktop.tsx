@@ -26,7 +26,7 @@ function layoutTop(element: HTMLElement | null): number {
 	return top;
 }
 
-export default function AnimatedContentDesktop() {
+export default function AnimatedContentDesktop({ revealed }: { revealed: WeakSet<HTMLElement> }) {
 	useEffect(() => {
 		const root = document.documentElement;
 		const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
@@ -34,14 +34,6 @@ export default function AnimatedContentDesktop() {
 		let disabled: boolean | undefined;
 		let frame = 0;
 		let width = window.innerWidth;
-		let previousScroll = window.scrollY;
-		let direction = 1;
-		function trackDirection() {
-			const current = window.scrollY;
-			if (current !== previousScroll) direction = current > previousScroll ? 1 : -1;
-			previousScroll = current;
-		}
-
 		function refresh() {
 			cancelAnimationFrame(frame);
 			frame = requestAnimationFrame(() => ScrollTrigger.refresh());
@@ -82,6 +74,7 @@ export default function AnimatedContentDesktop() {
 					if (!targets.length) return;
 					const rows = new Map<number, HTMLElement[]>();
 					for (const target of targets) {
+						if (revealed.has(target)) continue;
 						const row = mount ? 0 : Math.round(layoutTop(target));
 						rows.set(row, [...(rows.get(row) ?? []), target]);
 					}
@@ -112,12 +105,11 @@ export default function AnimatedContentDesktop() {
 								: sceneTop + rowBottom + hold - header;
 							return Math.max(start() + 1, Math.min(exit, ScrollTrigger.maxScroll(window) + 1));
 						};
-						const enter = (trigger: ScrollTrigger) => {
-							const animation = trigger.animation as gsap.core.Tween | undefined;
-							if (!animation?.vars.startAt) return;
-							trackDirection();
-							animation.vars.startAt.y = (mobile ? 24 : SETTINGS.distance) * direction;
-							animation.invalidate().restart(true);
+						const reveal = (trigger: ScrollTrigger, animate: boolean) => {
+							if (row.every(target => revealed.has(target))) return;
+							for (const target of row) revealed.add(target);
+							if (animate) trigger.animation?.restart(true);
+							else trigger.animation?.progress(1).pause();
 						};
 						const focus = block.hasAttribute("data-focus-reveal");
 						gsap.fromTo(
@@ -136,9 +128,10 @@ export default function AnimatedContentDesktop() {
 									trigger: block,
 									start,
 									end,
-									toggleActions: "none reset none reset",
-									onEnter: enter,
-									onEnterBack: enter,
+									once: true,
+									toggleActions: "none none none none",
+									onEnter: trigger => reveal(trigger, true),
+									onEnterBack: trigger => reveal(trigger, false),
 								},
 							},
 						);
@@ -174,17 +167,15 @@ export default function AnimatedContentDesktop() {
 			attributeFilter: ["class", "style"],
 		});
 		reducedMotion.addEventListener("change", sync);
-		window.addEventListener("scroll", trackDirection, { passive: true });
 		sync();
 		return () => {
 			observer.disconnect();
 			resizeObserver.disconnect();
 			reducedMotion.removeEventListener("change", sync);
-			window.removeEventListener("scroll", trackDirection);
 			cancelAnimationFrame(frame);
 			context?.revert();
 		};
-	}, []);
+	}, [revealed]);
 
 	return null;
 }

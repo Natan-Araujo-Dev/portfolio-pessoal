@@ -4,6 +4,9 @@ import { createPortal } from "react-dom";
 import ClickSpark, { type ClickSparkHandle } from "./ClickSpark";
 
 const BUTTONS = 'button, summary:not(.showcase-project-row), .showcase-arrow, [role="button"], .project-link, a.expand-lg.fill-color, header a, [data-contact-trigger]';
+const ACCESSIBILITY_MENU = '[data-accessibility-menu]';
+const MAGNET_RADIUS = 60;
+const MAX_PULL = 6;
 type Motion = { x: number; y: number; vx: number; vy: number; tx: number; ty: number; original: string; baseX: string; baseY: string };
 
 export default function ButtonEffects() {
@@ -57,6 +60,7 @@ function DesktopButtonEffects() {
 			let targetX = 0, targetY = 0;
 			if (pointer && fine.matches && !disabled()) {
 				for (const element of document.querySelectorAll<HTMLElement>(BUTTONS)) {
+					if (element.closest(`${ACCESSIBILITY_MENU}, .ag-fullscreen`) || element.matches('.ag-panel')) continue;
 					if (!element.checkVisibility({ checkOpacity: true, checkVisibilityCSS: true }) || element.matches(':disabled, [aria-disabled="true"]')) continue;
 					const r = element.getBoundingClientRect(), m = motions.get(element);
 					if (r.bottom < 0 || r.top > innerHeight) continue;
@@ -64,11 +68,12 @@ function DesktopButtonEffects() {
 					const dy = pointer.y - (r.top - (m?.y ?? 0) + r.height / 2);
 					const outside = Math.hypot(Math.max(0, Math.abs(dx) - r.width / 2), Math.max(0, Math.abs(dy) - r.height / 2));
 					const center = Math.hypot(dx, dy);
-					if (outside > 100 || outside > nearest || (outside === nearest && center >= closest)) continue;
+					if (outside > MAGNET_RADIUS || outside > nearest || (outside === nearest && center >= closest)) continue;
 					winner = element; nearest = outside; closest = center;
-					const t = Math.max(0, Math.min(1, (outside - 50) / 50));
+					const t = Math.max(0, (outside - 20) / (MAGNET_RADIUS - 20));
 					const pull = 1 - t * t * (3 - 2 * t);
-					targetX = (dx / 5) * pull; targetY = (dy / 5) * pull;
+					const strength = Math.min(0.08, MAX_PULL / Math.max(1, center)) * pull;
+					targetX = dx * strength; targetY = dy * strength;
 				}
 			}
 			for (const m of motions.values()) { m.tx = 0; m.ty = 0; }
@@ -89,6 +94,7 @@ function DesktopButtonEffects() {
 		const click = (event: MouseEvent) => {
 			if (disabled()) return;
 			const target = event.target instanceof Element ? event.target : document.documentElement;
+			if (target.closest(ACCESSIBILITY_MENU)) return;
 			const r = target.getBoundingClientRect();
 			sparks.current?.spark(event.detail ? event.clientX : r.left + r.width / 2, event.detail ? event.clientY : r.top + r.height / 2);
 		};

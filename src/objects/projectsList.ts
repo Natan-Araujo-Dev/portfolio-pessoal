@@ -6,10 +6,20 @@ import bazarMobileHome from "../assets/project-previews/bazar-video-home-mobile.
 import bazarMobileStore from "../assets/project-previews/bazar-video-store-mobile.webp";
 import smartCidadaoDashboard from "../assets/project-previews/smartcidadao-painel.webp";
 import smartCidadaoStats from "../assets/project-previews/smartcidadao-estatisticas.webp";
+import smartCidadaoPublicServices from "../assets/project-previews/smartcidadao-servicos-publicos.webp";
+import smartCidadaoAssistant from "../assets/project-previews/smartcidadao-assistente.webp";
+import smartCidadaoManager from "../assets/project-previews/smartcidadao-painel-gestor.webp";
+import smartCidadaoStaff from "../assets/project-previews/smartcidadao-area-servidor.webp";
 import smartSigMap from "../assets/project-previews/smartsig-mapa.webp";
 import smartSigLayers from "../assets/project-previews/smartsig-camadas.webp";
-import sendWorkCampaigns from "../assets/experience-wall/mobile/sendwork-1.webp";
-import sendWorkShortLinks from "../assets/experience-wall/mobile/sendwork-2.webp";
+import smartSigDashboard from "../assets/project-previews/smartsig-dashboard-geral.webp";
+import smartSigStreets from "../assets/project-previews/smartsig-ruas-ortofoto.webp";
+import smartSigHydrography from "../assets/project-previews/smartsig-hidrografia.webp";
+import sendWorkOverview from "../assets/project-previews/sendwork-visao-geral.webp";
+import sendWorkCampaigns from "../assets/project-previews/sendwork-campanhas.webp";
+import sendWorkShortLinks from "../assets/project-previews/sendwork-encurtador.webp";
+import sendWorkIndicators from "../assets/project-previews/sendwork-indicadores.webp";
+import sendWorkDocs from "../assets/project-previews/sendwork-documentacao.webp";
 
 export const projectsList: ProjectModel[] = [
 	// Contribuições profissionais na Reeve
@@ -18,6 +28,9 @@ export const projectsList: ProjectModel[] = [
 		projectLink: "https://guapimirim.smartsig.com.br",
 		images: [
 			{ image: smartSigMap, label: "Mapa geral" },
+			{ image: smartSigDashboard, label: "Painel de indicadores" },
+			{ image: smartSigStreets, label: "Mapa de ruas e ortofoto" },
+			{ image: smartSigHydrography, label: "Mapa de hidrografia" },
 			{ image: smartSigLayers, label: "Camadas do mapa" },
 		],
 		summary:
@@ -43,6 +56,10 @@ export const projectsList: ProjectModel[] = [
 		projectLink: "https://guapimirim.smartcidadao.com.br",
 		images: [
 			{ image: smartCidadaoDashboard, label: "Painel de Gestão Municipal" },
+			{ image: smartCidadaoPublicServices, label: "Portal de serviços do cidadão" },
+			{ image: smartCidadaoAssistant, label: "Assistente virtual" },
+			{ image: smartCidadaoManager, label: "Painel do Gestor" },
+			{ image: smartCidadaoStaff, label: "Área do Servidor" },
 			{ image: smartCidadaoStats, label: "Estatísticas da ouvidoria" },
 		],
 		summary:
@@ -67,8 +84,11 @@ export const projectsList: ProjectModel[] = [
 		title: "SendWork",
 		projectLink: "https://app.sendwork.com.br",
 		images: [
+			{ image: sendWorkOverview, label: "Visão geral do SendWork" },
 			{ image: sendWorkCampaigns, label: "Painel de campanhas" },
+			{ image: sendWorkIndicators, label: "Indicadores de campanhas" },
 			{ image: sendWorkShortLinks, label: "Encurtador de links" },
+			{ image: sendWorkDocs, label: "Documentação da API" },
 		],
 		summary:
 			"Manutenção e evolução da plataforma de mensageria da Reeve: campanhas, chatbots e APIs.",

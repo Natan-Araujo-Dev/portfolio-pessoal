@@ -67,7 +67,7 @@ export default function AccessibilityMenu() {
 	}, [open]);
 
 	return (
-		<div ref={container} className="fixed bottom-4 right-4 z-[70]">
+		<div ref={container} data-accessibility-menu className="fixed bottom-4 right-4 z-[70]">
 			<button
 				ref={trigger}
 				data-accessibility-trigger
@@ -78,7 +78,7 @@ export default function AccessibilityMenu() {
 				aria-expanded={open}
 				aria-controls={panelId}
 				onClick={() => setOpen(!open)}
-				className="relative flex items-center justify-center w-14 h-14 rounded-full bg-blue-700 text-white shadow-lg hover:bg-blue-800 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-600 smooth-transition"
+				className="relative flex items-center justify-center w-14 h-14 rounded-full bg-blue-700 text-white shadow-lg hover:bg-blue-800 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-blue-600"
 			>
 				{!mobile && (
 					<span
@@ -105,9 +105,8 @@ export default function AccessibilityMenu() {
 			<section
 				id={panelId}
 				aria-label={t("Opções de acessibilidade")}
-				aria-hidden={!open}
-				inert={!open}
-				className={`absolute bottom-full right-0 mb-3 w-72 max-w-[calc(100vw-2rem)] max-h-[calc(100dvh-7rem)] overflow-y-auto rounded-2xl border border-gray-light dark:border-gray-medium bg-card-light dark:bg-card-dark p-5 text-gray-dark dark:text-white shadow-lg transition-all duration-200 ease-out motion-reduce:transition-none ${open ? "visible opacity-100 translate-y-0" : "invisible opacity-0 translate-y-2 pointer-events-none"}`}
+				hidden={!open}
+				className="absolute bottom-full right-0 mb-3 w-72 max-w-[calc(100vw-2rem)] max-h-[calc(100dvh-7rem)] overflow-y-auto rounded-2xl border border-gray-light dark:border-gray-medium bg-card-light dark:bg-card-dark p-5 text-gray-dark dark:text-white shadow-lg"
 			>
 				<div className="flex items-center justify-between gap-2 mb-4">
 					<Text as="h2" variant="tomorrow-lg" className="min-w-0">

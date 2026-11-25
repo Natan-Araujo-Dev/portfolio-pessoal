@@ -1,5 +1,5 @@
 import { Menu } from "lucide-react";
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import Text from "../components-base/text";
 import ButtonToggleTheme from "./button-toggle-theme";
 import LanguageSelector from "./language-selector";
@@ -39,7 +39,7 @@ function HeaderShortchutMobile({ compact }: { compact: boolean }) {
 
 	useEffect(() => () => animation.current?.cancel(), []);
 
-	function setMenuOpen(open: boolean) {
+	const setMenuOpen = useCallback((open: boolean) => {
 		const menu = details.current;
 		const content = panel.current;
 		if (!menu || !content) return;
@@ -66,7 +66,18 @@ function HeaderShortchutMobile({ compact }: { compact: boolean }) {
 			transition.cancel();
 			animation.current = null;
 		};
-	}
+	}, []);
+
+	useEffect(() => {
+		function closeOutside(event: MouseEvent) {
+			if (expanded.current && details.current && !event.composedPath().includes(details.current)) {
+				setMenuOpen(false);
+			}
+		}
+
+		document.addEventListener("click", closeOutside, true);
+		return () => document.removeEventListener("click", closeOutside, true);
+	}, [setMenuOpen]);
 
 	return (
 		<div
@@ -78,14 +89,14 @@ function HeaderShortchutMobile({ compact }: { compact: boolean }) {
 				<summary
 					aria-label={t("Menu de navegação")}
 					onClick={event => { event.preventDefault(); setMenuOpen(!expanded.current); }}
-					className={`absolute ${compact ? "right-0" : "right-4"} top-1/2 -translate-y-1/2 flex min-h-11 min-w-11 items-center justify-center rounded-lg list-none`}
+					className={`absolute top-1/2 -translate-y-1/2 flex min-h-11 min-w-11 items-center justify-center list-none pointer-events-auto ${compact ? "right-0 rounded-xl bg-header-light shadow-[0_4px_16px_rgb(0_0_0/25%)] dark:bg-gray-darker" : "right-4 rounded-lg"}`}
 				>
 					<Menu />
 				</summary>
 
 				<div
 					ref={panel}
-					className={`absolute ${compact ? "right-0" : "right-4"} top-full mt-2 flex w-64 max-w-[calc(100vw-2rem)] flex-col gap-1 rounded-xl border border-slate-500/20 bg-card-light p-3 shadow-xl dark:bg-card-dark`}
+					className={`absolute ${compact ? "right-0" : "right-4"} top-full mt-2 flex w-64 max-w-[calc(100vw-2rem)] flex-col gap-1 rounded-xl border border-slate-500/20 bg-card-light p-3 shadow-xl dark:bg-card-dark pointer-events-auto`}
 					onClick={(event) => {
 						if ((event.target as HTMLElement).closest("a")) {
 							setMenuOpen(false);

@@ -1,6 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import Text from "../components-base/text";
 import HeaderShortcuts from "../components-core/header-shortcut";
+import { getNextScrollSection } from "../components-core/scroll-section-target";
 
 export default function Header() {
 	const header = useRef<HTMLElement>(null);
@@ -25,15 +26,37 @@ export default function Header() {
 		};
 	}, []);
 
-	useEffect(() => {
-		const onScroll = () => {
-			const height = Number.parseFloat(document.documentElement.style.getPropertyValue("--header-height")) || 60;
-			setCompact(window.scrollY > Math.max(height, 240));
+	useLayoutEffect(() => {
+		const about = document.getElementById("sobre");
+		const panel = about?.querySelector(".scroll-panel");
+		if (!about || !panel) return;
+
+		const next = getNextScrollSection(about);
+		const viewport = window.visualViewport;
+
+		const updateCompact = () => {
+			const top = viewport?.offsetTop ?? 0;
+			const bottom = top + (viewport?.height ?? window.innerHeight);
+			const bounds = panel.getBoundingClientRect();
+			const coversViewport = bounds.top <= top + 0.5 && bounds.bottom >= bottom - 0.5;
+			const passedAbout = next !== null && next.getBoundingClientRect().top <= top + 0.5;
+			setCompact(coversViewport || passedAbout);
 		};
-		onScroll();
-		window.addEventListener("scroll", onScroll, { passive: true });
+		const observer = new ResizeObserver(updateCompact);
+		observer.observe(about);
+		const home = document.getElementById("inicio");
+		if (home) observer.observe(home);
+		updateCompact();
+		window.addEventListener("scroll", updateCompact, { passive: true });
+		window.addEventListener("resize", updateCompact);
+		viewport?.addEventListener("scroll", updateCompact, { passive: true });
+		viewport?.addEventListener("resize", updateCompact);
 		return () => {
-			window.removeEventListener("scroll", onScroll);
+			observer.disconnect();
+			window.removeEventListener("scroll", updateCompact);
+			window.removeEventListener("resize", updateCompact);
+			viewport?.removeEventListener("scroll", updateCompact);
+			viewport?.removeEventListener("resize", updateCompact);
 		};
 	}, []);
 
@@ -41,16 +64,16 @@ export default function Header() {
 		<header
 			ref={header}
 			data-compact={compact}
-			className="
+			className={`
 			fixed top-0 right-0
-			z-60
+			z-65
          flex flex-row flex-nowrap
          justify-between items-center
          w-full min-h-(--header-height)
 			p-4 lg:px-12
          text-gray-dark dark:text-white
-		 bg-header-light dark:bg-gray-darker
-			transition-[width,min-height,padding,top,right,border-radius,background-color,color,box-shadow] duration-300 ease-out motion-reduce:transition-none"
+			${compact ? "bg-transparent" : "bg-header-light dark:bg-gray-darker"}
+			transition-[width,min-height,padding,top,right,background-color,color] duration-300 ease-out motion-reduce:transition-none`}
 		>
 			<div data-header-name inert={compact} className="text-green-dark dark:text-green-light expand-sm">
 				<a

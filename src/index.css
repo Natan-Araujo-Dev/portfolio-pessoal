@@ -130,8 +130,7 @@ header[data-compact="true"] {
 	width: 44px;
 	min-height: 44px;
 	padding: 0;
-	border-radius: 12px;
-	box-shadow: 0 4px 16px rgb(0 0 0 / 25%);
+	pointer-events: none;
 }
 
 header :is([data-header-name], [data-header-desktop]) {
@@ -276,9 +275,9 @@ html:is(.high-contrast, .reduced-motion) .experience-laser {
 .scroll-scene {
 	--scroll-overlap-slack: 100px;
 	--scroll-panel-slack: 0px;
-	/* A zona morta de rolagem é independente do padding que centraliza o conteúdo. */
-	height: calc(var(--panel-height) + var(--section-viewport-height) - var(--header-height) + var(--scroll-overlap-slack));
-	margin-bottom: calc(var(--header-height) - var(--section-viewport-height));
+	/* Mantém o painel fixo até a próxima seção cobrir a janela inteira. */
+	height: calc(var(--panel-height) + var(--section-viewport-height) + var(--scroll-overlap-slack));
+	margin-bottom: calc(-1 * var(--section-viewport-height));
 }
 
 /* Distribui a folga da sobreposição igualmente acima e abaixo do conteúdo. */
@@ -388,7 +387,8 @@ html.high-contrast #root section[aria-label="Opções de acessibilidade"] {
 
 html.high-contrast #root [data-card],
 html.high-contrast #root .about-dialog > div:first-child,
-html.high-contrast #root header,
+html.high-contrast #root header:not([data-compact="true"]),
+html.high-contrast #root header[data-compact="true"] .mobile-navigation > summary,
 html.high-contrast #root header details > div {
 	background-color: #242424 !important;
 }

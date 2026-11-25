@@ -1,16 +1,12 @@
 // Adaptado de React Bits AccordionGallery, por David Haz.
 // https://reactbits.dev/components/accordion-gallery
 // Licença em accordion-gallery.LICENSE.md.
-import { useLayoutEffect, useRef, useState, type CSSProperties, type KeyboardEvent } from "react";
+import { useLayoutEffect, useRef, useState, type CSSProperties, type KeyboardEvent, type PointerEvent } from "react";
 import { gsap } from "gsap";
-import { Maximize, X } from "lucide-react";
+import { Maximize } from "lucide-react";
 import useLanguage from "../hooks/useLanguage";
+import FullscreenGallery, { type GalleryImage } from "./fullscreen-gallery";
 import "./accordion-gallery.css";
-
-interface GalleryImage {
-	image: string;
-	label: string;
-}
 
 interface AccordionGalleryProps {
 	items: readonly GalleryImage[];
@@ -24,26 +20,14 @@ interface AccordionGalleryProps {
 	duration: number;
 }
 
-function FullscreenImage({ item, closeLabel, onClose }: {
-	item: GalleryImage;
-	closeLabel: string;
-	onClose: () => void;
-}) {
-	const dialog = useRef<HTMLDialogElement>(null);
-
-	useLayoutEffect(() => {
-		const element = dialog.current;
-		if (element && !element.open) element.showModal();
-	}, []);
-
-	return (
-		<dialog ref={dialog} className="ag-fullscreen" aria-label={item.label} data-lenis-prevent onClose={onClose}>
-			<img src={item.image} alt={item.label} draggable={false} />
-			<button type="button" className="ag-fullscreen__close" aria-label={closeLabel} onClick={() => dialog.current?.close()} autoFocus>
-				<X size={24} aria-hidden="true" />
-			</button>
-		</dialog>
-	);
+function movePortrait(event: PointerEvent<HTMLDivElement>) {
+	if (event.pointerType !== "mouse") return;
+	const slot = event.currentTarget;
+	const bounds = slot.getBoundingClientRect();
+	const offset = (position: number, start: number, size: number) =>
+		size > 0 ? Math.max(-1, Math.min(1, ((position - start) / size - 0.5) * 2.8)) : 0;
+	slot.style.setProperty("--ag-pointer-x", String(offset(event.clientX, bounds.left, bounds.width)));
+	slot.style.setProperty("--ag-pointer-y", String(offset(event.clientY, bounds.top, bounds.height)));
 }
 
 export default function AccordionGallery({
@@ -53,7 +37,7 @@ export default function AccordionGallery({
 	const root = useRef<HTMLDivElement>(null);
 	const previousActive = useRef(defaultIndex);
 	const [active, setActive] = useState(defaultIndex);
-	const [fullscreenImage, setFullscreenImage] = useState<GalleryImage | null>(null);
+	const [fullscreenIndex, setFullscreenIndex] = useState<number | null>(null);
 	const count = items.length;
 	const ratio = Math.min(Math.max(expandRatio, 0.2), 0.9);
 	const expandedGrow = count > 1 ? (ratio * (count - 1)) / (1 - ratio) : 1;
@@ -81,20 +65,19 @@ export default function AccordionGallery({
 		const time = previousActive.current !== active && !reduced ? duration : 0;
 		previousActive.current = active;
 		const timeline = gsap.timeline({ defaults: { ease: "power3.out" } });
-		Array.from(gallery.children).forEach((panel, index) => {
+		Array.from(gallery.children).forEach((slot, index) => {
 			const selected = index === active;
-			const media = panel.querySelector(".ag-panel__media");
-			const caption = panel.querySelector(".ag-panel__label");
-			const drift = Math.max(-1.5, Math.min(1.5, active - index)) * 3;
+			const panel = slot.querySelector(".ag-panel");
+			const media = slot.querySelector(".ag-panel__media");
+			const caption = slot.querySelector(".ag-panel__label");
 
+			timeline.to(slot, { flexGrow: selected ? expandedGrow : 1, duration: time }, 0);
 			timeline.to(panel, {
-				flexGrow: selected ? expandedGrow : 1,
-				rotateY: selected ? 0 : index < active ? tilt : -tilt,
+				"--ag-tilt": `${selected ? 0 : index < active ? tilt : -tilt}deg`,
 				"--ag-dim": selected ? 0 : 0.35,
 				duration: time,
 			}, 0);
 			timeline.to(media, {
-				"--ag-drift": `${selected ? 0 : drift}%`,
 				"--ag-gray": selected ? 0 : 1,
 				duration: time,
 			}, 0);
@@ -127,36 +110,45 @@ export default function AccordionGallery({
 				aria-label={label}
 			>
 				{items.map((item, index) => (
-					<button
+					<div
 						key={item.image}
-						type="button"
-						className="ag-panel"
-						aria-haspopup="dialog"
-						aria-label={t("Ver {image} em tela cheia", { image: item.label })}
-						onPointerEnter={event => { if (event.pointerType === "mouse") setActive(index); }}
-						onFocus={() => setActive(index)}
-						onClick={() => {
-							setActive(index);
-							setFullscreenImage(item);
+						className="ag-slot"
+						onPointerMove={movePortrait}
+						onPointerLeave={event => {
+							event.currentTarget.style.removeProperty("--ag-pointer-x");
+							event.currentTarget.style.removeProperty("--ag-pointer-y");
 						}}
-						onKeyDown={event => moveFocus(index, event)}
 					>
-						<span className="ag-panel__media">
-							<img src={item.image} alt="" decoding="async" loading="lazy" draggable={false} />
-						</span>
-						<span className="ag-panel__overlay" aria-hidden="true" />
-						<span className="ag-panel__label" aria-hidden="true">
-							<span className="ag-panel__bar" />
-							<span className="ag-panel__text">{item.label}</span>
-						</span>
-						{index === active && (
-							<span className="ag-panel__maximize" aria-hidden="true"><Maximize size={18} /></span>
-						)}
-					</button>
+						<button
+							type="button"
+							className="ag-panel"
+							aria-haspopup="dialog"
+							aria-label={t("Ver {image} em tela cheia", { image: item.label })}
+							onPointerEnter={event => { if (event.pointerType === "mouse") setActive(index); }}
+							onFocus={() => setActive(index)}
+							onClick={() => {
+								setActive(index);
+								setFullscreenIndex(index);
+							}}
+							onKeyDown={event => moveFocus(index, event)}
+						>
+							<span className="ag-panel__media">
+								<img src={item.image} alt="" decoding="async" loading="lazy" draggable={false} />
+							</span>
+							<span className="ag-panel__overlay" aria-hidden="true" />
+							<span className="ag-panel__label" aria-hidden="true">
+								<span className="ag-panel__bar" />
+								<span className="ag-panel__text">{item.label}</span>
+							</span>
+							{index === active && (
+								<span className="ag-panel__maximize" aria-hidden="true"><Maximize size={18} /></span>
+							)}
+						</button>
+					</div>
 				))}
 			</div>
-			{fullscreenImage && (
-				<FullscreenImage item={fullscreenImage} closeLabel={t("Fechar tela cheia")} onClose={() => setFullscreenImage(null)} />
+			{fullscreenIndex !== null && (
+				<FullscreenGallery items={items} initialIndex={fullscreenIndex} onClose={() => setFullscreenIndex(null)} />
 			)}
 		</>
 	);
