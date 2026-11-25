@@ -39,10 +39,10 @@ export default function LanguageSelector() {
 					if (event.key !== "ArrowDown" && event.key !== "ArrowUp") return;
 					event.preventDefault(); positionMenu(); menu.current?.showPopover();
 				}}
-				className="inline-flex min-h-11 items-center justify-center gap-2 rounded-md border border-gray-medium px-3 text-gray-dark hover:bg-black/5 focus-visible:outline-2 focus-visible:outline-green-light dark:text-white dark:hover:bg-white/5">
-				<Languages size={16} className="shrink-0" aria-hidden="true" />
+				className="inline-flex items-center justify-center gap-2 rounded-md border-2 border-gray-medium px-3 py-1 text-base leading-none text-gray-dark hover:bg-black/5 focus-visible:outline-2 focus-visible:outline-green-light dark:text-white dark:hover:bg-white/5">
+				<Languages size="1em" className="shrink-0" aria-hidden="true" />
 				<span>{language.toUpperCase()}</span>
-				<ChevronDown size={14} aria-hidden="true" className={`shrink-0 transition-transform duration-150 ${open ? "rotate-180" : ""}`} />
+				<ChevronDown size="0.875em" aria-hidden="true" className={`shrink-0 transition-transform duration-150 ${open ? "rotate-180" : ""}`} />
 			</button>
 			<div ref={menu} id={id} popover="auto" role="menu" aria-label={t("Idioma")} className="language-popover font-tomorrow"
 				onToggle={event => {

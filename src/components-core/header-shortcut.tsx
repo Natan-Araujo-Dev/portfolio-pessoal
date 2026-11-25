@@ -89,7 +89,7 @@ function HeaderShortchutMobile({ compact }: { compact: boolean }) {
 				<summary
 					aria-label={t("Menu de navegação")}
 					onClick={event => { event.preventDefault(); setMenuOpen(!expanded.current); }}
-					className={`absolute top-1/2 -translate-y-1/2 flex min-h-11 min-w-11 items-center justify-center list-none pointer-events-auto ${compact ? "right-0 rounded-xl bg-header-light shadow-[0_4px_16px_rgb(0_0_0/25%)] dark:bg-gray-darker" : "right-4 rounded-lg"}`}
+					className={`absolute top-1/2 -translate-y-1/2 flex min-h-11 min-w-11 items-center justify-center list-none pointer-events-auto hover:text-green-dark dark:hover:text-green-light ${compact ? "right-0 rounded-xl bg-header-light shadow-[0_4px_16px_rgb(0_0_0/25%)] dark:bg-gray-darker" : "right-4 rounded-lg"}`}
 				>
 					<Menu />
 				</summary>

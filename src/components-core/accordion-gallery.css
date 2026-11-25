@@ -62,6 +62,10 @@
 	pointer-events: none;
 }
 
+.ag-panel:is(:hover, :focus-visible) .ag-panel__maximize {
+	color: var(--color-green-light);
+}
+
 .ag-fullscreen {
 	--ag-control-size: 2.75rem;
 	--ag-edge-inline: max(clamp(.75rem, 2vw, 2rem), env(safe-area-inset-left), env(safe-area-inset-right));
