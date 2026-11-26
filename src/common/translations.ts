@@ -164,6 +164,7 @@ export const translations: Record<string, readonly [string, string]> = {
 		"Tecnologías de {title}"
 	],
 	"Imagens de {title}": ["Images of {title}", "Imágenes de {title}"],
+	"Expandir {image}": ["Expand {image}", "Expandir {image}"],
 	"Ver {image} em tela cheia": ["View {image} in full screen", "Ver {image} en pantalla completa"],
 	"Fechar tela cheia": ["Close full screen", "Cerrar pantalla completa"],
 	"Imagem anterior": ["Previous image", "Imagen anterior"],

@@ -5,6 +5,7 @@ import { useLayoutEffect, useRef, useState, type CSSProperties, type KeyboardEve
 import { gsap } from "gsap";
 import { Maximize } from "lucide-react";
 import useLanguage from "../hooks/useLanguage";
+import useMobile from "../hooks/useMobile";
 import FullscreenGallery, { type GalleryImage } from "./fullscreen-gallery";
 import "./accordion-gallery.css";
 
@@ -34,6 +35,7 @@ export default function AccordionGallery({
 	items, label, defaultIndex, gap, tilt, radius, stagger, expandRatio, duration,
 }: AccordionGalleryProps) {
 	const { t } = useLanguage();
+	const mobile = useMobile();
 	const root = useRef<HTMLDivElement>(null);
 	const previousActive = useRef(defaultIndex);
 	const [active, setActive] = useState(defaultIndex);
@@ -98,6 +100,7 @@ export default function AccordionGallery({
 		event.preventDefault();
 		const next = (index + (advance ? 1 : count - 1)) % count;
 		root.current?.querySelectorAll<HTMLButtonElement>(".ag-panel")[next]?.focus();
+		if (mobile) setActive(next);
 	}
 
 	return (
@@ -122,18 +125,18 @@ export default function AccordionGallery({
 						<button
 							type="button"
 							className="ag-panel"
-							aria-haspopup="dialog"
-							aria-label={t("Ver {image} em tela cheia", { image: item.label })}
-							onPointerEnter={event => { if (event.pointerType === "mouse") setActive(index); }}
-							onFocus={() => setActive(index)}
+							aria-haspopup={!mobile || index === active ? "dialog" : undefined}
+							aria-label={t(!mobile || index === active ? "Ver {image} em tela cheia" : "Expandir {image}", { image: item.label })}
+							onPointerEnter={event => { if (!mobile && event.pointerType === "mouse") setActive(index); }}
+							onFocus={() => { if (!mobile) setActive(index); }}
 							onClick={() => {
+								if (!mobile || index === active) setFullscreenIndex(index);
 								setActive(index);
-								setFullscreenIndex(index);
 							}}
 							onKeyDown={event => moveFocus(index, event)}
 						>
 							<span className="ag-panel__media">
-								<img src={item.image} alt="" decoding="async" loading="lazy" draggable={false} />
+								<img src={item.image} alt="" decoding="async" draggable={false} />
 							</span>
 							<span className="ag-panel__overlay" aria-hidden="true" />
 							<span className="ag-panel__label" aria-hidden="true">

@@ -11,7 +11,6 @@ export default function ExperienceLaserVideo() {
 
 		const root = document.documentElement;
 		const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
-		let nearby = false;
 		let visible = false;
 
 		const sync = () => {
@@ -21,21 +20,17 @@ export default function ExperienceLaserVideo() {
 			}
 
 			const source = root.classList.contains("dark") ? darkVideo : lightVideo;
-			const shouldLoad = (nearby || visible) && element.getAttribute("src") !== source;
-			if (shouldLoad) element.src = source;
+			const sourceChanged = element.getAttribute("src") !== source;
+			if (sourceChanged) element.src = source;
 
 			if (!visible) {
 				element.pause();
-			} else if (shouldLoad || element.paused) {
+			} else if (sourceChanged || element.paused) {
 				// A reprodução automática pode ser bloqueada pelo navegador.
 				void element.play().catch(() => {});
 			}
 		};
 
-		const proximity = new IntersectionObserver(([entry]) => {
-			nearby = entry.isIntersecting;
-			sync();
-		}, { rootMargin: "240px 0px" });
 		const visibleThreshold = 0.001;
 		const visibility = new IntersectionObserver(([entry]) => {
 			visible = entry.intersectionRatio >= visibleThreshold;
@@ -43,14 +38,14 @@ export default function ExperienceLaserVideo() {
 		}, { threshold: visibleThreshold });
 		const preferences = new MutationObserver(sync);
 
-		proximity.observe(element);
 		visibility.observe(element);
 		preferences.observe(root, { attributes: true, attributeFilter: ["class"] });
 		motion.addEventListener("change", sync);
 		document.addEventListener("visibilitychange", sync);
+		const preloadFrame = requestAnimationFrame(sync);
 
 		return () => {
-			proximity.disconnect();
+			cancelAnimationFrame(preloadFrame);
 			visibility.disconnect();
 			preferences.disconnect();
 			motion.removeEventListener("change", sync);
