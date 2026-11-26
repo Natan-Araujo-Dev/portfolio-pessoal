@@ -203,8 +203,11 @@ header a { display: inline-flex; }
 }
 
 #sobre .scroll-panel {
+	background-color: #dcece1;
 	clip-path: none;
 }
+
+.dark #sobre .scroll-panel { background-color: #182b26; }
 
 .about-pattern > .text-pattern-background {
 	inset: 0;
@@ -215,12 +218,8 @@ header a { display: inline-flex; }
 	position: absolute;
 	inset: 0;
 	z-index: -2;
-	background-color: var(--color-gray-background);
+	background-color: inherit;
 	pointer-events: none;
-}
-
-.dark .about-pattern::after {
-	background-color: var(--color-blue-background);
 }
 
 html.high-contrast .experience-wall {

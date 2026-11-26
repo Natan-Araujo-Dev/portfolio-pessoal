@@ -20,6 +20,9 @@
 #projetos,
 #contato { overflow-anchor: none; }
 
+#projetos .scroll-panel { background-color: #eeefdf; }
+.dark #projetos .scroll-panel { background-color: #292c26; }
+
 .showcase-project {
 	border-block-end: 1px solid color-mix(in srgb, currentColor 18%, transparent);
 }
@@ -60,10 +63,11 @@
 	display: grid;
 	gap: 1rem;
 	padding: 1rem var(--project-gallery-inline-padding) 1.5rem;
-	background: var(--color-card-light);
+	background-color: #f7f7ed;
 }
 
-.dark .showcase-project-details { background: var(--color-card-dark); }
+.dark .showcase-project-details { background-color: #353a30; }
+
 .showcase-project-gallery {
 	--project-gallery-block-padding: 1rem;
 	--project-gallery-height: 460px;
@@ -143,6 +147,56 @@
 	max-height: 100%;
 }
 
+:is(#habilidades, #outras-informacoes) .scroll-panel::before,
+#habilidades .scroll-panel::after {
+	content: "";
+	position: absolute;
+	z-index: -1;
+	pointer-events: none;
+}
+
+#habilidades .scroll-panel {
+	--skills-arc-color: #90aea9;
+	background-color: #dceef2;
+}
+
+.dark #habilidades .scroll-panel {
+	--skills-arc-color: #36545d;
+	background-color: #172934;
+}
+
+#habilidades .scroll-panel::before,
+#habilidades .scroll-panel::after {
+	--skills-arc-stroke-start: 99.25%;
+	width: min(44%, 36rem);
+	height: clamp(4rem, min(19svh, 22vw), 10rem);
+	background-image: radial-gradient(ellipse 137% 235% at -10% -141%,
+		transparent calc(var(--skills-arc-stroke-start) - .2%),
+		var(--skills-arc-color) var(--skills-arc-stroke-start) 99.8%, transparent 100%);
+}
+
+#habilidades .scroll-panel::before {
+	left: 0;
+	top: 0;
+}
+
+#habilidades .scroll-panel::after {
+	right: 0;
+	bottom: 0;
+	rotate: 180deg;
+}
+
+@media (max-width: 767px) {
+	#habilidades .scroll-panel::after { height: clamp(7rem, 34vw, 10rem); }
+}
+
+@media (max-width: 767px) and (max-height: 720px) {
+	#habilidades .scroll-panel::after {
+		--skills-arc-stroke-start: 96.5%;
+		height: 1rem;
+	}
+}
+
 @media (max-width: 767px) {
 	.scroll-scene#habilidades .custom-section {
 		padding-block: 16px;
@@ -177,7 +231,6 @@
 		grid-row: 2;
 		top: auto;
 		transform: none;
-		background: radial-gradient(ellipse, color-mix(in srgb, var(--skills-accent) 15%, transparent), transparent 70%);
 	}
 
 	.skills-orbit .orbit-item::before {
@@ -258,6 +311,24 @@
 
 html.reduced-motion .skills-orbit .orbit-item-inner { transition: none; }
 
+#outras-informacoes .scroll-panel { background-color: #eee9f6; }
+.dark #outras-informacoes .scroll-panel { background-color: #28233a; }
+
+#outras-informacoes .scroll-panel::before {
+	--profile-grid-line: #c8d9d3;
+	--profile-grid-spacing: clamp(1.25rem, 2vw, 1.625rem);
+	inset: 0;
+	background-image:
+		linear-gradient(to right, var(--profile-grid-line) 1px, transparent 1px),
+		linear-gradient(to bottom, var(--profile-grid-line) 1px, transparent 1px);
+	background-size: var(--profile-grid-spacing) var(--profile-grid-spacing);
+}
+
+.dark #outras-informacoes .scroll-panel::before { --profile-grid-line: #2d414c; }
+
+#outras-informacoes .profile-card { background-color: var(--color-card-light); }
+.dark #outras-informacoes .profile-card { background-color: #272c39; }
+
 .profile-timeline {
 	display: grid;
 	gap: .8rem;
@@ -336,5 +407,6 @@ html.reduced-motion .skills-orbit .orbit-item-inner { transition: none; }
 }
 
 html.high-contrast :is(.project-showcase, .skills-orbit) { color: inherit; }
-html.high-contrast .showcase-project-details { background: inherit; }
 html.high-contrast .skills-orbit .orbit-item-inner { background: Canvas; color: CanvasText; }
+html.high-contrast :is(#habilidades, #outras-informacoes) .scroll-panel::before,
+html.high-contrast #habilidades .scroll-panel::after { display: none; }
