@@ -107,6 +107,10 @@
 .dark .skills-orbit .orbit-item-inner { background: var(--color-card-dark); }
 .skills-orbit [aria-pressed="true"] .orbit-item-inner { border-width: 2px; }
 
+/* Os cartões da órbita chegam a z-index 390 sob o cursor. */
+.skills-orbit > .orbit-center-content { z-index: 400; }
+.skills-orbit > .orbit-center-content > * { pointer-events: none; }
+
 .skills-orbit-center { width: min(64%, 34rem); text-align: center; }
 .skills-orbit-center h2 { font-size: clamp(1rem, 4vw, 2.5rem); }
 .skills-orbit-details {

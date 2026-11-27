@@ -1,5 +1,5 @@
 import { Menu } from "lucide-react";
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef } from "react";
 import Text from "../components-base/text";
 import ButtonToggleTheme from "./button-toggle-theme";
 import LanguageSelector from "./language-selector";
@@ -38,6 +38,15 @@ function HeaderShortchutMobile({ compact }: { compact: boolean }) {
 	const expanded = useRef(false);
 
 	useEffect(() => () => animation.current?.cancel(), []);
+
+	useLayoutEffect(() => {
+		const menu = details.current;
+		if (compact || !menu?.open) return;
+		animation.current?.cancel();
+		animation.current = null;
+		expanded.current = false;
+		menu.open = false;
+	}, [compact]);
 
 	const setMenuOpen = useCallback((open: boolean) => {
 		const menu = details.current;
